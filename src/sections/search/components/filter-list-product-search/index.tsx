@@ -84,7 +84,7 @@ export default function FilterListProductSearch(props: IProps) {
 
   const getListProductSearch = useSWR(bodyGetListProductSearch.url, () =>
     postData(bodyGetListProductSearch).then((res) => {
-      setDataInit(res?.products);
+      setDataInit(res);
       setDataPagination({
         ...dataPagination,
         total: res?.countItem,

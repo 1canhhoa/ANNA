@@ -316,6 +316,7 @@ export default function FormPayment(props: IProps) {
           Phương thức thanh toán
         </h3>
         <RadioGroup
+        name='payment_method'
           defaultValue="cod"
           onChange={(value: any) => {
             setDataSubmit({
@@ -335,16 +336,16 @@ export default function FormPayment(props: IProps) {
             <RadioGroupItem value="cod" id="option-one" />
             <Label
               htmlFor="option-one"
-              className="text-[#00225D] font-medium text-[1rem] max-md:text-[3.733rem]"
+              className="text-[#00225D] font-medium text-[1rem] max-md:text-[3.733rem] pointer-events-auto"
             >
               Trả tiền mặt khi nhận hàng
             </Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="onepay" id="option-one" />
+            <RadioGroupItem value="onepay" id="option-two"/>
             <Label
-              htmlFor="option-one"
-              className="text-[#00225D] font-medium text-[1rem] max-md:text-[3.733rem]"
+              htmlFor="option-two"
+              className="text-[#00225D] font-medium text-[1rem] max-md:text-[3.733rem] pointer-events-auto"
             >
               Thanh toán Onepay
             </Label>

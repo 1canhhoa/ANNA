@@ -11,6 +11,7 @@ interface IProps {
 function ItemMobile(props: IProps) {
   const { itemProduct } = props;
 
+
   return (
     <Link href={`/san-pham/${itemProduct?.slug}`}>
       <div className="item-product-mobile relative max-md:h-[59.5rem] max-md:w-[45.2rem] rounded-[3.2rem]">

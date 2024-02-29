@@ -19,7 +19,7 @@ const ListProductPage = async ({
 
   // GET LIST PRODUCT INIT
   const bodyGetListProduct: any = {
-    url: `wp-json/product/v1/filter-products?per_page=12&page=1`,
+    url: `/wp-json/product/v1/products/filter?per_page=12&page=1`,
     method: 'get',
   };
   const dataListProductInit = await postData(bodyGetListProduct);

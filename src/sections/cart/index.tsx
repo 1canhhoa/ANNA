@@ -19,7 +19,6 @@ export default function Cart(props: IProps) {
   useEffect(() => {
     setDatainit(dataListProductNew);
   }, [dataListProductNew]);
-
   return (
     <div className="list-product-container mb-[2.94rem]">
       {/* banner */}
@@ -76,7 +75,7 @@ export default function Cart(props: IProps) {
           <SlideProductComponent
             keySlide="out-standing-product"
             breakPoint={{ PerView767: 2 }}
-            data={dataInit}
+            data={dataInit?.item}
           />
         </div>
         <div className="max-md:mt-[5rem]">
@@ -99,7 +98,7 @@ export default function Cart(props: IProps) {
                 breakPoint={{
                   PerView1280: 3,
                 }}
-                data={dataInit}
+                data={dataInit?.item}
                 left
               />
             </div>

@@ -20,6 +20,7 @@ interface IImageItem {
 
 function ItemProduct(props: IProps) {
   const { item, heightImage, heightImageMobile, keySlide } = props;
+
   const [heightSlider, setHeightSlider] = useState<number>(20.375);
   const [imageItem, setImageItem] = useState<IImageItem>({
     variation_id: undefined,

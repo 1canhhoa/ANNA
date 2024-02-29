@@ -20,6 +20,7 @@ interface IProps {
 
 export default function Search(props: IProps) {
   const { listRes, searchParams, listSearchSwiper } = props;
+  // console.log(listSearchSwiper)
   return (
     <div className="list-product-container mb-[2.94rem]">
       {/* banner */}
@@ -86,7 +87,7 @@ export default function Search(props: IProps) {
           </div>
 
           <div className="hidden max-md:flex w-full overflow-x-auto hide-scrollbar-global">
-            {map(listSearchSwiper?.products, (item) => (
+            {map(listSearchSwiper, (item) => (
               <div className="min-w-[45.2rem] mr-[3.2rem]">
                 <ItemMobile itemProduct={item} />
               </div>
@@ -119,7 +120,7 @@ export default function Search(props: IProps) {
               {/* /> */}
             </div>
             <div className="hidden max-md:flex grow w-full overflow-x-auto hide-scrollbar-global overflow-hidden h-[66.26667rem]">
-              {map(listSearchSwiper?.products, (item) => (
+              {map(listSearchSwiper, (item) => (
                 <div className="min-w-[45.2rem] mr-[3.2rem]">
                   <ItemMobile itemProduct={item} />
                 </div>
