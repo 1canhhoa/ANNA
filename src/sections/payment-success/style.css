@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .button-shopping {
+    @apply bg-[#55D5D2] transition-all duration-300;
+  }
+  .button-shopping:hover {
+    @apply bg-[#F58F5D];
+  }
+  .button-shopping .icon-rotate {
+    @apply rotate-[321deg] transition-all duration-300;
+  }
+  .button-shopping:hover .icon-rotate {
+    @apply rotate-[360deg];
+  }
+  .button-shopping:hover .icon-rotate svg path {
+    @apply fill-[#F58F5D] !important;
+  }
+}

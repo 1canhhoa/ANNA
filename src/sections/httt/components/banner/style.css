@@ -1,0 +1,13 @@
+.bg-custom {
+  background: radial-gradient(
+      131.74% 52.82% at 23.44% 53.3%,
+      rgba(255, 255, 255, 0.3) 16.33%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      69.71% 56.2% at 17.94% 54.82%,
+      #fff 34.17%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 47.92%, #fff 100%);
+}

@@ -1,0 +1,64 @@
+.banner-blog {
+  background-image: url('../../assets/blogImg/Rectangle146.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.blog-content b {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+.blog-content p,
+.blog-content span,
+.blog-content li,
+.blog-content .wp-block-heading strong {
+  font-size: 1.25rem;
+  color: rgba(0, 0, 0, 0.7);
+  padding: 1rem 0;
+  font-weight: 600 !important;
+}
+.blog-content img {
+  margin: auto;
+}
+.blog-content img,
+.blog-content figure {
+  width: 100% !important;
+}
+.blog-content .wp-block-heading strong {
+  color: #000;
+}
+.comment-content a {
+  color: #007bff;
+}
+
+.mySwiperBlog .swiper-pagination {
+  bottom: -5px;
+}
+.mySwiperBlog .swiper-pagination-bullet {
+  background: #000;
+  width: 8px;
+  height: 8px;
+  opacity: 0.2;
+  border-radius: 50%;
+}
+
+.mySwiperBlog .swiper-pagination-bullet-active {
+  background: #000;
+  width: 8px;
+  opacity: 0.5;
+  border-radius: 50%;
+  height: 8px;
+}
+
+@media screen and (max-width: 767px) {
+  .blog-content span {
+    font-size: 3.25rem !important;
+  }
+
+  .blog-content p,
+  .blog-content li,
+  .blog-content .wp-block-heading strong {
+    font-size: 4rem !important;
+    padding: 3rem 0;
+  }
+}

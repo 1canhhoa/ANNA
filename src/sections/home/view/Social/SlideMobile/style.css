@@ -1,0 +1,21 @@
+#progress_social li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: white;
+  z-index: 10;
+}
+#progress_social li.active::before {
+  animation: run_progress 2.5s linear forwards;
+}
+@keyframes run_progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}

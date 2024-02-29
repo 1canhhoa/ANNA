@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .pagigation-global-container .active {
+    @apply bg-[#55D5D2]  text-white;
+  }
+
+  .pagigation-global-container .inactive {
+    @apply bg-[#EEFBFB] text-blueAnna;
+  }
+}

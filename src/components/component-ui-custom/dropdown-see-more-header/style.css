@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .dropdown-see-more-header-container .item-cart-seemore:hover div img {
+    @apply scale-125 transition-all duration-200;
+  }
+  .dropdown-see-more-header-container .item-cart-seemore:hover a {
+    @apply bg-[#F58F5D];
+  }
+  .dropdown-see-more-header-container .item-cart-seemore:hover svg {
+    @apply rotate-[40deg] transition-all duration-300;
+  }
+  .dropdown-see-more-header-container .item-cart-seemore:hover svg path {
+    @apply fill-[#F58F5D] transition-all duration-200;
+  }
+}

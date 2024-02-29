@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .list-product-container .button-see-more-cart svg path {
+    @apply fill-[#A9A9A9];
+  }
+  .list-product-container .button-see-more-cart p {
+    @apply text-[#A9A9A9];
+  }
+
+  .list-product-container .button-see-more-cart:hover svg path {
+    @apply fill-[#F58F5D];
+  }
+  .list-product-container .button-see-more-cart:hover p {
+    @apply text-[#F58F5D];
+  }
+}

@@ -1,0 +1,18 @@
+.banner-blog {
+  background-image: url('../../assets/blogImg/Rectangle146.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.content-blog-head p {
+  display: none;
+}
+.content-blog-head p:first {
+  display: block;
+}
+
+.see-more-blog:hover svg path,
+.see-more-blog:hover {
+  fill: #f58f5d;
+  color: #f58f5d;
+}

@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .list-purchased-product-dashboard .list-product-cart {
+    @apply w-full max-md:overflow-x-auto;
+  }
+
+  .list-purchased-product-dashboard
+    .list-product-cart
+    .header-list-product
+    .cell-header {
+    @apply font-bold text-[#414141] text-[1rem] not-italic leading-[1.5rem];
+  }
+
+  .list-purchased-product-dashboard .list-product-cart .header-list-product,
+  .list-purchased-product-dashboard
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product {
+    @apply flex;
+  }
+
+  .list-purchased-product-dashboard
+    .list-product-cart
+    .header-list-product
+    .cell-header,
+  .list-purchased-product-dashboard
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .cell-body {
+    @apply flex items-center font-bold w-[10rem] md:overflow-hidden px-[1.2rem] py-[1rem] max-md:py-[3.333rem] max-md:min-w-[23rem] max-md:text-[3rem];
+  }
+}

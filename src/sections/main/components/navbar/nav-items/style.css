@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .navbar-container .input-search::placeholder {
+    @apply font-bold text-[1rem] not-italic leading-[1.2rem];
+  }
+  .navbar-container .tab-menu:hover span {
+    @apply text-blueAnna;
+  }
+  .navbar-container .tab-menu:hover svg path {
+    @apply stroke-[#55D5D2];
+  }
+
+  .navbar-container .tab-menu-active span {
+    @apply text-blueAnna;
+  }
+  .navbar-container .tab-menu-active svg path {
+    @apply stroke-[#55D5D2];
+  }
+}
+
+.dropdown-seemore span {
+  left: 61.5rem !important;
+}

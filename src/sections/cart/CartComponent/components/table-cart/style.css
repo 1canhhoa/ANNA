@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .cart-component .list-product-cart {
+    @apply w-full;
+  }
+  .cart-component .list-product-cart .header-list-product {
+    @apply flex max-md:hidden;
+  }
+  .cart-component .list-product-cart .body-list-product .row-body-list-product {
+    @apply flex justify-between;
+  }
+
+  .cart-component .list-product-cart .header-list-product .info-product-title,
+  .cart-component .list-product-cart .header-list-product .price-product-title,
+  .cart-component .list-product-cart .header-list-product .amount-product-title,
+  .cart-component .list-product-cart .header-list-product .total-product-title,
+  .cart-component .list-product-cart .header-list-product .stock-quantity-title,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .info-product,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .price-product,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .amount-product,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .total-product,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .stock-quantity {
+    @apply px-[1.2rem] py-[1rem] max-md:py-[3.333rem];
+  }
+
+  .cart-component .list-product-cart .header-list-product .checkbox-header,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .checkbox-body {
+    @apply w-[3rem] flex justify-center items-center max-md:w-[8rem];
+  }
+
+  .cart-component .list-product-cart .header-list-product .info-product-title,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .info-product {
+    @apply w-[calc(100%-24rem)] max-md:grow max-md:ml-[5rem] flex items-center;
+  }
+
+  .cart-component .list-product-cart .header-list-product .price-product-title,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .price-product {
+    @apply w-[9rem] flex items-center max-md:hidden;
+  }
+
+  .cart-component .list-product-cart .header-list-product .amount-product-title,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .amount-product {
+    @apply w-[11.5rem] flex items-center max-md:hidden;
+  }
+
+  .cart-component .list-product-cart .header-list-product .stock-quantity-title,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .stock-quantity {
+    @apply w-[15.5rem] flex items-center max-md:hidden;
+  }
+
+  .cart-component .list-product-cart .header-list-product .total-product-title,
+  .cart-component
+    .list-product-cart
+    .body-list-product
+    .row-body-list-product
+    .total-product {
+    @apply w-[12rem] flex justify-center items-center max-md:hidden;
+  }
+}
+
+.bottom-tab-cart input[type='checkbox']:checked {
+  font-size: 15px;
+}

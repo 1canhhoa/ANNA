@@ -1,0 +1,18 @@
+.pagination-sl-blog .swiper-pagination-bullet {
+  background: #fcdccd;
+  width: 12px;
+  height: 4px;
+  opacity: 1;
+  border-radius: initial;
+}
+
+.pagination-sl-blog .swiper-pagination-bullet-active {
+  background: #f58f5d;
+  width: 35px;
+  border-radius: inherit;
+  height: 4px;
+}
+
+.pagination-sl-blog .swiper-pagination-horizontal {
+  width: inherit;
+}

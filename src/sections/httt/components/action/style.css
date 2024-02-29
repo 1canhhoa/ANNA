@@ -1,0 +1,44 @@
+.card-content-popup::after {
+  content: '';
+  position: absolute;
+  top: 28%;
+  left: 0;
+  height: 300px;
+  width: 100%;
+  background: linear-gradient(180deg, #fff, #ffffff00);
+  z-index: 1;
+}
+.card-content-popup::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  top: auto;
+  left: 0;
+  height: 300px;
+  width: 100%;
+  background: linear-gradient(0deg, #fff, #ffffff00);
+  z-index: 2;
+}
+
+.card-title-popup::after {
+  content: '';
+  position: absolute;
+  top: 157px;
+  left: 0;
+  height: 200px;
+  width: 100%;
+  background: linear-gradient(0deg, #fff, #ffffff00);
+  z-index: 1;
+}
+@media screen and (max-width: 767px) {
+  .card-content-popup::after {
+    top: 190px;
+  }
+  .card-title-popup::after {
+    top: 6px;
+  }
+  .icon-heart svg {
+    height: 13rem;
+    width: 13rem;
+  }
+}

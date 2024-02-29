@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .side-bar-dashboard-user .item-memu-sidebar span {
+    @apply text-[1rem] leading-[1rem] text-[#414141] font-medium max-md:text-[3.733rem] max-md:leading-[4.5rem];
+  }
+
+  .side-bar-dashboard-user .item-memu-sidebar:hover span {
+    @apply text-blueAnna transition-all duration-150;
+  }
+
+  .side-bar-dashboard-user .item-memu-sidebar:hover svg path {
+    @apply stroke-[#55D5D2];
+  }
+
+  .sidebar-dashboard-hover {
+  }
+
+  .sidebar-dashboard-hover span {
+    @apply text-blueAnna text-[1rem] leading-[1rem] max-md:text-[3.733rem] max-md:leading-[4.5rem];
+  }
+  .sidebar-dashboard-hover svg path {
+    @apply stroke-[#55D5D2];
+  }
+
+  .side-bar-dashboard-user svg {
+    @apply max-md:h-[6rem] max-md:w-[6rem];
+  }
+
+  .side-bar-dashboard-user svg path {
+    @apply max-md:stroke-[white];
+  }
+}

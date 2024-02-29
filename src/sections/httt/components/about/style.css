@@ -1,0 +1,11 @@
+.img-item:hover img {
+  opacity: 1;
+  transform: rotateY(180deg);
+  transition: 0.6s;
+}
+.icon-heart svg {
+  @media screen and (max-width: 767px) {
+    height: 13rem;
+    width: 13rem;
+  }
+}

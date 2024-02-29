@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .slider-product-detai-mobile .swiper-pagination {
+    @apply left-0 right-0;
+  }
+  .slider-product-detai-mobile .swiper-pagination-bullet {
+    background: #fcdccd;
+    width: 12px;
+    height: 4px;
+    opacity: 1;
+    border-radius: initial;
+  }
+
+  .slider-product-detai-mobile .swiper-pagination-bullet-active {
+    background: #f58f5d;
+    width: 35px;
+    border-radius: inherit;
+    height: 4px;
+  }
+
+  .slider-product-detai-mobile .swiper-pagination-horizontal {
+    width: inherit;
+  }
+}

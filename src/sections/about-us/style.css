@@ -1,0 +1,29 @@
+.about-us-container .marketing-war .facebook {
+  background: linear-gradient(
+    45.58deg,
+    #0f74ed 1.89%,
+    #147dfa 29.93%,
+    #098df3 49.79%,
+    #0e8ef1 98.68%
+  );
+}
+
+.about-us-container .marketing-war .instagram {
+  background: linear-gradient(
+    45.58deg,
+    #ea8b5f 1.89%,
+    #da5f5b 21.75%,
+    #c4449e 41.02%,
+    #a43592 98.68%
+  );
+}
+
+.about-us-container .marketing-war .tiktok {
+  background: linear-gradient(
+    45.58deg,
+    #d524b3 1.89%,
+    #a94abe 23.51%,
+    #7677cb 49.36%,
+    #34afde 98.68%
+  );
+}

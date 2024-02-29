@@ -1,0 +1,39 @@
+.policy svg {
+  width: 10rem;
+  height: 10rem;
+}
+.policy-page ul {
+  list-style-type: disc;
+  margin: 1.5em 0 1.5em 3em;
+  padding-right: 8rem;
+}
+.policy-page h5 {
+  font-weight: 600;
+  font-size: large;
+}
+.policy-page p {
+  padding-bottom: 1.5rem;
+}
+.policy-page p a,
+.policy-page p,
+.policy-page ul {
+  font-size: 1.2rem;
+}
+.policy-page p a {
+  color: #007bff;
+}
+
+@media screen and (max-width: 767px) {
+  .policy-page p a,
+  .policy-page p,
+  .policy-page ul {
+    font-size: 3.25rem;
+  }
+  .policy-page ul {
+    font-size: 3.25rem;
+  }
+  .policy-page h5 {
+    font-size: 4.25rem;
+    font-size: 4rem;
+  }
+}

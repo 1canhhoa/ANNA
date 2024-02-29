@@ -1,0 +1,27 @@
+.slide-tmp .swiper {
+  height: 20rem;
+}
+
+.slide-tmp .swiper-wrapper {
+  align-items: end;
+}
+
+.slide-tmp .swiper-wrapper .swiper-slide {
+  transition: all 900ms;
+  height: 30%;
+}
+
+.slide-tmp .swiper-wrapper .swiper-slide-next {
+  height: 60%;
+  transition: all 900ms;
+}
+
+.slide-tmp .swiper-wrapper .swiper-slide-active {
+  height: 100%;
+  transition: all 900ms;
+}
+
+/*.slide-tmp .swiper-wrapper .swiper-slide {*/
+/*    height: 40% !important;*/
+/*    overflow: hidden;*/
+/*}*/

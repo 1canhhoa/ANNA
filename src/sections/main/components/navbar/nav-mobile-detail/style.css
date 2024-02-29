@@ -1,0 +1,27 @@
+.bg-navbar-mobile-detail {
+  background: rgba(127, 127, 127, 0.3);
+  backdrop-filter: blur(6px);
+}
+
+.navbar-mobile-active {
+  background: white;
+}
+
+.navbar-mobile-active .icon-change-color svg path {
+  stroke: #454545;
+}
+
+.profile-user-mobile {
+  background: rgba(29, 29, 29, 0.26);
+  backdrop-filter: blur(12.5px);
+}
+
+.button-link-address-header-mobile {
+  background: rgba(49, 49, 49, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.bg-hanh-trinh-tu-te {
+  background: rgba(29, 29, 29, 0.3);
+  backdrop-filter: blur(4px);
+}

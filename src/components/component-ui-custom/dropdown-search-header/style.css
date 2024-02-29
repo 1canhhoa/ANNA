@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .item-history-search-header .icon-arrow-search {
+    @apply rotate-[321deg] transition-all duration-300;
+  }
+  .item-history-search-header:hover .icon-arrow-search {
+    @apply rotate-[360deg];
+  }
+  .item-history-search-header:hover span {
+    @apply text-[#F58F5E];
+  }
+}

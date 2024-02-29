@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .list-product-container .title-filter {
+    @apply text-[1.5rem] font-extrabold not-italic leading-[1.25rem] mb-[0.4rem];
+  }
+
+  .list-product-container .title-filter:not(:nth-child(1)) {
+    @apply mt-[1.25rem]  leading-[1.2rem] text-[1rem];
+  }
+
+  .list-product-container .value-item-checkbox {
+    @apply text-[1rem] not-italic leading-[2.25rem] font-bold ml-[0.938rem];
+  }
+}
+
+.shadow-modal-mobile {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 8px 0px;
+}

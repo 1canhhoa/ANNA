@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .detail-product-container .hover-see-more svg path {
+    @apply fill-[#A9A9A9];
+  }
+  .detail-product-container .hover-see-more a {
+    @apply text-[#A9A9A9] !important;
+  }
+  .detail-product-container .hover-see-more:hover svg path {
+    @apply fill-[#F58F5D] !important;
+  }
+  .detail-product-container .hover-see-more:hover a {
+    @apply text-[#F58F5D] !important;
+  }
+}

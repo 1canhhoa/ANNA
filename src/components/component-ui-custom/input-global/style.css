@@ -1,0 +1,7 @@
+.input-global input:not(:placeholder-shown) ~ label,
+.input-global input:focus ~ label,
+.input-global textarea:not(:placeholder-shown) ~ label,
+.input-global textarea:focus ~ label {
+  top: 0px;
+  color: #55d5d2;
+}

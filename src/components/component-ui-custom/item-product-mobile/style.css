@@ -1,0 +1,5 @@
+@media screen and (max-width: 767px) {
+  .item-product-mobile {
+    box-shadow: 0px 1.951px 14.632px 0px rgba(0, 0, 0, 0.05);
+  }
+}

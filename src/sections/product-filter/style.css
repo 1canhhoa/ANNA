@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .list-product-container .title-filter {
+    @apply text-[1.5rem] font-bold leading-[2.25rem] not-italic;
+  }
+
+  .list-product-container .title-filter:not(:nth-child(1)) {
+    @apply mt-[1.25rem];
+  }
+
+  .list-product-container .value-item-checkbox {
+    @apply text-[1.125rem] not-italic leading-[2.25rem] font-light ml-[0.938rem];
+  }
+
+  .list-product-container .button-see-more svg {
+    @apply fill-[#A9A9A9] transition-all duration-300;
+  }
+  .list-product-container .button-see-more svg path {
+    @apply fill-[#A9A9A9] transition-all duration-300;
+  }
+  .list-product-container .button-see-more p {
+    @apply text-[#A9A9A9] transition-all duration-300;
+  }
+  .list-product-container .button-see-more:hover svg {
+    @apply fill-[#F58F5D];
+  }
+  .list-product-container .button-see-more:hover svg path {
+    @apply fill-[#F58F5D];
+  }
+  .list-product-container .button-see-more:hover p {
+    @apply text-[#F58F5D];
+  }
+}

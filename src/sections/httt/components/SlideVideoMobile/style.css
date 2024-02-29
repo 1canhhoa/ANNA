@@ -1,0 +1,24 @@
+#progress_video li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: white;
+  z-index: 10;
+}
+#progress_video li {
+  margin-right: 1rem;
+}
+#progress_video li.active::before {
+  animation: run_progress 16s linear forwards;
+}
+@keyframes run_progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}

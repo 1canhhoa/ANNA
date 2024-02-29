@@ -1,0 +1,53 @@
+@media screen and (min-width: 1024px) {
+  .myShare .swiper-slide {
+    transition: all 500ms;
+    height: 40%;
+  }
+  .myShare .swiper-slide-active {
+    width: 21.375rem !important;
+    height: 100%;
+    transition: all 500ms;
+  }
+  .myShare .swiper-slide-next {
+    width: 15.375rem !important;
+    height: 60%;
+    transition: all 500ms;
+    filter: blur(0.125vw);
+  }
+  .myShare .swiper-wrapper {
+    align-items: end !important;
+  }
+  .myShare {
+    padding: 1.25rem 1.25rem 1.25rem 0 !important;
+  }
+
+  .borderTopItem {
+    right: calc((100% - 30.375rem) / 2);
+  }
+
+  .btnTopItem {
+    right: 22rem !important;
+  }
+
+  .shadow-btn {
+    box-shadow: 1.356px -2.034px 16.273px 0.678px #e8e7e7;
+    backdrop-filter: blur(5.0853657722473145px);
+  }
+  .card-share {
+    /*padding-right: calc((100% - 87.5rem) / 2);*/
+  }
+}
+@media screen and (max-width: 1600px) {
+  .borderTopItem {
+    right: calc((100% - 26.375rem) / 2);
+  }
+}
+@media screen and (max-width: 1440px) {
+  .borderTopItem {
+    right: calc((100% - 28.375rem) / 2);
+  }
+}
+
+.background-blur-share {
+  background: rgba(123, 215, 214, 0.1);
+}
