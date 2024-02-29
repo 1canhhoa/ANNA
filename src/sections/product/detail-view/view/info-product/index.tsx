@@ -155,10 +155,6 @@ function InfoProduct(props: IProps) {
       .catch((res) => console.log('check res error', res));
   }, []);
 
-  console.log(
-    "variantProductSelected.variant_id",
-    variantProductSelected.variant_id.length
-  );
 
   return (
     <div className="info-detail-product right-detail grow max-lg:ml-[1.76rem]  ml-[3.76rem] max-md:mt-0 max-md:ml-[0rem] max-md:relative max-md:w-full">
