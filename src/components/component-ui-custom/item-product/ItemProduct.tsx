@@ -117,7 +117,7 @@ function ItemProduct(props: IProps) {
                 : ''
             } mb-[0.5rem]`}
           >
-            <span className="text-[1rem] mb-[0.25rem] text-[#454545] font-extrabold text-truncate line-clamp-1 max-md:line-clamp-1 leading-[1.2rem] max-md:text-[3.73333rem] max-md:leading-[5.22667rem]">
+            <span className="text-[1rem] mb-[0.25rem] text-[#454545] font-extrabold text-truncate line-clamp-2 max-md:line-clamp-1 leading-[1.2rem] max-md:text-[3.73333rem] max-md:leading-[5.22667rem]">
               {item?.name}
             </span>
           </Link>

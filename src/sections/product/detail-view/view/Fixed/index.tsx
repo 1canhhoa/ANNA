@@ -48,7 +48,7 @@ export function Fixed(props: IProps) {
           alt=""
         />
         <div className="flex flex-col items-center h-[7.5rem]">
-          <div className="h-full">
+          <div className="h-full flex items-center justify-center">
             {dataInit?.name && (
               <p className="text-[1rem] font-extrabold leading-[1.4625rem] mb-[0.5rem]">
                 {dataInit?.name}
@@ -98,7 +98,7 @@ export function Fixed(props: IProps) {
           disabled={isLoadingAddToCart}
           type="button"
           onClick={() => handleAddToCart(dataInit, 1)}
-          className="py-[0.94rem] px-[1.88rem] bg-[#55D5D2] rounded-[3.125rem] flex items-center"
+          className={`${dataInit?.stock_quantity === 0 ? "pointer-events-none !cursor-not-allowed opacity-50":""} py-[0.94rem] px-[1.88rem] bg-[#55D5D2] rounded-[3.125rem] flex items-center`}
         >
           <div className="max-md:hidden">
             {isLoadingAddToCart && <LoadingGlobal height={1} width={1} />}
