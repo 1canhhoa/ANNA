@@ -8,16 +8,7 @@ const ProductFilterPage = async ({ searchParams, params: { query } }: any) => {
     routerSearchCustom = `${routerSearchCustom}&${keyAttribute}=${valueAttribute}`;
   }
 
-  // GET LIST ATTRIBUTE PRODUCT
-  // const bodyGetlistAttribute: any = {
-  //   url: `wp-json/custom/v1/attributes`,
-  //   method: 'get',
-  // };
-  // const dataListAttribute = await fetch(
-  //   `${process.env.NEXT_PUBLIC_REST_API}/${bodyGetlistAttribute.url}`
-  // ).then((res) => {
-  //   return res.json();
-  // });
+  console.log(searchParams)
 
   const bodyGetlistAttribute: any = {
     url: `wp-json/custom/v1/attributes`,

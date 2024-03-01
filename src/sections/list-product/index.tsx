@@ -17,11 +17,6 @@ interface IProps {
   listAttributeNew?: any;
 }
 
-// interface IParamsFilter {
-//   category: number;
-//   page: number;
-// }
-
 export default function ListProduct(props: IProps) {
   const {
     slug,
@@ -34,14 +29,6 @@ export default function ListProduct(props: IProps) {
     <div className="list-product-container mb-[2.94rem]">
       {/* banner */}
       <div className="height-banner-global relative bg-banner-about-us bg-cover bg-no-repeat w-full">
-        {/* <Image */}
-        {/*  src="/img/about-us/bg-banner-about-us.jpg" */}
-        {/*  width={100} */}
-        {/*  height={32} */}
-        {/*  alt="banner cart" */}
-        {/*  className="w-full h-full" */}
-        {/*  quality={100} */}
-        {/* /> */}
         <Image
           src="/img/about-us/bg-banner-about-us.jpg"
           width={1600}
@@ -77,28 +64,19 @@ export default function ListProduct(props: IProps) {
             <h4 className="text-[2rem] not-italic font-extrabold text-[#313131] leading-[2.4rem] h-[2.4rem] text-center max-md:text-[4.7rem]">
               SẢN PHẨM NỔI BẬT
             </h4>
-            {/* <div className="button-see-more flex items-center justify-center h-full  py-[1.6rem] hover:text-[#f58f5d] cursor-pointer max-md:hidden"> */}
-            {/*  <ICArrowRight2 fill="#A9A9A9" /> */}
-            {/*  <p className="text-[1.125rem] leading-[1.4625rem] font-bold ml-[0.62rem] text-right max-md:hidden"> */}
-            {/*    Xem thêm */}
-            {/*  </p> */}
-            {/*  <p className="hidden text-[0.75rem] ml-[0.25rem] leading-[1.05rem] text-right max-md:flex max-md:text-[2.88rem] max-md:text-[#F58F5D]"> */}
-            {/*    Xem tất cả */}
-            {/*  </p> */}
-            {/* </div> */}
           </div>
           <div className="w-full max-md:hidden">
             {/* <OutstandingProduct /> */}
             <SlideProductComponent
               keySlide="out-standing-product"
               breakPoint={{ PerView767: 2 }}
-              data={dataListProductInit?.item}
+              data={dataListProductInit?.data}
             />
           </div>
 
           <div className="hidden max-md:flex w-full overflow-x-auto hide-scrollbar-global">
-            {map(dataListProductInit?.item, (item) => (
-              <div className="min-w-[45.2rem] mr-[3.2rem]">
+            {map(dataListProductInit?.data, (item, index) => (
+              <div className="min-w-[45.2rem] mr-[3.2rem]" key={index}>
                 <ItemMobile itemProduct={item} />
               </div>
             ))}
@@ -125,13 +103,13 @@ export default function ListProduct(props: IProps) {
                   PerView1280: 3,
                 }}
                 heightImage={17}
-                data={dataListProductInit?.item}
+                data={dataListProductInit?.data}
                 left
               />
             </div>
             <div className="hidden max-md:flex grow w-full overflow-x-auto hide-scrollbar-global overflow-hidden h-[66.26667rem]">
-              {map(dataListProductInit?.item, (item) => (
-                <div className="min-w-[45.2rem] mr-[3.2rem]">
+              {map(dataListProductInit?.data, (item, index) => (
+                <div className="min-w-[45.2rem] mr-[3.2rem]" key={index}>
                   <ItemMobile itemProduct={item} />
                 </div>
               ))}

@@ -90,7 +90,7 @@ export default function FilterListProduct(props: IProps) {
   };
   const getlistProduct = useSWR(bodyGetListProduct.url, () =>
     postData(bodyGetListProduct).then((res) => {
-      setDataInit(res?.item);
+      setDataInit(res?.data);
       setDataPagination({
         ...dataPagination,
         total: res?.countItem,
@@ -186,22 +186,7 @@ export default function FilterListProduct(props: IProps) {
     handleScroll();
   }, [dataPagination]);
 
-  // useEffect(() => {
-  //   if (listAttributeConvert) {
-  //     const listKeyRouterTmp: any = {};
-  //     map(
-  //       listAttributeConvert,
-  //       (item: any, index: number) =>
-  //         (listKeyRouterTmp[item.listAttribute[0].taxonomy] = 1)
-  //     );
-  //
-  //     console.log('listAttributeConvert', listAttributeConvert);
-  //
-  //     console.log('listKeyRouterTmp', listKeyRouterTmp);
-  //     setKeyMapFilter(listKeyRouterTmp);
-  //   }
-  // }, []);
-
+console.log(dataInit, "dataInit product")
   return (
     <div className="filter-list-product-container">
       {/* modal filter product mobile */}
@@ -246,12 +231,12 @@ export default function FilterListProduct(props: IProps) {
                               itemSubAttribute.slug
                             )
                           }
-                          id="1"
+                          id={`${item.label}-${index}`}
                           className="border-[#ccc] border-[1px] h-[4rem] w-[4rem]"
                         />
-                        <span className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] text-[#454545] text-[4rem] leading-[5.5rem]">
+                        <label htmlFor={`${item.label}-${index}`} className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] text-[#454545] text-[4rem] leading-[5.5rem]">
                           {itemSubAttribute.name}
-                        </span>
+                        </label>
                       </div>
                     )
                   )}
@@ -275,18 +260,18 @@ export default function FilterListProduct(props: IProps) {
                     >
                       <Checkbox
                         disabled={getlistProduct.isLoading}
+                        id={`${item.label}-${index}`}
                         onCheckedChange={(value: boolean) =>
                           onChange(
                             itemSubAttribute.taxonomy,
                             itemSubAttribute.slug
                           )
                         }
-                        id="1"
                         className="border-[#ccc] border-[1px]"
                       />
-                      <span className="font-medium line-clamp-1 text-nowrap ml-[0.7rem]">
+                      <label htmlFor={`${item.label}-${index}`} className="font-medium line-clamp-1 text-nowrap ml-[0.7rem]">
                         {itemSubAttribute.name}
-                      </span>
+                      </label>
                     </div>
                   )
                 )}

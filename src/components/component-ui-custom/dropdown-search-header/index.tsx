@@ -73,8 +73,12 @@ function DropdownSearchHeader(props: IProps) {
           {map(dataHistorySearch, (item, index) => (
             <li key={index}>
               {parseInt(index, 10) < 4 && (
-                <div className="item-history-search-header flex items-center justify-between pb-[1.2rem] last:border-b-0 border-b-2 border-b-[#ECECEC] mb-[1.2rem] ">
-                  <span className="cursor-pointer text-[#444] hover:text-[#F58F5E] text-[1rem] not-italic font-bold leading-[1.5rem]">
+              <Link
+              href={`/tim-kiem?search=${item.search_value}`}
+              onClick={onMouseLeaveTabMenu}
+              className="item-history-search-header flex items-center justify-between pb-[1.2rem] last:border-b-0 border-b-2 border-b-[#ECECEC] mb-[1.2rem] "
+              >
+ <span className="cursor-pointer text-[#444] hover:text-[#F58F5E] text-[1rem] not-italic font-bold leading-[1.5rem]">
                     {item.search_value}
                   </span>
                   <div className="rotate-[321deg] icon-arrow-search">
@@ -84,7 +88,7 @@ function DropdownSearchHeader(props: IProps) {
                       height="1.1rem"
                     />
                   </div>
-                </div>
+              </Link>
               )}
             </li>
           ))}
@@ -100,7 +104,9 @@ function DropdownSearchHeader(props: IProps) {
                 key={index}
                 className="cursor-pointer mb-[0.5rem] mr-[0.38rem] w-fit h-fit py-[0.3125rem] px-[1rem] rounded-[6.25rem] bg-[#55D5D2] text-[0.875rem] text-white not-italic leading-[1.3125rem] font-bold "
               >
-                {item.title}
+                <Link href={`/tim-kiem?search=${item.title.toLowerCase()}`}>
+                  {item.title}
+                </Link>
               </li>
             ))}
           </ul>

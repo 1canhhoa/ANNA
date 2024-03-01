@@ -64,7 +64,7 @@ function NavItems(props: IProps) {
 
     await postData(bodySearchKeyword)
       .then((res) => {
-        setListDataSearchByKey(res.products);
+        setListDataSearchByKey(res?.data);
         setIsLoading(false);
       })
       .catch((res) => {
@@ -108,7 +108,7 @@ function NavItems(props: IProps) {
 
   const handleOnKeyEnterSearch = (e: any): void => {
     if (e.keyCode === 13) {
-      router.push(`tim-kiem?search=${searchTerm}`);
+      router.push(`/tim-kiem?search=${searchTerm}`);
       onMouseLeaveTabMenu();
     }
   };

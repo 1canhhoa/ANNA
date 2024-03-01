@@ -259,6 +259,8 @@ export default function FilterListProductSearch(props: IProps) {
   //     // setKeyMapFilter(listKeyRouterTmp);
   //   }
   // }, []);
+console.log(dataInit.length, "length")
+console.log(dataInit, "data search")
 
   return (
     <div className="filter-list-product-container">
@@ -354,9 +356,9 @@ export default function FilterListProductSearch(props: IProps) {
         <div className="grow">
           {getListProductSearch.isLoading ? (
             <SkeletonItemProduct />
-          ) : dataInit && dataInit.length > 0 ? (
+          ) : dataInit && dataInit?.data?.length > 0 ? (
             <div className="grid grid-cols-4 gap-4">
-              {dataInit?.map((item: any, index: number) => (
+              {dataInit?.data?.map((item: any, index: number) => (
                 <div className="rounded-[1rem]" key={index}>
                   <ItemProduct item={item} />
                 </div>
@@ -372,30 +374,7 @@ export default function FilterListProductSearch(props: IProps) {
               />
             </div>
           )}
-          {/* {dataInit && dataInit?.length === 0 && ( */}
-          {/*    <div className="flex justify-center"> */}
-          {/*      <Image */}
-          {/*          src="/img/no-data.avif" */}
-          {/*          alt="banner-aboutus" */}
-          {/*          height={300} */}
-          {/*      width={300} */}
-          {/*    /> */}
-          {/*  </div> */}
-          {/* )} */}
-          {/* /!* {dataInit && dataInit?.length > 0 && getlistProduct.isLoading ? ( *!/ */}
-          {/* /!* {dataInit && dataInit?.length === 0 ? ( *!/ */}
-          {/* /!*  <SkeletonItemProduct /> *!/ */}
-          {/* /!* ) : ( *!/ */}
-          {/* <div className="grid grid-cols-4 gap-4"> */}
-          {/*  {dataInit && */}
-          {/*    dataInit.length > 0 && */}
-          {/*    dataInit?.map((item: any, index: number) => ( */}
-          {/*      <div className="rounded-[1rem]" key={index}> */}
-          {/*        <ItemProduct item={item} /> */}
-          {/*      </div> */}
-          {/*    ))} */}
-          {/* </div> */}
-          {/* /!* )} *!/ */}
+         
         </div>
       </div>
       <div className="flex justify-end mt-[2rem]">
@@ -407,7 +386,7 @@ export default function FilterListProductSearch(props: IProps) {
 
       <div className="hidden max-md:block">
         <div className="grid grid-cols-2">
-          {map(dataInit, (item: any, index: number) => (
+          {map(dataInit?.data, (item: any, index: number) => (
             <div key={index} className="relative mb-[4.27rem]">
               <ItemMobile itemProduct={item} />
             </div>

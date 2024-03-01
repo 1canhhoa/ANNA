@@ -4,7 +4,7 @@
 
 @layer components {
   .list-product-container .title-filter {
-    @apply text-[1.5rem] font-extrabold not-italic leading-[1.25rem] mb-[0.4rem];
+    @apply text-[1.5rem] font-extrabold not-italic leading-[1.25rem] mb-[1rem];
   }
 
   .list-product-container .title-filter:not(:nth-child(1)) {
