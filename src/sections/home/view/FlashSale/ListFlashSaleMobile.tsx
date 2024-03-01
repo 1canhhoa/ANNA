@@ -27,26 +27,26 @@ function ListFlashSaleMobile({ item }: IProps) {
           />
         </Link>
         <div className="relative z-2 -mt-[5.1rem] z-9 left-0 right-0 w-full box-slide max-md:h-[36.5rem] max-md:-mt-[11.1rem]">
-          {/*<div className="flex ml-[1rem] mb-[0.9rem]">*/}
-          {/*  /!* Show in Mobile *!/*/}
-          {/*  <div className="hidden max-md:block bg-[#CAF2F1] rounded-[2.5rem] items-center mb-[0.62rem] flex justify-center w-fit">*/}
-          {/*    {item?.categories && (*/}
-          {/*      <p className="text-[2.66667rem] text-[#454545] font-bold py-[0.2rem] px-[1.6rem] text-center items-center">*/}
-          {/*        {item?.categories ?? 'null'}*/}
-          {/*      </p>*/}
-          {/*    )}*/}
-          {/*  </div>*/}
+          {/* <div className="flex ml-[1rem] mb-[0.9rem]"> */}
+          {/*  /!* Show in Mobile *!/ */}
+          {/*  <div className="hidden max-md:block bg-[#CAF2F1] rounded-[2.5rem] items-center mb-[0.62rem] flex justify-center w-fit"> */}
+          {/*    {item?.categories && ( */}
+          {/*      <p className="text-[2.66667rem] text-[#454545] font-bold py-[0.2rem] px-[1.6rem] text-center items-center"> */}
+          {/*        {item?.categories ?? 'null'} */}
+          {/*      </p> */}
+          {/*    )} */}
+          {/*  </div> */}
 
-          {/*  /!* hide in mobile *!/*/}
-          {/*  <div className="lg:mb-[0.75rem] bg-[#F58F5D] max-sm:ml-[1.07rem] h-[4.5rem] md:h-[1.25rem] flex items-center justify-center border-[#C5C5C5] border-[1px] rounded-[2.5rem] md:w-[6.375rem] ml-[0.25rem]">*/}
-          {/*    <p className="text-[0.75rem] text-white font-bold leading-[0.9rem] text-center mb-0 max-sm:hidden">*/}
-          {/*      Siêu Sale 10.10*/}
-          {/*    </p>*/}
-          {/*    <p className="text-[2.66667rem] text-[#fff] font-bold py-[0.2rem] px-[1.6rem] text-center items-center block md:hidden">*/}
-          {/*      Sale*/}
-          {/*    </p>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+          {/*  /!* hide in mobile *!/ */}
+          {/*  <div className="lg:mb-[0.75rem] bg-[#F58F5D] max-sm:ml-[1.07rem] h-[4.5rem] md:h-[1.25rem] flex items-center justify-center border-[#C5C5C5] border-[1px] rounded-[2.5rem] md:w-[6.375rem] ml-[0.25rem]"> */}
+          {/*    <p className="text-[0.75rem] text-white font-bold leading-[0.9rem] text-center mb-0 max-sm:hidden"> */}
+          {/*      Siêu Sale 10.10 */}
+          {/*    </p> */}
+          {/*    <p className="text-[2.66667rem] text-[#fff] font-bold py-[0.2rem] px-[1.6rem] text-center items-center block md:hidden"> */}
+          {/*      Sale */}
+          {/*    </p> */}
+          {/*  </div> */}
+          {/* </div> */}
           <div className="relative p-[1rem] rounded-2xl bg-[#FFF] box-slide max-md:p-[2.13rem] max-md:rounded-[3.2rem]">
             <div className="h-[2.4rem] max-md:h-[7.45334rem]">
               <span className="text-[1rem] mb-[0.25rem] text-[#454545] font-extrabold text-truncate line-clamp-2 max-md:line-clamp-1 leading-[1.2rem] max-md:text-[3.36rem] max-md:leading-[4.704rem]">

@@ -58,24 +58,24 @@ function ItemCollect({ dataCollect, key, category }: IPropsItemCollect) {
           </Link>
         </div>
         <div className="relative z-2 -mt-[9rem] md:-mt-[3.5rem] z-9 left-0 right-0 w-full box-slide ">
-          {/*<div className="flex ml-[1.25rem] md:ml-[1rem] mb-[3rem] md:mb-[0.9rem]">*/}
-          {/*  <div className="p-8 md:p-2 bg-[#CAF2F1] h-[5.33333rem] md:h-[1.25rem] border-[#C5C5C5] border-[0.5px] rounded-[2.5rem] items-center flex justify-center">*/}
-          {/*    <p className="text-[2.666rem] md:text-[0.75rem] text-[#454545] font-bold text-center">*/}
-          {/*      {category === 'gong-kinh'*/}
-          {/*        ? 'Gọng kính'*/}
-          {/*        : category === 'trong-kinh'*/}
-          {/*        ? 'Tròng kính'*/}
-          {/*        : category === 'kinh-ram'*/}
-          {/*        ? 'Kính râm'*/}
-          {/*        : 'Kính áp tròng'}*/}
-          {/*    </p>*/}
-          {/*  </div>*/}
-          {/*  <div className="p-8 md:p-2 bg-[#F58F5D] h-[5.33333rem] md:h-[1.25rem] hidden md:flex items-center justify-center border-[#C5C5C5] border-[0.5px] rounded-[2.5rem] ml-[0.25rem]">*/}
-          {/*    <p className="text-[2.666rem] md:text-[0.75rem] text-white font-bold text-center mb-0">*/}
-          {/*      Siêu Sale 10.10*/}
-          {/*    </p>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+          {/* <div className="flex ml-[1.25rem] md:ml-[1rem] mb-[3rem] md:mb-[0.9rem]"> */}
+          {/*  <div className="p-8 md:p-2 bg-[#CAF2F1] h-[5.33333rem] md:h-[1.25rem] border-[#C5C5C5] border-[0.5px] rounded-[2.5rem] items-center flex justify-center"> */}
+          {/*    <p className="text-[2.666rem] md:text-[0.75rem] text-[#454545] font-bold text-center"> */}
+          {/*      {category === 'gong-kinh' */}
+          {/*        ? 'Gọng kính' */}
+          {/*        : category === 'trong-kinh' */}
+          {/*        ? 'Tròng kính' */}
+          {/*        : category === 'kinh-ram' */}
+          {/*        ? 'Kính râm' */}
+          {/*        : 'Kính áp tròng'} */}
+          {/*    </p> */}
+          {/*  </div> */}
+          {/*  <div className="p-8 md:p-2 bg-[#F58F5D] h-[5.33333rem] md:h-[1.25rem] hidden md:flex items-center justify-center border-[#C5C5C5] border-[0.5px] rounded-[2.5rem] ml-[0.25rem]"> */}
+          {/*    <p className="text-[2.666rem] md:text-[0.75rem] text-white font-bold text-center mb-0"> */}
+          {/*      Siêu Sale 10.10 */}
+          {/*    </p> */}
+          {/*  </div> */}
+          {/* </div> */}
           <div className="p-[2.5rem] md:p-[1rem] rounded-[4.26667rem] md:rounded-[1rem] bg-[#FFF] box-slide">
             <span className="text-[3.36rem] md:text-base line-clamp-2 mb-[0.25rem] text-[#454545] font-extrabold">
               {dataCollect?.name}

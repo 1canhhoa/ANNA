@@ -10,6 +10,7 @@ export interface IDetailProductRes {
   description: string;
   shortDescription: string;
   price: string;
+  max_qty?: any;
   regular_price: string;
   sale_price: string;
   total_sales: number;

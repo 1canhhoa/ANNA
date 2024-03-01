@@ -85,32 +85,33 @@ function ProductDetail(props: IProps) {
     });
   };
 
-  const handleAddToCartLocalStorage = (
-    dataItemProduct: any,
-    quantityProduct: any,
-    keyItemAddCartApi?: string
-  ): void => {
+  const handleAddToCartLocalStorage = (dataParams: {
+    dataItemProduct: any;
+    quantityProduct: any;
+    keyItemAddCartApi?: string;
+    stock_quantity?: any;
+  }): void => {
     let listCartHandle = listCartGlobal;
 
     const findItemAvailabelStorage = listCartHandle.filter(
       (itemProduct: any) =>
-        itemProduct?.product_id === dataItemProduct?.id &&
+        itemProduct?.product_id === dataParams.dataItemProduct?.id &&
         itemProduct?.variant_id === variantProductSelected.variant_id
     );
 
     if (findItemAvailabelStorage.length === 0) {
       const ItemAddToCard = {
-        key: keyItemAddCartApi,
-        product_id: dataItemProduct?.id,
-        product_image: dataItemProduct?.featuredImage,
-        product_name: dataItemProduct?.name,
-        category: dataItemProduct?.categories
-          ? dataItemProduct?.categories[0]
+        key: dataParams.keyItemAddCartApi,
+        product_id: dataParams.dataItemProduct?.id,
+        product_image: dataParams.dataItemProduct?.featuredImage,
+        product_name: dataParams.dataItemProduct?.name,
+        category: dataParams.dataItemProduct?.categories
+          ? dataParams.dataItemProduct?.categories[0]
           : 'no-dataItemProduct',
-        product_price: dataItemProduct?.price,
+        product_price: dataParams.dataItemProduct?.price,
         // salePrice: dataItemProduct?.sale_price,
-        stock_quantity: dataItemProduct?.stock_quantity,
-        quantity: quantityProduct,
+        stock_quantity: dataParams.dataItemProduct?.stock_quantity,
+        quantity: dataParams.quantityProduct,
         variant_id: variantProductSelected.variant_id,
         variant_value: variantProductSelected.color_variant,
       };
@@ -143,7 +144,7 @@ function ProductDetail(props: IProps) {
         // salePrice: item.salePrice,
         stock_quantity: item?.stock_quantity,
         variant_id: item?.variant_id,
-        quantity: item.quantity + quantityProduct,
+        quantity: item.quantity + dataParams.quantityProduct,
         variant_value: item.variant_value,
       };
       return newObject;
@@ -163,12 +164,17 @@ function ProductDetail(props: IProps) {
     }
   };
 
-  const handleAddToCartAPI = async (data: any, quantityProduct: any) => {
+  const handleAddToCartAPI = async (dataParams: {
+    dataItemProduct: any;
+    quantityProduct: any;
+    keyItemAddCartApi?: string;
+    stockQuantity: any;
+  }) => {
     setIsLoadingAddToCart(true);
 
     const objectSubmit = {
-      product_id: data?.id,
-      quantity: quantityProduct,
+      product_id: dataParams?.dataItemProduct?.id,
+      quantity: dataParams.quantityProduct,
       variation_id: variantProductSelected?.variant_id,
     };
 
@@ -180,11 +186,11 @@ function ProductDetail(props: IProps) {
         token: session?.user?.token,
       })
         .then((res) => {
-          handleAddToCartLocalStorage(
-            data,
-            quantityProduct,
-            res?.cart_item?.cart_id
-          );
+          handleAddToCartLocalStorage({
+            dataItemProduct: dataParams.dataItemProduct,
+            quantityProduct: dataParams.quantityProduct,
+            keyItemAddCartApi: res?.cart_item?.cart_id,
+          });
           onSuccess({ message: 'Thêm giỏ hàng thành công' });
           setIsLoadingAddToCart(false);
         })
@@ -466,12 +472,14 @@ function ProductDetail(props: IProps) {
         <Fixed
           isLoadingAddToCart={isLoadingAddToCart}
           dataInit={dataInitDetail}
-          listColorProduct={dataInitDetail?.data?.variant ?? []}
+          listColorProduct={dataInitDetail?.variations ?? []}
           handleAddToCart={
             session?.user.token && session.user.token.length > 0
               ? handleAddToCartAPI
               : handleAddToCartLocalStorage
           }
+          variantProductSelected={variantProductSelected}
+          handleChangeColorGetApi={handleChangeColorGetApi}
         />
       </div>
     </div>

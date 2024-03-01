@@ -18,7 +18,7 @@ export default function HTTT() {
       <Video />
       <Action />
       <Statistics />
-      {/*<SlideTmp />*/}
+      {/* <SlideTmp /> */}
       <Share />
       <ThanksForJoin />
       <About />

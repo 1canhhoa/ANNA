@@ -77,15 +77,15 @@ export default function ListProduct(props: IProps) {
             <h4 className="text-[2rem] not-italic font-extrabold text-[#313131] leading-[2.4rem] h-[2.4rem] text-center max-md:text-[4.7rem]">
               SẢN PHẨM NỔI BẬT
             </h4>
-            {/*<div className="button-see-more flex items-center justify-center h-full  py-[1.6rem] hover:text-[#f58f5d] cursor-pointer max-md:hidden">*/}
-            {/*  <ICArrowRight2 fill="#A9A9A9" />*/}
-            {/*  <p className="text-[1.125rem] leading-[1.4625rem] font-bold ml-[0.62rem] text-right max-md:hidden">*/}
-            {/*    Xem thêm*/}
-            {/*  </p>*/}
-            {/*  <p className="hidden text-[0.75rem] ml-[0.25rem] leading-[1.05rem] text-right max-md:flex max-md:text-[2.88rem] max-md:text-[#F58F5D]">*/}
-            {/*    Xem tất cả*/}
-            {/*  </p>*/}
-            {/*</div>*/}
+            {/* <div className="button-see-more flex items-center justify-center h-full  py-[1.6rem] hover:text-[#f58f5d] cursor-pointer max-md:hidden"> */}
+            {/*  <ICArrowRight2 fill="#A9A9A9" /> */}
+            {/*  <p className="text-[1.125rem] leading-[1.4625rem] font-bold ml-[0.62rem] text-right max-md:hidden"> */}
+            {/*    Xem thêm */}
+            {/*  </p> */}
+            {/*  <p className="hidden text-[0.75rem] ml-[0.25rem] leading-[1.05rem] text-right max-md:flex max-md:text-[2.88rem] max-md:text-[#F58F5D]"> */}
+            {/*    Xem tất cả */}
+            {/*  </p> */}
+            {/* </div> */}
           </div>
           <div className="w-full max-md:hidden">
             {/* <OutstandingProduct /> */}

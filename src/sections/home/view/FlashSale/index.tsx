@@ -146,41 +146,41 @@ function FlashSale({
           </TabsContent>
         </Tabs>
       </div>
-      {/*<div className="pt-[6.4rem] pb-[1rem] md:pt-[3.5rem] flex justify-center max-sm:bg-white">*/}
-      {/*  /!* <ICDown /> *!/*/}
-      {/*  <div*/}
-      {/*    id="box_arrow"*/}
-      {/*    className="w-[11.25rem] md:w-[4.25rem] h-[11.25rem] md:h-[4.25rem] relative"*/}
-      {/*  >*/}
-      {/*    <Image*/}
-      {/*      className="w-full h-full object-contain"*/}
-      {/*      src="/img/home/mt.png"*/}
-      {/*      alt="arrow no background"*/}
-      {/*      height={60}*/}
-      {/*      width={60}*/}
-      {/*    />*/}
-      {/*    <Image*/}
-      {/*      style={{*/}
-      {/*        clipPath: `polygon(0 ${height}%, 100% ${height}%, 100% 100%, 0 100%)`,*/}
-      {/*      }}*/}
-      {/*      className="h-full object-contain absolute top-0 left-0 w-full"*/}
-      {/*      src="/img/home/mto.png"*/}
-      {/*      alt="arrow background"*/}
-      {/*      height={60}*/}
-      {/*      width={60}*/}
-      {/*    />*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-      {/*<div className="max-sm:bg-white relative h-[6.375rem] max-md:h-[10.375rem] overflow-hidden w-full">*/}
-      {/*  <div*/}
-      {/*    ref={lineRef}*/}
-      {/*    className="flex items-center absolute top-0 left-1/2 -translate-x-[150%] flex-nowrap"*/}
-      {/*  >*/}
-      {/*    <div className="text-[#CAF2F1] text-[8rem] md:text-[4.25rem] font-black uppercase whitespace-nowrap leading-[150%]">*/}
-      {/*      Supper event 2023 birthday 9th anna*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
+      {/* <div className="pt-[6.4rem] pb-[1rem] md:pt-[3.5rem] flex justify-center max-sm:bg-white"> */}
+      {/*  /!* <ICDown /> *!/ */}
+      {/*  <div */}
+      {/*    id="box_arrow" */}
+      {/*    className="w-[11.25rem] md:w-[4.25rem] h-[11.25rem] md:h-[4.25rem] relative" */}
+      {/*  > */}
+      {/*    <Image */}
+      {/*      className="w-full h-full object-contain" */}
+      {/*      src="/img/home/mt.png" */}
+      {/*      alt="arrow no background" */}
+      {/*      height={60} */}
+      {/*      width={60} */}
+      {/*    /> */}
+      {/*    <Image */}
+      {/*      style={{ */}
+      {/*        clipPath: `polygon(0 ${height}%, 100% ${height}%, 100% 100%, 0 100%)`, */}
+      {/*      }} */}
+      {/*      className="h-full object-contain absolute top-0 left-0 w-full" */}
+      {/*      src="/img/home/mto.png" */}
+      {/*      alt="arrow background" */}
+      {/*      height={60} */}
+      {/*      width={60} */}
+      {/*    /> */}
+      {/*  </div> */}
+      {/* </div> */}
+      {/* <div className="max-sm:bg-white relative h-[6.375rem] max-md:h-[10.375rem] overflow-hidden w-full"> */}
+      {/*  <div */}
+      {/*    ref={lineRef} */}
+      {/*    className="flex items-center absolute top-0 left-1/2 -translate-x-[150%] flex-nowrap" */}
+      {/*  > */}
+      {/*    <div className="text-[#CAF2F1] text-[8rem] md:text-[4.25rem] font-black uppercase whitespace-nowrap leading-[150%]"> */}
+      {/*      Supper event 2023 birthday 9th anna */}
+      {/*    </div> */}
+      {/*  </div> */}
+      {/* </div> */}
       <div className="flex pt-[2.5rem] md:justify-center md:absolute relative container-custom hide-scrollbar-global max-md:w-full max-md:overflow-x-auto md:-translate-x-2/4 md:left-1/2 select-none">
         <div className="md:w-full h-full flex w-max">
           <div className="pr-[2.13rem] md:pr-[1.25rem] w-[82.9333rem] md:h-[18.31rem] h-[34.9333rem] md:w-1/2 rounded-[4rem] md:rounded-[1rem]">

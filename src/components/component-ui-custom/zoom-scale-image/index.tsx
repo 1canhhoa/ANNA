@@ -6,7 +6,7 @@ import Image from 'next/image';
 interface IProps {
   height: string | number;
   width: string | number;
-  image: string;
+  imageProps: any;
   scale?: number;
   alt: string;
 }
@@ -15,7 +15,7 @@ interface IScaleImage {
   heightImage: null | number;
 }
 function ZoomScaleImage(props: IProps) {
-  const { height, width, image, scale, alt } = props;
+  const { height, width, imageProps, scale, alt } = props;
 
   const imageRef = useRef<any>(null);
 
@@ -24,6 +24,7 @@ function ZoomScaleImage(props: IProps) {
     heightImage: 50,
   });
 
+  console.log('imagaaaa', imageProps);
   useEffect(() => {
     if (imageRef.current) {
       imageRef.current.addEventListener('mousemove', (event: any) => {
@@ -50,7 +51,7 @@ function ZoomScaleImage(props: IProps) {
         width={1000}
         height={1000}
         className="w-full h-full object-cover hover:scale-[2]"
-        src={image ?? '/img/no_image.jpg'}
+        src={imageProps === false ? '/img/no_image.jpg' : imageProps}
         style={{
           transformOrigin: `${scaleImage.widthImage}% ${scaleImage.heightImage}%`,
         }}

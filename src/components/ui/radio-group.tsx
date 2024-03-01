@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
->(({ className,name, ...props }, ref) => {
+>(({ className, name, ...props }, ref) => {
   return (
     <RadioGroupPrimitive.Root
       className={cn('grid gap-2', className)}

@@ -1,7 +1,7 @@
 import Home from '@/sections/home/view/home';
 
-const HomePage = () => {
+function HomePage() {
   return <Home />;
-};
+}
 
 export default HomePage;
