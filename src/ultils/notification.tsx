@@ -59,7 +59,7 @@ const toastGlobal = (props: IPropsToast) => {
     });
 
     toast.innerHTML = `
-            <div class="start-icon-toast">
+            <div className="start-icon-toast">
               <Image
                 src=${iconToast}
                 width={1000}
@@ -68,19 +68,19 @@ const toastGlobal = (props: IPropsToast) => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div class="content-toast">
-              <p class="title-toast">
+            <div className="content-toast">
+              <p className="title-toast">
                 ${title}
               </p>
-              <p class="message-toast">
+              <p className="message-toast">
                 ${message}
               </p>
             </div>
-           <div class='close-toast'>
+           <div className='close-toast'>
             <img
                 src='/img/image-icon/close-icon.png'
                 alt="banner cart"
-                class=" w-full h-full object-cover"
+                className=" w-full h-full object-cover"
               />
             </div>`;
 

@@ -110,8 +110,8 @@ export default function ListProductCategory(props: IProps) {
 
           <div className="hidden max-md:flex w-full overflow-x-auto hide-scrollbar-global">
             {dataListProductInit && dataListProductInit?.item?.length > 0 ? (
-              map(dataListProductInit?.item, (item) => (
-                <div className="min-w-[45.2rem] mr-[3.2rem]">
+              map(dataListProductInit?.item, (item, index) => (
+                <div className="min-w-[45.2rem] mr-[3.2rem]" key={index}>
                   <ItemMobile itemProduct={item} />
                 </div>
               ))
@@ -165,8 +165,8 @@ export default function ListProductCategory(props: IProps) {
             </div>
             <div className="hidden max-md:flex grow w-full overflow-x-auto hide-scrollbar-global overflow-hidden h-[66.26667rem]">
               {dataListProductInit && dataListProductInit?.item.length > 0 ? (
-                map(dataListProductInit?.item, (item) => (
-                  <div className="min-w-[45.2rem] mr-[3.2rem]">
+                map(dataListProductInit?.item, (item, index) => (
+                  <div className="min-w-[45.2rem] mr-[3.2rem]" key={index}>
                     <ItemMobile itemProduct={item} />
                   </div>
                 ))

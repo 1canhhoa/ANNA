@@ -38,13 +38,12 @@ interface IParamsFilter {
 export default function FilterListProductChooseGlass(props: IProps) {
   const { listAttribute, searchParams, listAttributeNew, routerSearchCustom } =
     props;
-
   const refListProduct = useRef<any>();
   const isShowModalMobile = useBoolean(false);
   const [dataInit, setDataInit] = useState<any>([]);
   const [keyMapFilter, setKeyMapFilter] = useState<any>({});
   const [paramsFilter, setParamsFilter] = useState<IParamsFilter[]>([]);
-  const [paramRouterGetApi, setParamRouterGetApi] = useState<any>(undefined);
+  const [paramRouterGetApi, setParamRouterGetApi] = useState<any>("");
   const [queryStateFilter, setQueryStateFilter] = useQueryStates<any>(
     keyMapFilter,
     {
@@ -82,7 +81,7 @@ export default function FilterListProductChooseGlass(props: IProps) {
   ];
 
   const bodyGetListProduct: any = {
-    url: `wp-json/product/v1/products/filter?per_page=12&page=${dataPagination.currentPage}${routerSearchCustom}&${paramRouterGetApi}`,
+    url: `wp-json/product/v1/products/filter?per_page=12&page=${dataPagination.currentPage}${routerSearchCustom}${paramRouterGetApi?`&${paramRouterGetApi}`:""}`,
     method: 'get',
   };
 
@@ -132,6 +131,10 @@ export default function FilterListProductChooseGlass(props: IProps) {
   };
 
   const onChange = (atttribute?: any, slugSubAttribute?: string): void => {
+
+    console.log("atttribute", atttribute);
+    console.log("slugSubAttribute", slugSubAttribute);
+
     // check available attributte
     const findItemAdded = paramsFilter.filter(
       (item) => item.atttribute === atttribute
@@ -191,67 +194,6 @@ export default function FilterListProductChooseGlass(props: IProps) {
     handleScrollProduct();
   }, [dataPagination]);
 
-  // useEffect(() => {
-  //   if (paramsFilter.length > 0) {
-  //     let paramTmp = '';
-  //     // eslint-disable-next-line array-callback-return
-  //     paramsFilter.map((itemParams) => {
-  //       if (itemParams.subAtttribute.length > 0) {
-  //         paramTmp = `${paramTmp}&attribute=${itemParams.atttribute}`;
-  //
-  //         // eslint-disable-next-line array-callback-return
-  //         itemParams.subAtttribute.map((itemSubcate) => {
-  //           paramTmp = `${paramTmp}&terms[]=${itemSubcate}`;
-  //         });
-  //       }
-  //     });
-  //
-  //     setParamRouterGetApi(paramTmp.replace(paramTmp[0], ''));
-  //     getlistProduct.mutate();
-  //   }
-  // }, [paramsFilter, getlistProduct.data]);
-
-  // useEffect(() => {
-  //   if (searchParams) {
-  //     let searchParamsString = '';
-  //     for (const [key, value] of Object.entries(searchParams)) {
-  //       if (key.length > 0) {
-  //         searchParamsString = `${searchParamsString}&attribute=${key}`;
-  //
-  //         // @ts-ignore
-  //         const arrayValue = value.split(',');
-  //
-  //         // push array param filter to handle group checkbox
-  //         const newObject: IParamsFilter = {
-  //           atttribute: key ?? '',
-  //           subAtttribute: [arrayValue ?? ''],
-  //         };
-  //         setParamsFilter([...paramsFilter, newObject]);
-  //
-  //         // eslint-disable-next-line no-loop-func
-  //         map(arrayValue, (item) => {
-  //           searchParamsString = `${searchParamsString}&terms[]=${item}`;
-  //         });
-  //       }
-  //     }
-  //
-  //     setParamRouterGetApi(
-  //       searchParamsString.replace(searchParamsString[0], '')
-  //     );
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (listAttributeConvert) {
-  //     const listKeyRouterTmp: any = {};
-  //     // map(
-  //     //   listAttributeConvert,
-  //     //   (item: any, index: number) =>
-  //     //     (listKeyRouterTmp[item.listAttribute[0].taxonomy] = 1)
-  //     // );
-  //     // setKeyMapFilter(listKeyRouterTmp);
-  //   }
-  // }, []);
 
   return (
     <div className="filter-list-product-container">

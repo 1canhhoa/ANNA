@@ -104,7 +104,7 @@ function PaginationGlobal(props: IProps) {
       <div role="button" onClick={prevPage}>
         <ICArrowLeft stroke="#55D5D2" />
       </div>
-      {map(arrayPagination(), (item) => (
+      {map(arrayPagination(), (item, index) => (
         <button
           type="button"
           onClick={() => handlePagination(item.currentPage)}
@@ -114,6 +114,7 @@ function PaginationGlobal(props: IProps) {
               ? 'active'
               : 'inactive'
           )}
+          key={index}
         >
           {item.currentPage}
         </button>

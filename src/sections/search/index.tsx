@@ -87,8 +87,8 @@ export default function Search(props: IProps) {
           </div>
 
           <div className="hidden max-md:flex w-full overflow-x-auto hide-scrollbar-global">
-            {map(listSearchSwiper, (item) => (
-              <div className="min-w-[45.2rem] mr-[3.2rem]">
+            {map(listSearchSwiper, (item, index) => (
+              <div className="min-w-[45.2rem] mr-[3.2rem]" key={index}>
                 <ItemMobile itemProduct={item} />
               </div>
             ))}
@@ -120,8 +120,8 @@ export default function Search(props: IProps) {
               {/* /> */}
             </div>
             <div className="hidden max-md:flex grow w-full overflow-x-auto hide-scrollbar-global overflow-hidden h-[66.26667rem]">
-              {map(listSearchSwiper, (item) => (
-                <div className="min-w-[45.2rem] mr-[3.2rem]">
+              {map(listSearchSwiper, (item, index) => (
+                <div className="min-w-[45.2rem] mr-[3.2rem]" key={index}>
                   <ItemMobile itemProduct={item} />
                 </div>
               ))}
