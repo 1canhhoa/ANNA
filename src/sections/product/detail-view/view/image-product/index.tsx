@@ -187,6 +187,8 @@ function ImageProduct(props: IProps) {
     setItemImagePreview(dataInit?.featuredImage);
   }, []);
 
+  console.log("itemImagePreview", itemImagePreview);
+
   return (
     <div className="left-detail w-[47rem] flex-col justify-center max-md:block max-md:w-full max-md:mb-[1.5rem]">
       {/* {JSON.stringify(dataGetWishList.data)} */}
@@ -213,7 +215,7 @@ function ImageProduct(props: IProps) {
                 <ZoomScaleImage
                   width="47rem"
                   height="47rem"
-                  image={itemImagePreview}
+                  imageProps={itemImagePreview}
                   scale={1.5}
                   alt="image product"
                 />
@@ -222,7 +224,7 @@ function ImageProduct(props: IProps) {
                   height={200}
                   width={200}
                   className="w-[47rem] h-[47rem] object-cover"
-                  src="/img/about-us/content2.jpg"
+                  src="/img/no_image.jpg"
                   alt="no-image"
                 />
               )}

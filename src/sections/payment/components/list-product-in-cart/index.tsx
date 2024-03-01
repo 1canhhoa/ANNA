@@ -103,7 +103,10 @@ export default function ListProductInCart() {
                   height={60}
                   width={60}
                   className="w-[4.75rem] h-[4.75rem] max-md:w-[16rem] max-md:h-[16rem]"
-                  src={item.product_image || "https://kinhmatanna.com/wp-content/uploads/2023/09/TU-1636-600x600.png"}
+                  src={
+                    item.product_image ||
+                    'https://kinhmatanna.com/wp-content/uploads/2023/09/TU-1636-600x600.png'
+                  }
                   alt=""
                 />
                 <div className="flex items-center ml-[1rem] max-md:mt-[2rem]">

@@ -70,7 +70,7 @@ function NewCollection({
             href="/cua-hang"
             className="see-more cursor-pointer flex lg:hidden items-center"
           >
-            {/*<ArrowRight className="text-[#C5C5C5]" />*/}
+            {/* <ArrowRight className="text-[#C5C5C5]" /> */}
             <ICVectorRight width={16} height={16} fill="#C5C5C5" />
             <p className="text-[#C5C5C5] text-[2.88rem] md:text-lg font-black ml-[0.9rem] pt-[0.4rem]">
               Xem tất cả

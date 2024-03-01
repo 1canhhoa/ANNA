@@ -7,7 +7,6 @@ import ICBag from '@/components/Icons/ICBag';
 import { IDetailProductRes } from '@/types/types-general';
 import { formatCurrencyVND } from '@/ultils/format-price';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import useSWR from 'swr';
 
 import './style.css';
 import Link from 'next/link';
@@ -16,14 +15,13 @@ import map from 'lodash.map';
 import { useBoolean } from '@/hooks/use-boolean';
 import { cn } from '@/lib/utils';
 import ICArrowRight2 from '@/components/Icons/ICArrowRight2';
-import { postData } from '@/lib/post-data';
 import { ProductCartContext } from '@/context-provider';
-import { onError, onSuccess } from '@/ultils/notification';
+import { onError } from '@/ultils/notification';
 
 interface IProps {
   dataInit?: IDetailProductRes;
   handleChangeColorGetApi: (value: any) => void;
-  handleAddToCart: (data: any, quantity: any) => void;
+  handleAddToCart: any;
   isLoadingAddToCart: boolean;
   dataTransportRes?: any;
   dataChangeRes?: any;
@@ -47,9 +45,9 @@ function InfoProduct(props: IProps) {
     variantProductSelected,
   } = props;
 
-  console.log('dataInit', dataInit);
-
   const { isShowPopupChooseGlasses } = useContext(ProductCartContext);
+  const { listCartGlobal } = useContext<any>(ProductCartContext);
+
   const inventoryRef = useRef<any>(null);
   const refInfo = useRef<any>(null);
   const refTranform = useRef<any>(null);
@@ -67,6 +65,10 @@ function InfoProduct(props: IProps) {
   });
   const [stockQuantity, setStockQuantity] = useState(dataInit?.stock_quantity);
   const [dataCheckInventory, setDataCheckInventory] = useState<any>();
+  const [isProductCheckInventory, setIsProductCheckInventory] = useState(
+    dataInit?.id
+  );
+  const isLoadingInventory = useBoolean(false);
 
   // GET Return product
 
@@ -74,7 +76,7 @@ function InfoProduct(props: IProps) {
     setDataProductSubmit({
       ...dataProductSubmit,
       color: detailProduct.attributes.attribute_color,
-      idColor: detailProduct.id,
+      idColor: detailProduct.variation_id,
     });
     setStockQuantity(detailProduct.max_qty);
     handleChangeColorGetApi(detailProduct);
@@ -85,6 +87,10 @@ function InfoProduct(props: IProps) {
         quantityProduct: detailProduct.max_qty,
       });
     }
+
+    console.log('detailProduct.id', detailProduct);
+
+    setIsProductCheckInventory(detailProduct.variation_id);
   };
 
   const handleHiddenInfor = (e: any, value: number) => {
@@ -123,6 +129,51 @@ function InfoProduct(props: IProps) {
     });
   };
 
+  const checkStockQuantity = () => {
+    const listCartHandle = listCartGlobal;
+
+    const findItemAvailabelStorage = listCartHandle.filter(
+      (itemProduct: any) =>
+        itemProduct?.product_id === dataInit?.id &&
+        itemProduct?.variant_id === variantProductSelected.variant_id
+    );
+
+    if (findItemAvailabelStorage.length > 0) {
+      return (
+        findItemAvailabelStorage[0].stock_quantity -
+          findItemAvailabelStorage[0].quantity >=
+        dataProductSubmit.quantityProduct
+      );
+    }
+
+    return true;
+  };
+
+  const addToCart = (): void => {
+    if (!checkStockQuantity()) {
+      onError({
+        message: 'Số lượng tồn kho không đủ.',
+      });
+      return;
+    }
+
+    if (
+      dataInit?.variations &&
+      dataInit?.variations.length > 0 &&
+      variantProductSelected.variant_id.length === 0
+    ) {
+      onError({ message: 'Vui lòng chọn màu sắc sản phẩm.' });
+    } else {
+      if (dataProductSubmit.quantityProduct > 0) {
+        handleAddToCart({
+          dataItemProduct: dataInit,
+          quantityProduct: dataProductSubmit.quantityProduct,
+          stock_quantity: stockQuantity,
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     const priceProduct = dataInit?.price ? parseInt(dataInit.price, 10) : 0;
     setPriceProduct(priceProduct);
@@ -140,21 +191,24 @@ function InfoProduct(props: IProps) {
     const fetchInventory = async () => {
       const res = await fetch('/api/check-inventory', {
         method: 'POST',
-        body: JSON.stringify({ id: dataInit?.id }),
+        body: JSON.stringify({ id: isProductCheckInventory }),
       });
 
       const data = res.json();
       return data;
     };
 
+    isLoadingInventory.onTrue();
     fetchInventory()
       .then((res) => {
         const resInventory = JSON.parse(res);
         setDataCheckInventory(resInventory?.data);
+        isLoadingInventory.onFalse();
       })
-      .catch((res) => console.log('check res error', res));
-  }, []);
-
+      .catch((res) => {
+        isLoadingInventory.onFalse();
+      });
+  }, [isProductCheckInventory]);
 
   return (
     <div className="info-detail-product right-detail grow max-lg:ml-[1.76rem]  ml-[3.76rem] max-md:mt-0 max-md:ml-[0rem] max-md:relative max-md:w-full">
@@ -268,7 +322,7 @@ function InfoProduct(props: IProps) {
                   ? addQuantityProduct
                   : undefined
               }
-              style={{ cursor: "pointer" }}
+              style={{ cursor: 'pointer' }}
               className="select-none px-[1.5rem] py-[0.8rem] max-lg:ml-[.5rem] w-[0.6875rem] text-[1.25rem] font-bold leading-[1.875rem]"
             >
               +
@@ -276,19 +330,7 @@ function InfoProduct(props: IProps) {
           </div>
           <button
             disabled={isLoadingAddToCart}
-            onClick={() => {
-              if (
-                dataInit?.variations &&
-                dataInit?.variations.length > 0 &&
-                variantProductSelected.variant_id.length === 0
-              ) {
-                onError({ message: 'Vui lòng chọn màu sắc sản phẩm.' });
-              } else {
-                if (dataProductSubmit.quantityProduct > 0) {
-                  handleAddToCart(dataInit, dataProductSubmit.quantityProduct);
-                }
-              }
-            }}
+            onClick={addToCart}
             type="button"
             className={cn(
               'cursor-pointer flex items-center grow bg-blueAnna max-lg:whitespace-nowrap max-lg:px-[0.75rem] text-white text-[1rem] font-extrabold leading-[1.4rem] px-[1.25rem] h-full rounded-[6.25rem] ml-[1.5rem] max-sm:w-full max-sm:ml-0 max-sm:justify-between max-lg:ml-[0.5rem]',
@@ -352,7 +394,7 @@ function InfoProduct(props: IProps) {
             : inventoryRef?.current?.getBoundingClientRect().height,
         }}
         className={cn(
-          "relative overflow-hidden transition-all duration-300  py-[0.9375rem] max-md:hidden"
+          'relative overflow-hidden transition-all duration-300  py-[0.9375rem] max-md:hidden'
         )}
       >
         <div
@@ -361,9 +403,15 @@ function InfoProduct(props: IProps) {
             isShowInventory.value ? 'border-[#F58F5D]' : ''
           )}
         >
-          <span className="text-[1rem] text-[#6A6A6A] not-italic font-medium leading-[1.5rem]">
-            Còn {dataCheckInventory?.total ?? 0} sản phẩm
-          </span>
+          <div>
+            {isLoadingInventory.value ? (
+              <LoadingGlobal stroke="#6A6A6A" />
+            ) : (
+              <span className="text-[1rem] text-[#6A6A6A] not-italic font-medium leading-[1.5rem]">
+                Còn {dataCheckInventory?.total ?? 0} sản phẩm
+              </span>
+            )}
+          </div>
 
           <button
             type="button"

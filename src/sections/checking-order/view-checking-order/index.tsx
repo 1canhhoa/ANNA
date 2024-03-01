@@ -101,11 +101,11 @@ function ViewCheckingOrder(props: IProps) {
                   Đơn giá
                 </div>
               </div>
-              {/*<div className="amount-product-title">*/}
-              {/*  <div className="font-bold text-white text-[1rem] not-italic leading-[1.5rem]">*/}
-              {/*    Phân loại*/}
-              {/*  </div>*/}
-              {/*</div>*/}
+              {/* <div className="amount-product-title"> */}
+              {/*  <div className="font-bold text-white text-[1rem] not-italic leading-[1.5rem]"> */}
+              {/*    Phân loại */}
+              {/*  </div> */}
+              {/* </div> */}
               <div className="total-product-title">
                 <div className="font-bold text-white text-[1rem] not-italic  leading-[1.5rem]">
                   Số luợng
@@ -148,11 +148,11 @@ function ViewCheckingOrder(props: IProps) {
                           formatCurrencyVND(item.product_price.toString())}
                       </div>
                     </div>
-                    {/*<div className="amount-product">*/}
-                    {/*  <p className="text-[1rem] font-medium leading-[1.5rem] font-Nexa-Normal">*/}
-                    {/*    {item?.category}*/}
-                    {/*  </p>*/}
-                    {/*</div>*/}
+                    {/* <div className="amount-product"> */}
+                    {/*  <p className="text-[1rem] font-medium leading-[1.5rem] font-Nexa-Normal"> */}
+                    {/*    {item?.category} */}
+                    {/*  </p> */}
+                    {/* </div> */}
                     <div className="total-product ">
                       <span className="text-[1rem] font-medium leading-[1.5rem] font-Nexa-Normal">
                         {item?.quantity}
@@ -196,14 +196,14 @@ function ViewCheckingOrder(props: IProps) {
               {formatCurrencyVND(dataGetDetailOrder?.total.toString())}
             </span>
           </div>
-          {/*<div className="mb-[0.3rem] flex justify-between">*/}
-          {/*  <span className="text-[1rem] font-medium not-italic max-md:text-[3.2rem] max-md:font-Nexa-Bold">*/}
-          {/*    Vận chuyển:*/}
-          {/*  </span>*/}
-          {/*  <span className="text-[0.875rem] font-semibold leading-[1.3125rem] font-Nexa-Medium not-italic max-md:text-[3.2rem] max-md:leading-[5.6rem]">*/}
-          {/*    540.000 đ*/}
-          {/*  </span>*/}
-          {/*</div>*/}
+          {/* <div className="mb-[0.3rem] flex justify-between"> */}
+          {/*  <span className="text-[1rem] font-medium not-italic max-md:text-[3.2rem] max-md:font-Nexa-Bold"> */}
+          {/*    Vận chuyển: */}
+          {/*  </span> */}
+          {/*  <span className="text-[0.875rem] font-semibold leading-[1.3125rem] font-Nexa-Medium not-italic max-md:text-[3.2rem] max-md:leading-[5.6rem]"> */}
+          {/*    540.000 đ */}
+          {/*  </span> */}
+          {/* </div> */}
           <div className="mb-[0.75rem] flex justify-between">
             <span className="text-[1rem] font-medium not-italic max-md:text-[3.2rem] max-md:font-Nexa-Bold">
               Phương thức thanh toán:

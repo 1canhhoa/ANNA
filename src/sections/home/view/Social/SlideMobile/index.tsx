@@ -72,9 +72,9 @@ export default function SlideMobileSocial() {
         ))}
       </Swiper>
 
-      <div className="prev-slide-social absolute left-0 top-0 w-[10vw] h-full flex z-20"></div>
+      <div className="prev-slide-social absolute left-0 top-0 w-[10vw] h-full flex z-20" />
 
-      <div className="next-slide-social absolute right-0 top-0 w-[10vw] h-full flex z-20"></div>
+      <div className="next-slide-social absolute right-0 top-0 w-[10vw] h-full flex z-20" />
       {/* <div className="absolute left-0 top-0 w-full h-full z-30"> */}
       {/*  <div className="flex justify-between h-full w-full"> */}
       {/*    <div className="h-full w-1/4 " /> */}
