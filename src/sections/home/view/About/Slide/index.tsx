@@ -42,16 +42,16 @@ function SliceAbout({ dataInfo }: IpropSlideAbout) {
               alt=""
               width={612}
               height={488}
-              className=" w-full h-[82.4rem] md:h-[30.5rem] object-cover max-sm:rounded-[4.26667rem] lg:rounded-[1.25rem] border-0 md:border-[6px] border-solid border-[#E6F9F8]"
+              className=" w-full h-[82.4rem] lg:h-[30.5rem] max-md:h-[71.5rem] object-cover max-sm:rounded-[4.26667rem] lg:rounded-[1.25rem] border-0 md:border-[6px] border-solid border-[#E6F9F8] max-md:object-cover max-lg:object-fill"
             />
             <div className="absolute bottom-12 w-full p-[2px] md:p-[6px]">
               <div className="max-sm:flex items-center justify-between max-sm:bg-[#828282]/30 max-sm:rounded-[4.26667rem] max-sm:p-[1rem]">
-                <div className="p-8 md:p-3 md:bg-black/30 max-sm:rounded-[4.26667rem] md:rounded-[1rem] backdrop-blur-[4px] md:backdrop-blur-[12.5px] lg:py-[1.13rem] lg:pl-[1.31rem] lg:pr-[1.94rem]">
-                  <h4 className="text-left text-white text-[3.36rem] md:text-2xl lg:text-[1.5rem] font-black uppercase leading-[1.2]">
+                <div className="p-8 md:p-[1.75rem] lg:p-3 md:bg-black/30 max-sm:rounded-[4.26667rem] md:rounded-[1rem] backdrop-blur-[4px] md:backdrop-blur-[12.5px] lg:py-[1.13rem] lg:pl-[1.31rem] lg:pr-[1.94rem]">
+                  <h4 className="text-left text-white text-[3.36rem] md:text-[2.5rem] md:leading-[4rem] lg:leading-[1.2] lg:text-[1.5rem] font-black uppercase leading-[1.2]">
                     {info?.title}
                   </h4>
                   <div className="text-white flex justify-between lg:mt-[0.12rem]">
-                    <p className="text-[2.88rem] md:text-[2.5rem] md:text-lg lg:text-[1.125rem] leading-[4.16rem] md:leading-[1.4] font-semibold lg:w-[23.5625rem] max-sm:max-w-[67rem]">
+                    <p className="text-[2.88rem] md:text-[2.125rem] lg:text-[1.125rem] leading-[4.16rem] md:leading-[1.4] font-semibold lg:w-[23.5625rem] max-sm:max-w-[67rem]">
                       {info?.location}
                     </p>
                     <div className="hidden md:block">
