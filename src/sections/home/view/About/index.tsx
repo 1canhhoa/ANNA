@@ -32,47 +32,51 @@ function AboutHome({ dataAbout }: IPropAbout) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.to(container.current, {
-        scrollTrigger: {
-          trigger: refs.current,
-          scrub: true,
-          start: `top top`,
-          end: `+=600`,
-        },
-        y: '-30%',
-      });
-      gsap.to('#box_q12', {
-        scrollTrigger: {
-          trigger: box.current,
-          scrub: true,
-          start: `top top`,
-          end: `+=600`,
-        },
-        top: '43%',
-        translateY: '-50%',
-      });
-      gsap.to(refs.current, {
-        scrollTrigger: {
-          trigger: box.current,
-          scrub: true,
-          start: `top top`,
-          end: `+=600`,
-        },
-        opacity: 1,
-        ease: 'none',
-        stagger: 0.1,
-      });
-      gsap.to(box.current, {
-        scrollTrigger: {
-          trigger: box.current,
-          scrub: true,
-          start: `top top`,
-          end: `+=600`,
-          pin: true,
-          pinSpacing: true,
-        },
+      let mm = gsap.matchMedia();
+      mm.add('(min-width: 1024px)', () => {
+        gsap.to(container.current, {
+          scrollTrigger: {
+            trigger: refs.current,
+            scrub: true,
+            start: `top top`,
+            end: `+=600`,
+          },
+          y: '-30%',
+        });
+        gsap.to('#box_q12', {
+          scrollTrigger: {
+            trigger: box.current,
+            scrub: true,
+            start: `top top`,
+            end: `+=600`,
+          },
+          top: '43%',
+          translateY: '-50%',
+        });
+        gsap.to(refs.current, {
+          scrollTrigger: {
+            trigger: box.current,
+            scrub: true,
+            start: `top top`,
+            end: `+=600`,
+          },
+          opacity: 1,
+          ease: 'none',
+          stagger: 0.1,
+        });
+        gsap.to(box.current, {
+          scrollTrigger: {
+            trigger: box.current,
+            scrub: true,
+            start: `top top`,
+            end: `+=600`,
+            pin: true,
+            pinSpacing: true,
+          },
+        });
       });
     }, box);
+
     return () => {
       ctx.revert();
     };
@@ -140,13 +144,13 @@ function AboutHome({ dataAbout }: IPropAbout) {
         <div className="py-[6.67rem] md:py-24 flex md:pb-[9rem] justify-between flex-wrap h-full">
           <div
             ref={container}
-            className="w-full lg:w-[44.5rem] px-4 md:px-[2rem] lg:px-0 pt-10 about_paragraph"
+            className="w-full lg:w-[44.5rem] px-4 md:px-[2rem] lg:px-0 pt-10 about_paragraph max-md:mb-[20rem]"
           >
             <h4 className="text-white text-[3rem] max-md:text-[7.65rem] font-black uppercase leading-[1.2]">
               {dataAbout?.title}
             </h4>
             <div className="about-card-content max-sm:pt-[2.13rem]">
-              <div className="about-content hidden md:flex max-sm:leading-[8.32rem]">
+              <div className="about-content hidden md:flex max-sm:leading-[8.32rem] max-lg:!text-white max-lg:opacity-1">
                 {splitWords(dataAbout?.description)}
               </div>
             </div>
@@ -154,7 +158,7 @@ function AboutHome({ dataAbout }: IPropAbout) {
 
           <div
             id="box_q12"
-            className="hidden md:block w-full lg:w-[39rem] px-4 lg:pb-[7rem] lg:px-0 absolute top-[8.5rem] right-0"
+            className="hidden md:block w-full lg:w-[39rem] px-4 lg:pb-[7rem] lg:px-0 absolute top-[8.5rem] right-0 max-lg:relative max-md:absolute max-lg:mb-[36rem] max-md:mb-0"
           >
             <div className=" md:relative w-full h-full">
               <AspectRatio ratio={5 / 4}>
@@ -164,7 +168,7 @@ function AboutHome({ dataAbout }: IPropAbout) {
                   className="search-about-slide flex justify-between items-center pl-[10rem] md:pl-[2.75rem] pr-1 py-[1.25rem] md:py-[0.25rem] bg-orange-400 rounded-[26rem] md:rounded-[3.125rem] border-[1px] border-[#55D5D2]"
                 >
                   <div>
-                    <p className="text-[4.48179rem] md:text-[1rem] font-extrabold text-white">
+                    <p className="text-[4.48179rem] md:text-[2rem] lg:text-[1rem] font-extrabold text-white">
                       TÌM KIẾM CỬA HÀNG GẦN BẠN
                     </p>
                   </div>

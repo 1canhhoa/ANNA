@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
@@ -18,11 +18,16 @@ const Checkbox = React.forwardRef<
     )}
     {...props}
   >
-    <CheckboxPrimitive.Indicator
-      className={cn('flex items-center justify-center text-current')}
-    >
-      <Check strokeWidth={3} className="h-full w-full" />
-    </CheckboxPrimitive.Indicator>
+    <div className="relative h-full">
+      <CheckboxPrimitive.Indicator
+        className={cn('flex items-center justify-center text-current')}
+      >
+        <Check strokeWidth={3} className="h-full w-full" />
+      </CheckboxPrimitive.Indicator>
+      <div className="absolute right-0 translate-x-full top-1/2 -translate-y-1/2 h-fit w-fit">
+        {children}
+      </div>
+    </div>
   </CheckboxPrimitive.Root>
 ));
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;

@@ -231,10 +231,11 @@ export default function FilterListProduct(props: IProps) {
                           }
                           id={`${item.label}-${index}`}
                           className="border-[#ccc] border-[1px] h-[4rem] w-[4rem]"
-                        />
-                        <label htmlFor={`${item.label}-${index}`} className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] text-[#454545] text-[4rem] leading-[5.5rem]">
-                          {itemSubAttribute.name}
-                        </label>
+                        >
+                          <span className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] cursor-pointer text-[#454545] text-[1rem]">
+                            {itemSubAttribute.name}
+                          </span>
+                        </Checkbox>
                       </div>
                     )
                   )}
@@ -266,10 +267,11 @@ export default function FilterListProduct(props: IProps) {
                           )
                         }
                         className="border-[#ccc] border-[1px]"
-                      />
-                      <label htmlFor={`${item.label}-${index}`} className="font-medium line-clamp-1 text-nowrap ml-[0.7rem]">
-                        {itemSubAttribute.name}
-                      </label>
+                      >
+                        <span className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] cursor-pointer text-[#454545] text-[1rem]">
+                          {itemSubAttribute.name}
+                        </span>
+                      </Checkbox>
                     </div>
                   )
                 )}
