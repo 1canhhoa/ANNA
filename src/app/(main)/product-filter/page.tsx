@@ -8,8 +8,6 @@ const ProductFilterPage = async ({ searchParams, params: { query } }: any) => {
     routerSearchCustom = `${routerSearchCustom}&${keyAttribute}=${valueAttribute}`;
   }
 
-  console.log(searchParams)
-
   const bodyGetlistAttribute: any = {
     url: `wp-json/custom/v1/attributes`,
     method: 'get',

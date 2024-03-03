@@ -9,12 +9,13 @@ import { ProductCartContext } from "@/context-provider";
 import { onError } from "@/ultils/notification";
 
 interface IProps {
-  dataInit?: IDetailProductRes;
+  dataInit?: any;
   listColorProduct?: any;
   handleAddToCart: any;
   isLoadingAddToCart?: boolean;
   variantProductSelected?: any;
   handleChangeColorGetApi?: any;
+  dataListColor?: any
 }
 
 export function Fixed(props: IProps) {
@@ -25,6 +26,8 @@ export function Fixed(props: IProps) {
     variantProductSelected,
     isLoadingAddToCart,
     handleChangeColorGetApi,
+    dataListColor
+
   } = props;
   const [dataProductSubmit, setDataProductSubmit] = useState<any>({
     color: '',
@@ -32,13 +35,12 @@ export function Fixed(props: IProps) {
   });
   const [stockQuantity, setStockQuantity] = useState(dataInit?.stock_quantity);
 
-  console.log('listColorProduct', listColorProduct);
   const { listCartGlobal } = useContext<any>(ProductCartContext);
   const handleChangeColor = (item: any) => {
-    setStockQuantity(dataInit?.max_qty);
+    setStockQuantity(item.qty);
     setDataProductSubmit({
-      color: item?.attributes?.attribute_color,
-      image: item?.image?.full_src,
+      color: item.color,
+      image: item.image?.full_src,
     });
     handleChangeColorGetApi(item);
   };
@@ -84,11 +86,6 @@ export function Fixed(props: IProps) {
         stock_quantity: stockQuantity,
       });
     }
-    //
-    // handleAddToCart({
-    //   dataItemProduct: dataInit,
-    //   quantityProduct: 1,
-    // });
   };
 
   useEffect(() => {
@@ -125,29 +122,36 @@ export function Fixed(props: IProps) {
                 </p>
               )}
 
-              {listColorProduct.length > 0 && (
+              {dataListColor && dataListColor.length > 0 && (
                 <ul className=" list-color flex mt-[1.06rem] max-md:hidden">
-                  {listColorProduct.map((item: any, index: number) => (
-                    // <Link href={{pathname: "/detail/[id]",query: { id: item.id },}}>
+                  {dataListColor.map((item: any, index: number) => (
                     <li
-                      // role="button"
                       key={index}
                     >
                       <div
                         style={{
-                          backgroundColor: item.attributes.attribute_color,
+                          backgroundColor: item.value[0],
                           borderColor:
-                            item.attributes.attribute_color ===
+                          item.value[0] ===
                             dataProductSubmit.color
                               ? '#55D5D2'
-                              : item.attributes.attribute_color,
+                              : item.value[0],
                         }}
                         role="button"
-                        onClick={() => handleChangeColor(item)}
+                        onClick={() => {
+                          let colorSlug = item.slug
+                          let activeItem = dataInit.variations.find((item: any) => item.attributes.attribute_pa_color === colorSlug);
+                        return handleChangeColor({
+                          variation_id: activeItem.variation_id,
+                          color: item.value[0],
+                          qty: activeItem.max_qty,
+                          image: activeItem.image,
+                          colorName: item.name
+                        })
+                      }}
                         className="h-[1.25rem] w-[1.25rem] rounded-full border-2 mr-[1rem] transition-all duration-300"
                       />
                     </li>
-                    // </Link>
                   ))}
                 </ul>
               )}
@@ -160,10 +164,10 @@ export function Fixed(props: IProps) {
           {dataInit?.price && formatCurrencyVND(dataInit?.price.toString())}
         </p>
         <button
-          disabled={isLoadingAddToCart}
+          disabled={isLoadingAddToCart || (dataInit.variations && variantProductSelected.variant_id.length === 0)}
           type="button"
           onClick={handleCart}
-          className="py-[0.94rem] px-[1.88rem] bg-[#55D5D2] rounded-[3.125rem] flex items-center"
+          className="py-[0.94rem] px-[1.88rem] bg-[#55D5D2] rounded-[3.125rem] flex items-center disabled:cursor-not-allowed disabled:opacity-50"
         >
           <div className="max-md:hidden">
             {isLoadingAddToCart && <LoadingGlobal height={1} width={1} />}

@@ -19,13 +19,14 @@ import { ProductCartContext } from '@/context-provider';
 import { onError } from '@/ultils/notification';
 
 interface IProps {
-  dataInit?: IDetailProductRes;
+  dataInit?: any;
   handleChangeColorGetApi: (value: any) => void;
   handleAddToCart: any;
   isLoadingAddToCart: boolean;
   dataTransportRes?: any;
   dataChangeRes?: any;
   variantProductSelected?: any;
+  dataListColor?:any
 }
 
 interface IDataProduct {
@@ -43,6 +44,7 @@ function InfoProduct(props: IProps) {
     dataTransportRes,
     dataChangeRes,
     variantProductSelected,
+    dataListColor
   } = props;
 
   const { isShowPopupChooseGlasses } = useContext(ProductCartContext);
@@ -75,10 +77,10 @@ function InfoProduct(props: IProps) {
   const handleChangeColor = (detailProduct: any) => {
     setDataProductSubmit({
       ...dataProductSubmit,
-      color: detailProduct.attributes.attribute_color,
+      color: detailProduct.color,
       idColor: detailProduct.variation_id,
     });
-    setStockQuantity(detailProduct.max_qty);
+    setStockQuantity(detailProduct.qty);
     handleChangeColorGetApi(detailProduct);
 
     if (dataProductSubmit.quantityProduct > detailProduct.max_qty) {
@@ -87,9 +89,6 @@ function InfoProduct(props: IProps) {
         quantityProduct: detailProduct.max_qty,
       });
     }
-
-    console.log('detailProduct.id', detailProduct);
-
     setIsProductCheckInventory(detailProduct.variation_id);
   };
 
@@ -248,34 +247,37 @@ function InfoProduct(props: IProps) {
         )}
       </div>
 
-      <ul className="max-lg:mt-[1.06rem] max-lg:mb-[2.31rem] list-color flex mt-[2.06rem] mb-[3.31rem] max-md:hidden">
-        {dataInit?.variations &&
-          dataInit?.variations.map((item: any, index: number) => (
-            // <Link href={{pathname: "/detail/[id]",query: { id: item.id },}}>
+      <ul className="max-lg:mt-[1.06rem] max-lg:mb-[2.31rem] list-color flex mt-[2.06rem] mb-[3.31rem]">
+        {dataInit?.variations && dataListColor &&
+          dataListColor?.map((item: any, index: number) => (
             <li
-              // role="button"
               key={index}
             >
               <div
                 style={{
-                  backgroundColor: item.attributes.attribute_color,
+                  backgroundColor: item.value[0],
                   borderColor:
-                    item.attributes.attribute_color === dataProductSubmit.color
+                    item.value[0] === dataProductSubmit.color
                       ? '#55D5D2'
-                      : item.attributes.attribute_color,
+                      : item.value[0],
                 }}
                 role="button"
-                onClick={() => handleChangeColor(item)}
-                className="h-[1.875rem] w-[1.875rem] rounded-full border-2 mr-[1rem]"
+                onClick={() => {
+                    let colorSlug = item.slug
+                    let activeItem = dataInit.variations.find((item: any) => item.attributes.attribute_pa_color === colorSlug);
+                  return handleChangeColor({
+                    variation_id: activeItem.variation_id,
+                    color: item.value[0],
+                    qty: activeItem.max_qty,
+                    image: activeItem.image,
+                    colorName: item.name
+                  })
+                }}
+                className="h-[1.875rem] w-[1.875rem] rounded-full border-2 mr-[1rem] max-lg:h-[6rem] max-lg:w-[6rem]"
               />
             </li>
-            // </Link>
           ))}
       </ul>
-      {/* support */}
-      {/* <p className="w-full max-lg:text-[0.95rem] not-italic max-lg:mb-[2.5rem] w-[31.625rem] text-[1rem] text-[#3F3F3F] font-bold leading-[1.5rem] mb-[3.7rem] max-md:text-[3.73333rem] max-md:leading-[5.6rem] max-md:w-[100%]"> */}
-      {/*  {dataInit?.shortDescription} */}
-      {/* </p> */}
       <div
         dangerouslySetInnerHTML={{
           __html: `<div>${dataInit?.shortDescription
@@ -329,11 +331,11 @@ function InfoProduct(props: IProps) {
             </div>
           </div>
           <button
-            disabled={isLoadingAddToCart}
+            disabled={isLoadingAddToCart || (dataInit.variations && variantProductSelected.variant_id.length === 0)}
             onClick={addToCart}
             type="button"
             className={cn(
-              'cursor-pointer flex items-center grow bg-blueAnna max-lg:whitespace-nowrap max-lg:px-[0.75rem] text-white text-[1rem] font-extrabold leading-[1.4rem] px-[1.25rem] h-full rounded-[6.25rem] ml-[1.5rem] max-sm:w-full max-sm:ml-0 max-sm:justify-between max-lg:ml-[0.5rem]',
+              'cursor-pointer flex items-center grow bg-blueAnna max-lg:whitespace-nowrap max-lg:px-[0.75rem] text-white text-[1rem] font-extrabold leading-[1.4rem] px-[1.25rem] h-full rounded-[6.25rem] ml-[1.5rem] max-sm:w-full max-sm:ml-0 max-sm:justify-between max-lg:ml-[0.5rem] disabled:cursor-not-allowed disabled:opacity-50',
               widthScreen > 767 ? 'box-shadow-button' : '',
               dataProductSubmit.quantityProduct === 0
                 ? 'opacity-75 cursor-not-allowed'

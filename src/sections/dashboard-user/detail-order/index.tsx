@@ -215,8 +215,7 @@ function DetailOrder(props: IProps) {
             </span>
             <span className="text-[0.875rem] font-semibold leading-[1.3125rem] font-Nexa-Medium not-italic max-md:text-[2.88rem] max-md:leading-[5.6rem]">
               540.000 đ
-            </span>
-          </div>
+            </span>          </div>
           <div className="mb-[0.75rem] flex justify-between">
             <span className="text-[1rem] font-medium not-italic max-md:text-[2.88rem] max-md:font-Nexa-Bold">
               Phương thức thanh toán:

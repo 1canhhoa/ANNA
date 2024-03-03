@@ -40,6 +40,7 @@ interface IProps {
   dataProductByAnyCategory: any;
   dataTransportRes?: any;
   dataChangeRes?: any;
+  dataListColor?:any
 }
 
 export const DetailContext = createContext<any>({});
@@ -55,8 +56,8 @@ function ProductDetail(props: IProps) {
     dataProductByAnyCategory,
     dataTransportRes,
     dataChangeRes,
+    dataListColor
   } = props;
-
   const refHeightProductInfo = useRef<any>();
   const { data: session } = useSession();
   const [isShowItemProduct, setIsShowItemProduct] = useState<boolean>(false);
@@ -71,17 +72,11 @@ function ProductDetail(props: IProps) {
   const { handleChangeDataCartGlobal, listCartGlobal } =
     useContext<any>(ProductCartContext);
 
-  // const bodyApi: IPostData = {
-  //   url: `wp-json/custom/v1/products-by-slug/${slug}`,
-  //   method: 'get',
-  // };
-  // const dataDetailProduct = useSWR(bodyApi.url, () => postData(bodyApi));
-
   const handleChangeColorGetApi = (dataItemColor?: any): void => {
     setVariantProductSelected({
       image: dataItemColor?.image?.url,
       variant_id: dataItemColor?.variation_id,
-      color_variant: dataItemColor?.attributes?.attribute_color,
+      color_variant: dataItemColor?.colorName,
     });
   };
 
@@ -257,13 +252,13 @@ function ProductDetail(props: IProps) {
                 dataInit={dataInitDetail}
                 isLoadingAddToCart={isLoadingAddToCart}
                 handleAddToCart={
-                  // handleAddToCartLocalStorage
                   session !== null
                     ? handleAddToCartAPI
                     : handleAddToCartLocalStorage
                 }
                 handleChangeColorGetApi={handleChangeColorGetApi}
                 variantProductSelected={variantProductSelected}
+                dataListColor={dataListColor}
               />
             </div>
           </div>
@@ -480,6 +475,8 @@ function ProductDetail(props: IProps) {
           }
           variantProductSelected={variantProductSelected}
           handleChangeColorGetApi={handleChangeColorGetApi}
+          dataListColor={dataListColor}
+
         />
       </div>
     </div>

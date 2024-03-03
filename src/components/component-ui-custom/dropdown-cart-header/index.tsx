@@ -32,14 +32,17 @@ function DropdownCartHeader(props: IProps) {
   const isLoadingDeleteProduct = useBoolean(false);
   const [listProductInCart, setListProductInCart] = useState([]);
   const [itemSelected, setItemSelected] = useState(null);
+  console.log("listProductInCart", listProductInCart)
 
   const handleDeleteProduct = async (itemCart: any) => {
+    console.log("itemCart", itemCart)
     const listKeyDelete: any[] = [];
     const listItemRemaining: any[] = []; // list product remaining
 
     if (session === null) {
       map(listProductInCart, (item: any) => {
         if (item.product_id === itemCart.product_id) {
+
           listKeyDelete.push({
             key: item.key,
           });

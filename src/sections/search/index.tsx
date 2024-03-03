@@ -20,7 +20,6 @@ interface IProps {
 
 export default function Search(props: IProps) {
   const { listRes, searchParams, listSearchSwiper } = props;
-  // console.log(listSearchSwiper)
   return (
     <div className="list-product-container mb-[2.94rem]">
       {/* banner */}

@@ -22,6 +22,12 @@ const DetaiPage = async ({ params: { slug } }: any) => {
     url: `wp-json/custom/v1/products-by-slug/${slug}`,
     method: 'get',
   };
+
+  const listColorProduct: any = {
+    url: `wp-json/custom/v1/code-color-products-by-slug/${slug}`,
+    method: 'get',
+
+  }
   // // END
 
   // // GET LIST glasses
@@ -71,6 +77,7 @@ const DetaiPage = async ({ params: { slug } }: any) => {
     postData(getProductByAnyCategory),
     postData(getTransport),
     postData(getChange),
+    postData(listColorProduct)
   ];
 
   const [
@@ -82,6 +89,7 @@ const DetaiPage = async ({ params: { slug } }: any) => {
     dataProductByAnyCategoryRes,
     dataTransportRes,
     dataChangeRes,
+    dataListColor
   ] = await Promise.all(arrayPromiseDetail);
 
   return (
@@ -95,6 +103,7 @@ const DetaiPage = async ({ params: { slug } }: any) => {
       dataProductByAnyCategory={dataProductByAnyCategoryRes}
       dataTransportRes={dataTransportRes}
       dataChangeRes={dataChangeRes}
+      dataListColor={dataListColor}
     />
   );
 };
