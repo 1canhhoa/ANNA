@@ -10,7 +10,6 @@ interface IPropsToast {
   durationHide?: number;
   delay?: number;
 }
-
 const toastGlobal = (props: IPropsToast) => {
   const { title, message, durationShow, durationHide, delay, type } = props;
 
@@ -44,45 +43,107 @@ const toastGlobal = (props: IPropsToast) => {
     const toast = document.createElement('div');
 
     // auto remove toast
-    const autoRemoveId = setTimeout(() => {
-      main.removeChild(toast);
-    }, 4500);
+    // const autoRemoveId = setTimeout(() => {
+    //   main.removeChild(toast);
+    // }, 4500);
 
     toast.classList.add('toast-global');
-    toast.style.animation = `toastRightToLeft ease ${durationShowToast}s, hideToast linear ${durationHideToast}s ${delayToast}s forwards`;
+    // toast.style.animation = `toastRightToLeft ease ${durationShowToast}s, hideToast linear ${durationHideToast}s ${delayToast}s forwards`;
     toast.style.borderLeftColor = colorBorderToast;
 
     // close toast
     toast.addEventListener('click', () => {
       main.removeChild(toast);
-      clearTimeout(autoRemoveId);
+      // clearTimeout(autoRemoveId);
     });
 
+    let toastStyle;
+
+    if(window.innerWidth > 1024){
+      toastStyle = {
+        contentToast:{
+            flexGrow: 1
+        },
+        titleToast:{
+          color: "#292828",
+          fontSize: "1.02489rem",
+          fontWeight: '800',
+          lineHeight: '1.43485rem',
+        },
+        msgToast:{
+          color: "#9b9b9b",
+          fontSize: "0.87848rem",
+          fontWeight: '700',
+          lineHeight: '1.14202rem',
+        },
+        startIcon:{
+          marginRight: '0.66rem',
+          width: '2rem',
+          height: '2rem',
+        },
+        endIcon:{
+          width: '1.10117rem',
+          height: '1.10117rem',
+        }
+      }  
+    }else{
+      toastStyle = {
+        contentToast:{
+            flexGrow: 1
+        },
+        titleToast:{
+          color: "#292828",
+          fontSize: "3.6rem",
+          fontWeight: '800',
+          lineHeight: '5.5rem',
+        },
+        msgToast:{
+          color: "#9b9b9b",
+          fontSize: "2.6rem",
+          fontWeight: '700',
+          lineHeight: '3rem',
+        },
+        startIcon:{
+          marginRight: '1.88rem',
+          width: '4rem',
+          height: '4rem',
+        },
+        endIcon:{
+          width: '4rem',
+          height: '4rem',
+        }
+      }  
+    }
+
+
+
     toast.innerHTML = `
-            <div className="start-icon-toast">
-              <Image
-                src=${iconToast}
-                width={1000}
-                height={1000}
-                alt="banner cart"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="content-toast">
-              <p className="title-toast">
-                ${title}
-              </p>
-              <p className="message-toast">
-                ${message}
-              </p>
-            </div>
-           <div className='close-toast'>
-            <img
-                src='/img/image-icon/close-icon.png'
-                alt="banner cart"
-                className=" w-full h-full object-cover"
-              />
-            </div>`;
+        <div class="start-icon-toast" style="margin-right: ${toastStyle?.startIcon.marginRight}; width: ${toastStyle?.startIcon.width}; height: ${toastStyle?.startIcon.height};">
+          <Image
+            src=${iconToast}
+            width={1000}
+            height={1000}
+            alt="banner cart"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="content-toast" style="flex-grow: ${toastStyle?.contentToast.flexGrow};">
+          <p class="title-toast" style="color: ${toastStyle?.titleToast.color}; font-size: ${toastStyle?.titleToast.fontSize}; font-weight: ${toastStyle?.titleToast.fontWeight}; line-height: ${toastStyle?.titleToast.lineHeight};">
+            ${title}
+          </p>
+          <p class="message-toast" style="color: ${toastStyle?.msgToast.color}; font-size: ${toastStyle?.msgToast.fontSize}; font-weight: ${toastStyle?.msgToast.fontWeight}; line-height: ${toastStyle?.msgToast.lineHeight};">
+            ${message}
+          </p>
+        </div>
+        <div class='close-toast' style="width: ${toastStyle?.endIcon.width}; height: ${toastStyle?.endIcon.height};">
+          <img
+            src='/img/image-icon/close-icon.png'
+            alt="banner cart"
+            class=" w-full h-full object-cover"
+          />
+        </div>
+      `;
+
 
     main.appendChild(toast);
   }

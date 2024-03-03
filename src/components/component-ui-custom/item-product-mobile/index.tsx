@@ -1,16 +1,57 @@
-import React from 'react';
+"use client"
+
+import React, { useEffect, useState } from 'react';
 import { ArrowTopRightActive } from '@/app/icons';
 import './style.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatCurrencyVND } from '@/ultils/format-price';
+import useSWR from 'swr';
+import { fetchDataRest } from '@/lib/fetch-data-rest';
+import { cn } from '@/lib/utils';
 
 interface IProps {
   itemProduct?: any;
 }
+interface IImageItem {
+  variation_id?: number;
+  image?: string;
+  
+}
 function ItemMobile(props: IProps) {
   const { itemProduct } = props;
+  const [imageItem, setImageItem] = useState<IImageItem>({
+    variation_id: undefined,
+    image: '',
+  });
+  const handleChangeColor = (item: any): void => {
+    const tmp = {
+      variation_id: item?.variation_id,
+      image: item?.image?.full_src,
+    };
+    setImageItem(tmp);
+  };
 
+  const bodyItemColorCode = {
+    url: `custom/v1/code-color-products-by-slug/${itemProduct?.slug?.trim()}`,
+    method:'get'
+  }
+
+  const {data: listColor} = useSWR(
+    bodyItemColorCode.url,
+    () => {
+      if (itemProduct?.variations) {
+        return fetchDataRest('GET', bodyItemColorCode.url).then((res: any) => {
+          return res; // Return the data to update the SWR cache
+        });
+      }
+      return null;
+    }
+  );
+
+  useEffect(() => {
+    setImageItem({ ...imageItem, image: itemProduct?.featuredImage });
+  }, [itemProduct]);
   return (
     <Link href={`/san-pham/${itemProduct?.slug}`}>
       <div className="item-product-mobile relative max-md:h-[59.5rem] max-md:w-[45.2rem] rounded-[3.2rem]">
@@ -20,21 +61,16 @@ function ItemMobile(props: IProps) {
             height={200}
             className=" object-cover h-[40rem] w-full rounded-3xl"
             src={
-              itemProduct?.featuredImage !== false
-                ? itemProduct?.featuredImage
+              imageItem?.image
+                ? imageItem?.image.length > 0
+                  ? imageItem?.image
+                  : '/img/no_image.jpg'
                 : '/img/no_image.jpg'
             }
             alt=""
           />
         </div>
         <div className="absolute z-99 bottom-[0rem] w-full md:h-[8.5rem] box-slide">
-          {/* <div className="ml-[2.13rem] bg-[#CAF2F1] border-[#C5C5C5] border-[0.2px] rounded-[2.5rem] items-center mb-[1.62rem] flex justify-center w-fit"> */}
-          {/*  {itemProduct?.categories && ( */}
-          {/*    <p className="text-[2.66667rem] text-[#454545] font-bold py-[0.2rem] leading-normal px-[1.6rem] text-center items-center"> */}
-          {/*      {itemProduct?.categories[0]} */}
-          {/*    </p> */}
-          {/*  )} */}
-          {/* </div> */}
           <div className="p-[2.13rem] rounded-[3.2rem] bg-[#FFF] box-slide max-md:h-[24rem] max-md:flex max-md:flex-col max-md:justify-between">
             <span className="text-[1rem] text-[#454545] font-extrabold leading-[1.2rem] max-md:text-[3.36rem] max-md:leading-[4.704rem] line-clamp-1">
               {itemProduct?.name}
@@ -49,7 +85,37 @@ function ItemMobile(props: IProps) {
 
               {itemProduct?.variations?.length > 0 && (
                 <div className="flex">
-                  {itemProduct?.variations &&
+                {itemProduct?.variations && listColor?.length > 0 &&
+                  listColor.map(
+                    (color: any, index: number) =>{
+                        if(index <= 2){
+                          const colorSlug = color.slug;
+                          const itemActive = itemProduct.variations?.find((variable:any)=>variable.attributes.attribute_pa_color === colorSlug)
+                          return (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                
+                                return handleChangeColor({variation_id: itemActive?.variation_id,image: itemActive?.image})
+                              }}
+                              key={index}
+                              style={{
+                                background: color.value[0],
+                              }}
+                              className={cn(
+                                'h-[3.2rem] w-[3.2rem] rounded-full ml-[1.07rem]',
+                                itemActive?.variation_id === imageItem.variation_id
+                                  ? 'border-[2px] border-[#55D5D2]'
+                                  : ''
+                              )}
+                            />
+                          )
+                        }
+                    }
+                      
+                  )}
+
+                  {/* {itemProduct?.variations &&
                     itemProduct?.variations.map(
                       (item: any, index: number) =>
                         index <= 3 && (
@@ -61,12 +127,12 @@ function ItemMobile(props: IProps) {
                             className="h-[3.2rem] w-[3.2rem] rounded-full ml-[1.07rem]"
                           />
                         )
-                    )}
+                    )} */}
                   <div
                     style={{ background: '#A9A9A9' }}
                     className="h-[3.2rem] w-[3.2rem] rounded-full ml-[1.07rem] flex justify-center items-center text-[2.13333rem] leading-[2.56rem] font-bold not-italic "
                   >
-                    +{itemProduct?.variations?.length ?? 4 - 4}
+                    +{listColor?.length ?? 3 - 3}
                   </div>
                 </div>
               )}

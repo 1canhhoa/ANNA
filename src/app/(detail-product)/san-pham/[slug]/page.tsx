@@ -47,12 +47,12 @@ const DetaiPage = async ({ params: { slug } }: any) => {
     url: `wp-json/custom/v1/categories/gong-kinh`,
     method: 'get',
   };
-  //
+  
   const getLenses: IPostData = {
     url: `wp-json/custom/v1/categories/trong-kinh`,
     method: 'get',
   };
-  //
+  
   const getProductByAnyCategory: IPostData = {
     url: `wp-json/custom/v1/categories/kinh-ram`,
     method: 'get',

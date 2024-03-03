@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils';
 import ICArrowRight2 from '@/components/Icons/ICArrowRight2';
 import { ProductCartContext } from '@/context-provider';
 import { onError } from '@/ultils/notification';
+import { previousDay } from 'date-fns';
 
 interface IProps {
   dataInit?: any;
@@ -58,7 +59,10 @@ function InfoProduct(props: IProps) {
   const isShowInventory = useBoolean(false);
   const [widthScreen, setWidthSreen] = useState<number>(0);
   const [numberInfor, setNumberInfor] = useState<number | undefined>(undefined);
-  const [priceProduct, setPriceProduct] = useState<number>(0);
+  const [priceProduct, setPriceProduct] = useState<any>({
+    price: 0,
+    regularPrice: 0,
+  });
   const [dataProductSubmit, setDataProductSubmit] = useState<IDataProduct>({
     color: '',
     idColor: null,
@@ -172,15 +176,31 @@ function InfoProduct(props: IProps) {
       }
     }
   };
+  // console.log(dataInit)
 
   useEffect(() => {
-    const priceProduct = dataInit?.price ? parseInt(dataInit.price, 10) : 0;
-    setPriceProduct(priceProduct);
+
+    if(dataInit?.variations){
+       setPriceProduct((prev:any)=>{
+        return {
+          ...prev,
+        price:dataInit?.variations[0]?.display_price,
+        regularPrice: dataInit?.variations[0]?.display_regular_price
+        }
+       });
+
+    }else{
+      setPriceProduct((prev:any)=>{
+        return {
+          ...prev,
+        price:dataInit?.price,
+        regularPrice: dataInit?.regular_price
+        }
+       });
+
+    }
   }, [dataInit]);
 
-  // useEffect(() => {
-  //   // listColorProduct.isLoading;
-  // }, [dataProductSubmit.idColor]);
 
   useEffect(() => {
     setWidthSreen(window.innerWidth);
@@ -232,17 +252,17 @@ function InfoProduct(props: IProps) {
       </div>
 
       <div className="max-md:hidden">
-        {dataInit?.price && (
+        {priceProduct?.price > 0 && (
           <p className="text-[1.875rem] font-extrabold leading-[2.25rem] text-blueAnna">
-            {formatCurrencyVND(dataInit?.price)}
+            {formatCurrencyVND(priceProduct?.price)}
           </p>
         )}
       </div>
 
       <div className="max-md:hidden">
-        {dataInit?.regular_price && (
+        {priceProduct?.regular_price > 0 && (
           <p className="text-[1rem] leading-[1.4rem] font-bold text-[#6A6A6A] line-through max-md:hidden">
-            {formatCurrencyVND(dataInit?.regular_price)}
+            {formatCurrencyVND(priceProduct?.regular_price)}
           </p>
         )}
       </div>
@@ -265,6 +285,13 @@ function InfoProduct(props: IProps) {
                 onClick={() => {
                     let colorSlug = item.slug
                     let activeItem = dataInit.variations.find((item: any) => item.attributes.attribute_pa_color === colorSlug);
+                    setPriceProduct((prev:any)=>{
+                      return {
+                        ...prev,
+                      price:activeItem?.display_price,
+                      regularPrice: activeItem?.display_regular_price
+                      }
+                     });
                   return handleChangeColor({
                     variation_id: activeItem.variation_id,
                     color: item.value[0],
@@ -380,7 +407,7 @@ function InfoProduct(props: IProps) {
               </svg>
               <p className="title-add-cart text-[1rem] mb-0 pb-0 not-italic font-extrabold leading-[1.4rem] ml-[0.62rem] max-md:ml-[2.67rem] max-md:text-[3.84rem] max-md:leading-[5.376rem] max-md:font-extrabold max-md:mr-[5.33rem]">
                 {formatCurrencyVND(
-                  (priceProduct * dataProductSubmit.quantityProduct).toString()
+                  (priceProduct.price * dataProductSubmit.quantityProduct).toString()
                 )}
               </p>
             </div>
@@ -402,7 +429,10 @@ function InfoProduct(props: IProps) {
         <div
           className={cn(
             'flex justify-between py-[0.94rem] px-[1.88rem] border-b border-t transition-all duration-300',
-            isShowInventory.value ? 'border-[#F58F5D]' : ''
+            isShowInventory.value ? 'border-[#F58F5D]' : '',
+            dataInit?.variations &&
+            dataInit?.variations.length > 0 &&
+            variantProductSelected.variant_id.length === 0 ? 'hidden':'flex'
           )}
         >
           <div>
