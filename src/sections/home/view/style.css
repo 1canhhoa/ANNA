@@ -138,6 +138,9 @@
   align-items: flex-start;
   justify-content: center;
   color: rgb(211, 211, 211);
+  @media (min-width: 768px) and (max-width: 1024px) {
+    min-height: auto;
+  }
 }
 
 .about-content {
@@ -156,6 +159,9 @@
 .about-content span {
   opacity: 0.2;
   color: #fff;
+  @media screen and (max-width: 1024px) {
+    opacity: 1;
+  }
 }
 
 /* .mySwiper-about {

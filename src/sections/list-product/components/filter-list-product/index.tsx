@@ -186,7 +186,7 @@ export default function FilterListProduct(props: IProps) {
     handleScroll();
   }, [dataPagination]);
 
-console.log(dataInit, "dataInit product")
+  console.log(dataInit, 'dataInit product');
   return (
     <div className="filter-list-product-container">
       {/* modal filter product mobile */}
@@ -233,10 +233,11 @@ console.log(dataInit, "dataInit product")
                           }
                           id={`${item.label}-${index}`}
                           className="border-[#ccc] border-[1px] h-[4rem] w-[4rem]"
-                        />
-                        <label htmlFor={`${item.label}-${index}`} className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] text-[#454545] text-[4rem] leading-[5.5rem]">
-                          {itemSubAttribute.name}
-                        </label>
+                        >
+                          <span className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] cursor-pointer text-[#454545] text-[1rem]">
+                            {itemSubAttribute.name}
+                          </span>
+                        </Checkbox>
                       </div>
                     )
                   )}
@@ -268,10 +269,11 @@ console.log(dataInit, "dataInit product")
                           )
                         }
                         className="border-[#ccc] border-[1px]"
-                      />
-                      <label htmlFor={`${item.label}-${index}`} className="font-medium line-clamp-1 text-nowrap ml-[0.7rem]">
-                        {itemSubAttribute.name}
-                      </label>
+                      >
+                        <span className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] cursor-pointer text-[#454545] text-[1rem]">
+                          {itemSubAttribute.name}
+                        </span>
+                      </Checkbox>
                     </div>
                   )
                 )}
