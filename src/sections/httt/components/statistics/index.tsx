@@ -39,16 +39,12 @@ function Statistics() {
   }, []);
   const [isStartCount, setIsStartCount] = useState(false);
 
-  console.log('isStartCount', isStartCount);
-
   const targetElementRef = useRef<any>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const elementTop = targetElementRef?.current?.getBoundingClientRect().top;
-      // console.log('scrollTop', scrollTop);
-
       if (scrollTop >= elementTop) {
         setIsStartCount(true);
       }

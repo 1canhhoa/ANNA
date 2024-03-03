@@ -185,8 +185,6 @@ export default function FilterListProduct(props: IProps) {
   useEffect(() => {
     handleScroll();
   }, [dataPagination]);
-
-console.log(dataInit, "dataInit product")
   return (
     <div className="filter-list-product-container">
       {/* modal filter product mobile */}

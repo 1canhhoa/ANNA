@@ -40,9 +40,7 @@ function CheckingOrder(props: IProps) {
     paramCheckingOrder.id
       ? fetchDataAuthen(bodyGetCheckingOrder)
           .then((res) => {
-            console.log('res', res);
             if (res && res[2]?.status === 400) {
-              console.log('fail');
               onError({ message: res[0] });
             } else {
               setDataDetailOrder(res);

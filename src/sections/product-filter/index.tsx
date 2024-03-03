@@ -21,11 +21,6 @@ export default function ProductFilter(props: IProps) {
     listAttributeNew,
   } = props;
 
-  console.log("routerSearchCustom", routerSearchCustom)
-  console.log("dataListAttribute", dataListAttribute)
-  console.log("searchParams", searchParams)
-  console.log("listAttributeNew", listAttributeNew)
-
   return (
     <div className="list-product-container mb-[2.94rem]">
       {/* banner */}

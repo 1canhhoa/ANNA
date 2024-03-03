@@ -132,8 +132,6 @@ export default function FilterListProductChooseGlass(props: IProps) {
 
   const onChange = (atttribute?: any, slugSubAttribute?: string): void => {
 
-    console.log("atttribute", atttribute);
-    console.log("slugSubAttribute", slugSubAttribute);
 
     // check available attributte
     const findItemAdded = paramsFilter.filter(

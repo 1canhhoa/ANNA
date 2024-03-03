@@ -23,8 +23,6 @@ function ZoomScaleImage(props: IProps) {
     widthImage: 50,
     heightImage: 50,
   });
-
-  console.log('imagaaaa', imageProps);
   useEffect(() => {
     if (imageRef.current) {
       imageRef.current.addEventListener('mousemove', (event: any) => {

@@ -187,8 +187,6 @@ function ImageProduct(props: IProps) {
     setItemImagePreview(dataInit?.featuredImage);
   }, []);
 
-  console.log("itemImagePreview", itemImagePreview);
-
   return (
     <div className="left-detail w-[47rem] flex-col justify-center max-md:block max-md:w-full max-md:mb-[1.5rem]">
       {/* {JSON.stringify(dataGetWishList.data)} */}

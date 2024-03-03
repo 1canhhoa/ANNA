@@ -5,6 +5,9 @@ import { IItemProduct } from '@/types/types-general';
 import { formatCurrencyVND } from '@/ultils/format-price';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import useSWR from 'swr';
+import { baseUrl, fetchDataRest } from '@/lib/fetch-data-rest';
+
 
 interface IProps {
   item?: IItemProduct;
@@ -20,7 +23,7 @@ interface IImageItem {
 
 function ItemProduct(props: IProps) {
   const { item, heightImage, heightImageMobile, keySlide } = props;
-
+console.log("item", item)
   const [heightSlider, setHeightSlider] = useState<number>(20.375);
   const [imageItem, setImageItem] = useState<IImageItem>({
     variation_id: undefined,
@@ -32,15 +35,18 @@ function ItemProduct(props: IProps) {
       variation_id: item?.variation_id,
       image: item?.image?.full_src,
     };
-
     setImageItem(tmp);
-    // if (tmp?.variation_id === imageItem?.variation_id) {
-    //   setImageItem({
-    //     variation_id: undefined,
-    //     image: item?.featuredImage,
-    //   });
-    // } else setImageItem(tmp);
   };
+
+    const getListColor = useSWR(
+      item?.variations?`${baseUrl}/custom/v1/code-color-products-by-slug/${item?.slug?.trim()}`:null,
+      (url: any) =>
+        fetchDataRest('GET', url).then(
+          (res: any) => console.log(res)
+        )
+    );
+  
+ 
 
   useEffect(() => {
     if (window.innerWidth < 767) {
@@ -79,35 +85,6 @@ function ItemProduct(props: IProps) {
         />
       </Link>
       <div className=" z-2  -mt-[4.1rem] z-9 left-0 bottom-0 w-full box-slide h-[9rem] max-md:h-[28rem] max-md:-mt-[8.1rem]">
-        {/* <div className="flex ml-[1rem] mb-[0.9rem]"> */}
-        {/*  /!* show in PC *!/ */}
-        {/*  <div className="max-md:hidden lg:mb-mb-[0.75rem] bg-[#CAF2F1] h-[1.25rem] border-[#C5C5C5] border-[1px] rounded-[2.5rem] px-[0.5rem] items-center overflow-hidden w-[5.875rem] max-md:h-[1.0625rem]  flex justify-center"> */}
-        {/*    {item?.categories && ( */}
-        {/*      <p className="text-[0.75rem] text-[#454545] font-bold leading-[0.9rem] text-center line-clamp-1 max-md:w-["> */}
-        {/*        {item?.categories[1] ?? 'null'} */}
-        {/*      </p> */}
-        {/*    )} */}
-        {/*  </div> */}
-
-        {/*  /!* Show in Mobile *!/ */}
-        {/*  <div className="hidden max-md:block bg-[#CAF2F1] border-[#C5C5C5] border-[1px] rounded-[2.5rem] items-center mb-[0.62rem] flex justify-center w-fit"> */}
-        {/*    {item?.categories && ( */}
-        {/*      <p className="text-[2.66667rem] text-[#454545] font-bold py-[0.2rem] px-[1.6rem] text-center items-center"> */}
-        {/*        {item?.categories[1] ?? 'null'} */}
-        {/*      </p> */}
-        {/*    )} */}
-        {/*  </div> */}
-
-        {/*  /!* hide in mobile *!/ */}
-        {/*  <div className="lg:mb-[0.75rem] bg-[#F58F5D] max-sm:ml-[1.07rem] h-[4.5rem] md:h-[1.25rem] flex items-center justify-center border-[#C5C5C5] border-[1px] rounded-[2.5rem] md:w-[6.375rem] ml-[0.25rem]"> */}
-        {/*    <p className="text-[0.75rem] text-white font-bold leading-[0.9rem] text-center mb-0 max-sm:hidden"> */}
-        {/*      Siêu Sale 10.10 */}
-        {/*    </p> */}
-        {/*    <p className="text-[2.66667rem] text-[#fff] font-bold py-[0.2rem] px-[1.6rem] text-center items-center block md:hidden"> */}
-        {/*      Sale */}
-        {/*    </p> */}
-        {/*  </div> */}
-        {/* </div> */}
         <div className="relative p-[1rem] h-full rounded-2xl bg-[#FFF]  box-slide max-md:p-[2.13rem] max-md:rounded-[3.2rem]">
           <Link
             href={`/san-pham/${item?.slug?.trim()}`}

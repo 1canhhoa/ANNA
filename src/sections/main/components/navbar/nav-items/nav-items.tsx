@@ -149,7 +149,7 @@ function NavItems(props: IProps) {
   useEffect(() => {
     let total = 0;
     map(listCartGlobal, (item) => {
-      total += item.quantity;
+      total += Number(item.quantity);
     });
 
     setQuantityProductCart(total);
