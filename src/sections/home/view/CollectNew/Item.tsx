@@ -6,6 +6,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { formatCurrencyVND } from '@/ultils/format-price';
 import { cn } from '@/lib/utils';
+import useSWR from 'swr';
+import { fetchDataRest } from '@/lib/fetch-data-rest';
 
 interface IPropsItemCollect {
   dataCollect: any;
@@ -32,6 +34,22 @@ function ItemCollect({ dataCollect, key, category }: IPropsItemCollect) {
     });
   };
 
+  const bodyItemColorCode = {
+    url: `custom/v1/code-color-products-by-slug/${dataCollect?.slug?.trim()}`,
+    method:'get'
+  }
+  
+  const {data: listColor} = useSWR(
+    bodyItemColorCode.url,
+    () => {
+      if (dataCollect?.variations) {
+        return fetchDataRest('GET', bodyItemColorCode.url).then((res: any) => {
+          return res; // Return the data to update the SWR cache
+        });
+      }
+      return null;
+    }
+  );
   return (
     <Link href={`/san-pham/${dataCollect?.slug}`}>
       <div
@@ -58,41 +76,43 @@ function ItemCollect({ dataCollect, key, category }: IPropsItemCollect) {
           </Link>
         </div>
         <div className="relative z-2 -mt-[9rem] md:-mt-[3.5rem] z-9 left-0 right-0 w-full box-slide ">
-          {/* <div className="flex ml-[1.25rem] md:ml-[1rem] mb-[3rem] md:mb-[0.9rem]"> */}
-          {/*  <div className="p-8 md:p-2 bg-[#CAF2F1] h-[5.33333rem] md:h-[1.25rem] border-[#C5C5C5] border-[0.5px] rounded-[2.5rem] items-center flex justify-center"> */}
-          {/*    <p className="text-[2.666rem] md:text-[0.75rem] text-[#454545] font-bold text-center"> */}
-          {/*      {category === 'gong-kinh' */}
-          {/*        ? 'Gọng kính' */}
-          {/*        : category === 'trong-kinh' */}
-          {/*        ? 'Tròng kính' */}
-          {/*        : category === 'kinh-ram' */}
-          {/*        ? 'Kính râm' */}
-          {/*        : 'Kính áp tròng'} */}
-          {/*    </p> */}
-          {/*  </div> */}
-          {/*  <div className="p-8 md:p-2 bg-[#F58F5D] h-[5.33333rem] md:h-[1.25rem] hidden md:flex items-center justify-center border-[#C5C5C5] border-[0.5px] rounded-[2.5rem] ml-[0.25rem]"> */}
-          {/*    <p className="text-[2.666rem] md:text-[0.75rem] text-white font-bold text-center mb-0"> */}
-          {/*      Siêu Sale 10.10 */}
-          {/*    </p> */}
-          {/*  </div> */}
-          {/* </div> */}
           <div className="p-[2.5rem] md:p-[1rem] rounded-[4.26667rem] md:rounded-[1rem] bg-[#FFF] box-slide">
             <span className="text-[3.36rem] md:text-base line-clamp-2 mb-[0.25rem] text-[#454545] font-extrabold">
               {dataCollect?.name}
             </span>
             <div className="flex max-md:flex-row-reverse justify-between items-center mt-[1.07rem] md:mt-[0.25rem] mb-[1.6rem] md:mb-[0.75rem]">
               <div className="flex">
-                {dataCollect?.variations?.map(
-                  (item: any, index: number) =>
-                    index <= 3 && (
-                      <div
-                        key={index}
-                        style={{ background: item.attributes.attribute_color }}
-                        onClick={() => handleChangeInfoProduct(item)}
-                        className="h-[3.2rem] md:h-[1.5rem] w-[3.2rem] md:w-[1.5rem] rounded-full mr-[1rem] md:mr-[0.31rem]"
-                      />
-                    )
-                )}
+
+                    {
+                      dataCollect?.variations && listColor?.length > 0 &&
+                      listColor.map(
+                        (color: any, index: number) =>{
+                            if(index <= 2){
+                              const colorSlug = color.slug;
+                              const itemActive = dataCollect.variations?.find((variable:any)=>variable.attributes.attribute_pa_color === colorSlug)
+                              // console.log(itemActive)
+                              return (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    
+                                    return handleChangeInfoProduct({image: itemActive?.image, price: itemActive?.display_price || 0,
+                                      regular_price: itemActive?.display_regular_price || 0,})
+                                  }}
+                                  key={index}
+                                  style={{
+                                    background: color.value[0],
+                                  }}
+                                  className={cn(
+                                    'h-[3.2rem] md:h-[1.5rem] w-[3.2rem] md:w-[1.5rem] rounded-full mr-[1rem] md:mr-[0.31rem]',
+                                  )}
+                                />
+                              )
+                            }
+                        }
+                          
+                      )}
+                    
                 {dataCollect?.variations?.length > 4 ? (
                   <div
                     style={{ background: '#A9A9A9' }}
@@ -103,18 +123,6 @@ function ItemCollect({ dataCollect, key, category }: IPropsItemCollect) {
                 ) : (
                   <div className="h-[3.2rem] md:h-[1.5rem] " />
                 )}
-                {/* <div className="md:flex justify-between lg:mb-[0.5rem]">
-                <div className="text-[2.66667rem] md:text-[0.875rem] text-[#6A6A6A] font-bold md:font-extrabold">
-                  Tiết kiệm được
-                  {dataCollect?.salePrice && (
-                    <span className="text-[#F58F5D] pl-2">
-                      {formatCurrencyVND(
-                        dataCollect?.salePrice.toString() || 0
-                      )}
-                    </span>
-                  )}
-                </div>
-              </div> */}
               </div>
               <div className="line-through text-[2.4rem] md:text-[0.875rem] max-sm:font-bold">
                 {changeInfo?.regular_price !== ''

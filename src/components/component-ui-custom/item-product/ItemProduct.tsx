@@ -10,7 +10,7 @@ import { baseUrl, fetchDataRest } from '@/lib/fetch-data-rest';
 
 
 interface IProps {
-  item?: IItemProduct;
+  item?: any;
   heightImage?: number;
   heightImageMobile?: number;
   keySlide?: string;
@@ -19,17 +19,16 @@ interface IProps {
 interface IImageItem {
   variation_id?: number;
   image?: string;
+  
 }
 
 function ItemProduct(props: IProps) {
   const { item, heightImage, heightImageMobile, keySlide } = props;
-console.log("item", item)
   const [heightSlider, setHeightSlider] = useState<number>(20.375);
   const [imageItem, setImageItem] = useState<IImageItem>({
     variation_id: undefined,
     image: '',
   });
-
   const handleChangeColor = (item: any): void => {
     const tmp = {
       variation_id: item?.variation_id,
@@ -38,15 +37,25 @@ console.log("item", item)
     setImageItem(tmp);
   };
 
-    const getListColor = useSWR(
-      item?.variations?`${baseUrl}/custom/v1/code-color-products-by-slug/${item?.slug?.trim()}`:null,
-      (url: any) =>
-        fetchDataRest('GET', url).then(
-          (res: any) => console.log(res)
-        )
-    );
+
+  const bodyItemColorCode = {
+    url: `custom/v1/code-color-products-by-slug/${item?.slug?.trim()}`,
+    method:'get'
+  }
+
+  const {data: listColor} = useSWR(
+    bodyItemColorCode.url,
+    () => {
+      if (item?.variations) {
+        return fetchDataRest('GET', bodyItemColorCode.url).then((res: any) => {
+          return res; // Return the data to update the SWR cache
+        });
+      }
+      return null;
+    }
+  );
   
- 
+  // console.log(listColor);
 
   useEffect(() => {
     if (window.innerWidth < 767) {
@@ -124,25 +133,34 @@ console.log("item", item)
           ) : (
             <div className="flex justify-between mt-[0.25rem] mb-[0.75rem] max-md:flex-row-reverse">
               <div className="flex flex-start h-[1rem] max-md:h-[3.2rem]">
-                {item?.variations &&
-                  item?.variations.map(
-                    (item: any, index: number) =>
-                      index <= 2 && (
-                        <button
-                          type="button"
-                          onClick={() => handleChangeColor(item)}
-                          key={index}
-                          style={{
-                            background: item.attributes.attribute_color,
-                          }}
-                          className={cn(
-                            'h-[1rem] w-[1rem] rounded-full mr-[0.31rem] max-md:h-[3.2rem] max-md:w-[3.2rem]',
-                            item?.variation_id === imageItem.variation_id
-                              ? 'border-[2px] border-[#55D5D2]'
-                              : ''
-                          )}
-                        />
-                      )
+                {item?.variations && listColor?.length > 0 &&
+                  listColor.map(
+                    (color: any, index: number) =>{
+                        if(index <= 2){
+                          const colorSlug = color.slug;
+                          const itemActive = item.variations?.find((variable:any)=>variable.attributes.attribute_pa_color === colorSlug)
+                          return (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                
+                                return handleChangeColor({variation_id: itemActive?.variation_id,image: itemActive?.image})
+                              }}
+                              key={index}
+                              style={{
+                                background: color.value[0],
+                              }}
+                              className={cn(
+                                'h-[1rem] w-[1rem] rounded-full mr-[0.31rem] max-md:h-[3.2rem] max-md:w-[3.2rem]',
+                                itemActive?.variation_id === imageItem.variation_id
+                                  ? 'border-[2px] border-[#55D5D2]'
+                                  : ''
+                              )}
+                            />
+                          )
+                        }
+                    }
+                      
                   )}
 
                 {item?.variations && item?.variations.length > 4 && (
@@ -150,7 +168,7 @@ console.log("item", item)
                     style={{ background: '#A9A9A9' }}
                     className="h-[1rem] w-[1rem] rounded-full mr-[0.31rem] flex justify-center items-center text-[0.625rem] leading-[0.75rem] font-bold not-italic max-md:h-[3.2rem] max-md:w-[3.2rem] max-md:text-[2.13333rem] max-md:leading-[2.56rem]"
                   >
-                    +{item?.variations.length ?? 4 - 4}
+                    +{listColor.length ?? 3 - 3}
                   </div>
                 )}
               </div>

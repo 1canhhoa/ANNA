@@ -34,7 +34,10 @@ export function Fixed(props: IProps) {
     image: '',
   });
   const [stockQuantity, setStockQuantity] = useState(dataInit?.stock_quantity);
-
+  const [priceProduct, setPriceProduct] = useState<any>({
+    price: 0,
+    regularPrice: 0,
+  });
   const { listCartGlobal } = useContext<any>(ProductCartContext);
   const handleChangeColor = (item: any) => {
     setStockQuantity(item.qty);
@@ -94,6 +97,29 @@ export function Fixed(props: IProps) {
       image: dataInit?.featuredImage,
     });
   }, []);
+
+  useEffect(() => {
+
+    if(dataInit?.variations){
+       setPriceProduct((prev:any)=>{
+        return {
+          ...prev,
+        price:dataInit?.variations[0]?.display_price,
+        regularPrice: dataInit?.variations[0]?.display_regular_price
+        }
+       });
+
+    }else{
+      setPriceProduct((prev:any)=>{
+        return {
+          ...prev,
+        price:dataInit?.price,
+        regularPrice: dataInit?.regular_price
+        }
+       });
+
+    }
+  }, [dataInit]);
   return (
     <div
       className="flex justify-between items-center
@@ -116,13 +142,13 @@ export function Fixed(props: IProps) {
                 </p>
               )}
 
-              {dataInit?.sale_price && (
+              {priceProduct?.regularPrice && (
                 <p className="text-[1rem] not-italic leading-[1.3rem] font-bold line-through">
-                  {formatCurrencyVND(dataInit?.sale_price.toString())}
+                  {formatCurrencyVND(priceProduct?.regularPrice.toString())}
                 </p>
               )}
 
-              {dataListColor && dataListColor.length > 0 && (
+              {dataInit.variations && dataListColor && dataListColor.length > 0 && (
                 <ul className=" list-color flex mt-[1.06rem] max-md:hidden">
                   {dataListColor.map((item: any, index: number) => (
                     <li
@@ -141,6 +167,13 @@ export function Fixed(props: IProps) {
                         onClick={() => {
                           let colorSlug = item.slug
                           let activeItem = dataInit.variations.find((item: any) => item.attributes.attribute_pa_color === colorSlug);
+                          setPriceProduct((prev:any)=>{
+                            return {
+                              ...prev,
+                            price:activeItem?.display_price,
+                            regularPrice: activeItem?.display_regular_price
+                            }
+                           });
                         return handleChangeColor({
                           variation_id: activeItem.variation_id,
                           color: item.value[0],
@@ -161,7 +194,7 @@ export function Fixed(props: IProps) {
       </div>
       <div className="right flex items-center">
         <p className="text-[1.875rem] font-extrabold leading-[2.25rem] text-blueAnna mr-[3.25rem]">
-          {dataInit?.price && formatCurrencyVND(dataInit?.price.toString())}
+          {priceProduct?.price && formatCurrencyVND(priceProduct?.price.toString())}
         </p>
         <button
           disabled={isLoadingAddToCart || (dataInit.variations && variantProductSelected.variant_id.length === 0)}

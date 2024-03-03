@@ -20,7 +20,7 @@ const Home = async () => {
   const dataProductSaleFetch = fetchDataRest('GET', 'custom/v1/product-sales');
   const dataSellingProductFetch = fetchDataRest(
     'GET',
-    'custom/v1/best-selling-products?order=asc&limit=6'
+    'custom/v1/best-selling-products?order=asc&limit=12'
   );
   const dataProductGKFetch = fetchDataRest(
     'GET',

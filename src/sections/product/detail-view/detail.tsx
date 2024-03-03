@@ -66,7 +66,6 @@ function ProductDetail(props: IProps) {
     variant_id: '',
     color_variant: '',
   });
-
   const [isLoadingAddToCart, setIsLoadingAddToCart] = useState<boolean>(false);
 
   const { handleChangeDataCartGlobal, listCartGlobal } =
@@ -87,6 +86,8 @@ function ProductDetail(props: IProps) {
     stock_quantity?: any;
   }): void => {
     let listCartHandle = listCartGlobal;
+  console.log("dataParams",dataParams)
+  console.log("listCartHandle",listCartHandle)
 
     const findItemAvailabelStorage = listCartHandle.filter(
       (itemProduct: any) =>
@@ -136,12 +137,28 @@ function ProductDetail(props: IProps) {
         product_name: item.product_name,
         category: item.category,
         product_price: item?.product_price,
-        // salePrice: item.salePrice,
         stock_quantity: item?.stock_quantity,
         variant_id: item?.variant_id,
-        quantity: item.quantity + dataParams.quantityProduct,
+        quantity: item.quantity,
         variant_value: item.variant_value,
       };
+
+      if(item.product_id === dataParams.dataItemProduct?.id && variantProductSelected.variant_id === "" && item.variant_id === ""){
+        let newList = {
+          ...newObject,
+          quantity: item.quantity + dataParams.quantityProduct
+        }
+        return newList
+      }
+        
+      if(item.product_id === dataParams.dataItemProduct?.id && item.variant_id === variantProductSelected.variant_id){
+          let newList = {
+            ...newObject,
+            quantity: item.quantity + dataParams.quantityProduct
+          }
+          return newList
+      }
+      
       return newObject;
     });
 
@@ -245,7 +262,7 @@ function ProductDetail(props: IProps) {
           </div>
           {/* right */}
           <div className="relative grow">
-            <div className="sticky top-[7rem]">
+            <div className="sticky top-[7rem]" >
               <InfoProduct
                 dataTransportRes={dataTransportRes}
                 dataChangeRes={dataChangeRes}
@@ -467,7 +484,6 @@ function ProductDetail(props: IProps) {
         <Fixed
           isLoadingAddToCart={isLoadingAddToCart}
           dataInit={dataInitDetail}
-          listColorProduct={dataInitDetail?.variations ?? []}
           handleAddToCart={
             session?.user.token && session.user.token.length > 0
               ? handleAddToCartAPI
