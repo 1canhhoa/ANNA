@@ -43,18 +43,18 @@ const toastGlobal = (props: IPropsToast) => {
     const toast = document.createElement('div');
 
     // auto remove toast
-    // const autoRemoveId = setTimeout(() => {
-    //   main.removeChild(toast);
-    // }, 4500);
+    const autoRemoveId = setTimeout(() => {
+      main.removeChild(toast);
+    }, 4500);
 
     toast.classList.add('toast-global');
-    // toast.style.animation = `toastRightToLeft ease ${durationShowToast}s, hideToast linear ${durationHideToast}s ${delayToast}s forwards`;
+    toast.style.animation = `toastRightToLeft ease ${durationShowToast}s, hideToast linear ${durationHideToast}s ${delayToast}s forwards`;
     toast.style.borderLeftColor = colorBorderToast;
 
     // close toast
     toast.addEventListener('click', () => {
       main.removeChild(toast);
-      // clearTimeout(autoRemoveId);
+      clearTimeout(autoRemoveId);
     });
 
     let toastStyle;
@@ -159,20 +159,6 @@ const onSuccess = (props: IProps) => {
 };
 
 const onError = (props?: IProps) => {
-  // toast('Thất bại!', {
-  //   duration: 1500,
-  //   description: props?.message ?? 'Thao tác thất bại, xin vui lòng thử lại.',
-  //   position: 'top-right',
-  //   style: {
-  //     color: 'red',
-  //     fontWeight: '800',
-  //     fontSize: '1.1rem',
-  //   },
-  //   action: {
-  //     label: 'Undo',
-  //     onClick: () => console.log('Undo'),
-  //   },
-  // });
 
   toastGlobal({
     title: 'Thất bại !',
@@ -182,21 +168,6 @@ const onError = (props?: IProps) => {
 };
 
 const onErrorContact = (props: IProps) => {
-  // toast('Thất bại!', {
-  //   duration: 1500,
-  //   description: props.message,
-  //   position: 'top-right',
-  //   style: {
-  //     color: 'red',
-  //     fontWeight: '800',
-  //     fontSize: '1.1rem',
-  //   },
-  //   action: {
-  //     label: 'Undo',
-  //     onClick: () => console.log('Undo'),
-  //   },
-  // });
-
   toastGlobal({
     title: 'Thành công !',
     message: props.message,

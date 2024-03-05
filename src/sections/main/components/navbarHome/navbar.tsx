@@ -40,13 +40,8 @@ function NavbarHome(props: IProps) {
         setIsHide(false);
       }
     });
-  }, [currentPositionScrollY]);
+  }, []);
 
-  // useEffect(() => {
-  //   if (dataListCart) {
-  //     localStorage.setItem(keyProductsInCart, JSON.stringify(dataListCart));
-  //   }
-  // }, [dataListCart]);
 
   return (
     <div>
@@ -66,18 +61,6 @@ function NavbarHome(props: IProps) {
         />
         <div className="mt-5 max-md:mt-1" />
       </div>
-      {/* <div */}
-      {/*    className="hidden max-sm:block fixed rounded-[13.33333rem] bg-navbar-mobile flex items-center w-[81rem] left-16 top-20 z-10"> */}
-      {/*  <div className="absolute top-[50%] -translate-y-1/2 left-[3.5rem] z-10"> */}
-      {/*    <ICSearch fill="#fff" width="5.333rem" height="5.333rem"/> */}
-      {/*  </div> */}
-      {/*  <Input */}
-      {/*      className="text-[3.73333rem] px-[12rem] py-[5rem] rounded-[13.33333rem] border-[0.2px] border-[#C5C5C5] placeholder-[#fff] bg-[#7F7F7F4D] focus-visible:outline-0" */}
-      {/*      type="text" */}
-      {/*      placeholder="Tìm sản phẩm" */}
-      {/*  /> */}
-      {/* </div> */}
-      {/* <div className="hidden max-sm:block fixed top-[20px] right-[3.2rem] z-50"> */}
       <div className="hidden max-md:block">
         <NavMobileDetail dataListProductHeader={dataListProductHeader} />
       </div>

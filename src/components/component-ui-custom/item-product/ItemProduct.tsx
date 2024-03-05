@@ -55,7 +55,6 @@ function ItemProduct(props: IProps) {
     }
   );
   
-  // console.log(listColor);
 
   useEffect(() => {
     if (window.innerWidth < 767) {
@@ -168,7 +167,7 @@ function ItemProduct(props: IProps) {
                     style={{ background: '#A9A9A9' }}
                     className="h-[1rem] w-[1rem] rounded-full mr-[0.31rem] flex justify-center items-center text-[0.625rem] leading-[0.75rem] font-bold not-italic max-md:h-[3.2rem] max-md:w-[3.2rem] max-md:text-[2.13333rem] max-md:leading-[2.56rem]"
                   >
-                    +{listColor.length ?? 3 - 3}
+                    +{listColor?.length ?? 3 - 3}
                   </div>
                 )}
               </div>

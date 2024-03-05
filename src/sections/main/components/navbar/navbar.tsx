@@ -37,7 +37,7 @@ function Navbar(props: IProps) {
         setStyleNavbar(false);
       }
     });
-  }, [currentPositionScrollY]);
+  }, []);
 
   return (
     <DataHeaderDetailContext.Provider

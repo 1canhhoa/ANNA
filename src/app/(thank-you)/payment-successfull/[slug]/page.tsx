@@ -26,15 +26,8 @@ const PaymentSuccessFull = async ({
       searchParams={searchParams}
       dataCheckingOrder={dataCheckingOrder}
     />
-    // <div className="mt-[9rem]">{JSON.stringify(slug)}</div>
   );
 
-  // console.log('dataCheckingOrder', dataCheckingOrder);
-  // return (
-  //   <div>
-  //     ${slug}${JSON.stringify(searchParams)}
-  //   </div>
-  // );
 };
 
 export default PaymentSuccessFull;
