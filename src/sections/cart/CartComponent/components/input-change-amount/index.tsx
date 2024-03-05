@@ -15,7 +15,7 @@ import { ProductCartContext } from '@/context-provider';
 import { fetchDataAuthen } from '@/lib/post-data';
 
 interface IProps {
-  dataItemCart?: IItemCart;
+  dataItemCart?: any;
   setDataInit: Dispatch<SetStateAction<IItemCart[]>>;
   dataInit: IItemCart[];
   handleTotalCart: any;
@@ -30,18 +30,32 @@ export function InputChangeAmount(props: IProps): React.JSX.Element {
 
   const { handleChangeDataCartGlobal } = useContext<any>(ProductCartContext);
   const handleChangeQuantityItem = async (quantityChange: number) => {
-    const arrayTmp = map(dataInit, (item) => {
-      const newObject = {
-        ...item,
-        quantity:
-          item.product_id === dataItemCart?.product_id
-            ? quantityChange
-            : item.quantity,
-      };
-      return newObject;
+    const arrayTmp = map(dataInit, (item:any) => {
+
+      if(item.product_id === dataItemCart?.product_id && dataItemCart?.variant_id === item.variant_id){
+        const newObject = {
+          ...item,
+          quantity:quantityChange
+        };
+        return newObject
+      }else if(item.product_id === dataItemCart?.product_id && dataItemCart.variant_id === "" && item.variant_id === ""){
+        const newObject = {
+          ...item,
+          quantity:quantityChange
+        };
+        return newObject
+      }else{
+        const newObject = {
+          ...item,
+          quantity:item.quantity
+        };
+        return newObject;
+      }
+      
     });
 
     setDataInit(arrayTmp);
+
 
     if (session === null) {
       localStorage.setItem(
@@ -78,6 +92,7 @@ export function InputChangeAmount(props: IProps): React.JSX.Element {
   };
 
   const subQuantityProduct = (): void => {
+
     setQuantityItem(quantityItem - 1);
   };
 
@@ -86,6 +101,8 @@ export function InputChangeAmount(props: IProps): React.JSX.Element {
   };
 
   const handleOnchangeQuantity = (value: any): void => {
+
+    if(value.target.value <= 0) return;
     const valueConvert = parseInt(
       value.target.value.replace(/[^0-9]/g, ''),
       10
@@ -108,7 +125,7 @@ export function InputChangeAmount(props: IProps): React.JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (debouncedSearchTerm !== 1) {
+    if (debouncedSearchTerm > 0) {
       const debounceChangeQuantityProduct = async () => {
         if (debouncedSearchTerm) {
           handleChangeQuantityItem(quantityItem);
@@ -117,7 +134,6 @@ export function InputChangeAmount(props: IProps): React.JSX.Element {
       debounceChangeQuantityProduct();
     }
   }, [debouncedSearchTerm]);
-
   return (
     <div className="w-[7.3125rem] h-[3rem] text-[#44AAA8] flex justify-between items-center rounded-[2.3125rem] bg-white border-[#4DC0BD] border-[1px] max-md:w-[29.3125rem] max-md:h-[8rem] max-md:rounded-[0rem] max-md:border-[#F2F2F2] max-md:border-[2px]">
       <div

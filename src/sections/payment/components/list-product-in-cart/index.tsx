@@ -12,6 +12,8 @@ import { fetchDataAuthen } from '@/lib/post-data';
 import { onError, onSuccess } from '@/ultils/notification';
 import { useBoolean } from '@/hooks/use-boolean';
 import LoadingGlobal from '@/components/component-ui-custom/loading-global';
+import useSWR from 'swr';
+import { fetchDataRest } from '@/lib/fetch-data-rest';
 
 export default function ListProductInCart() {
   const [dataInit, setDataInit] = useState<IItemCart[]>([]);
@@ -63,7 +65,18 @@ export default function ListProductInCart() {
 
     setTotalPriceInCart(total);
   }, [listCartGlobal]);
-
+// console.log(dataInit);
+const bodyItemShipping = {
+  url: `custom/v1/shipping-methods`,
+  method:'get'
+}
+const {data: dataShipping} = useSWR(
+  bodyItemShipping.url,
+  () => fetchDataRest('GET', bodyItemShipping.url).then((res: any) => {
+    return res; // Return the data to update the SWR cache
+  })
+);
+console.log(dataShipping)
   return (
     <div className="p-[2rem] bg-[#F3F3F3] max-md:p-[4rem]">
       <h3 className="text-[1.5rem] font-bold max-md:text-[6.4rem]">
@@ -109,13 +122,14 @@ export default function ListProductInCart() {
                   }
                   alt=""
                 />
-                <div className="flex items-center ml-[1rem] max-md:mt-[2rem]">
+                <div className="flex items-center ml-[1rem] max-md:mt-[2rem] relative">
                   <span className="leading-[1.375rem] font-medium max-md:text-[4rem] max-md:leading-[5rem]">
                     {item.product_name}
                   </span>
                   <span className="ml-[0.4rem] text-[1.3rem] font-bold leading-[1.375rem] text-[#3A3A3A] max-md:text-[4rem] max-md:leading-[5rem] max-md:ml-[2rem]">
                     x{item.quantity}
                   </span>
+                  <span className='absolute left-0 -bottom-[1.25rem] text-[0.75rem]'>Màu sắc: {item.variant_value}</span>
                 </div>
               </div>
               <span className="text-[#101010] font-semibold max-md:text-[3.733rem]">
@@ -138,6 +152,13 @@ export default function ListProductInCart() {
           {formatCurrencyVND(totalPriceInCart.toString())}
         </p>
       </div>
+
+      <div className="flex justify-between my-[1.5rem] max-md:my-[4rem]">
+        <p className="text-[1rem] font-bold max-md:text-[4.267rem]">Phí vận chuyển</p>
+        <p className="text-[1rem] text-blueAnna font-bold max-md:text-[4.267rem]">
+          {dataShipping && formatCurrencyVND(dataShipping[0]?.cost?.toString() || 0)}
+        </p>
+      </div>
       <div className="flex justify-between my-[1.5rem] max-md:my-[4rem]">
         <p className="text-[1rem] font-bold max-md:text-[4.267rem]">Giảm</p>
         <p className="text-[1rem] text-blueAnna font-bold max-md:text-[4.267rem]">
@@ -150,7 +171,7 @@ export default function ListProductInCart() {
           Tổng cộng
         </p>
         <p className="text-[1rem] text-blueAnna font-bold max-md:text-[4.267rem]">
-          {formatCurrencyVND((totalPriceInCart - priceDiscount).toString())}
+          {formatCurrencyVND((totalPriceInCart - priceDiscount + (dataShipping? Number(dataShipping[0]?.cost): 0)).toString())}
         </p>
       </div>
     </div>

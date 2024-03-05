@@ -28,6 +28,7 @@ import LoadingGlobal from '@/components/component-ui-custom/loading-global';
 import { postData } from '@/lib/post-data';
 import { useSession } from 'next-auth/react';
 import { linkSocial } from '@/configs/config';
+import map from 'lodash.map';
 
 interface IProps {
   dataListProductHeader?: any;
@@ -42,6 +43,8 @@ function NavMobileDetail(props: IProps) {
   const [styleNavbar, setStyleNavbar] = useState(false);
   const [searchTerm, setSearchTerm] = useState<any>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [quantityProductCart, setQuantityProductCart] = useState(0);
+
 
   const { listCartGlobal, isLogin } = useContext<any>(ProductCartContext);
 
@@ -72,6 +75,15 @@ function NavMobileDetail(props: IProps) {
   const handleTogleMenu = (): void => {
     setIsShowMenu(!isShowMenu);
   };
+  useEffect(() => {
+    let total = 0;
+    map(listCartGlobal, (item) => {
+      total += Number(item.quantity);
+    });
+
+    setQuantityProductCart(total);
+  }, [listCartGlobal]);
+  // console.log(listCartGlobal, "listCartGlobal")
 
   return (
     <div>
@@ -136,7 +148,7 @@ function NavMobileDetail(props: IProps) {
               />
             </div>
             <div className="flex items-center justify-center absolute -bottom-1.5 -right-1.5 bg-[#F58F5D] rounded-full w-[2.46667rem] h-[2.46667rem] max-md:w-[3.46667rem] max-md:h-[3.46667rem] font-bold not-italic text-[1.8rem] max-md:text-[2.5144rem]">
-              {listCartGlobal?.length}
+              {quantityProductCart}
             </div>
           </div>
         </Link>

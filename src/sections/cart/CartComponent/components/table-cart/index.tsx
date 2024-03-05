@@ -20,7 +20,7 @@ import { ProductCartContext } from '@/context-provider';
 import { useSession } from 'next-auth/react';
 
 interface IProps {
-  handleTotalCart: (data: IItemCart[]) => void;
+  handleTotalCart: (data: any) => void;
   totalPrice?: any;
 }
 
@@ -57,60 +57,29 @@ export function TableCart(props: IProps) {
     }
   };
 
-  // const handleUpdateCart = async () => {
-  //   setIsLoading({ ...isLoading, isLoadingUpdate: true });
-  //   const newArrayUpdateCart = map(dataInit, (item) => {
-  //     const newObject = {
-  //       key: item.key,
-  //       quantity: item.quantity,
-  //     };
-  //
-  //     return newObject;
-  //   });
-  //
-  //   if (session === null) {
-  //     localStorage.setItem(keyProductsInCart, JSON.stringify(dataInit));
-  //     handleChangeDataCartGlobal(dataInit);
-  //     handleTotalCart(dataInit);
-  //   }
-  //
-  //   try {
-  //     await fetchDataAuthen({
-  //       url: 'wp-json/woocart/v1/update-cart',
-  //       method: 'post',
-  //       body: JSON.stringify({ cart_items: newArrayUpdateCart }),
-  //       token: session?.user?.token,
-  //     }).then(() => {
-  //       setIsLoading({ ...isLoading, isLoadingUpdate: false });
-  //
-  //       handleChangeDataCartGlobal(dataInit);
-  //       handleTotalCart(dataInit);
-  //
-  //       onSuccess({
-  //         message: 'Cập nhật giỏ hàng thành công!',
-  //       });
-  //     });
-  //   } catch (error: any) {
-  //     setIsLoading({ ...isLoading, isLoadingUpdate: false });
-  //   }
-  // };
 
   const onChangeSelectOneProduct = (value: any, id?: string | number): void => {
-    if (id) {
-      const fintIdSelected = listIdSelected.filter(
-        (itemID: string | number) => itemID === id
-      );
-
-      if (fintIdSelected.length === 0) {
-        setListIdSelected([...listIdSelected, id]);
-      } else {
-        const newArrayID = listIdSelected.filter((item: any) => item !== id);
-        setListIdSelected(newArrayID);
+    
+      if (id) {
+        const fintIdSelected = listIdSelected.filter(
+          (itemID: string | number) => itemID === id
+        );
+  
+        if (fintIdSelected.length === 0) {
+          setListIdSelected([...listIdSelected, id]);
+        } else {
+          const newArrayID = listIdSelected.filter((item: any) => item !== id);
+          setListIdSelected(newArrayID);
+        }
       }
-    }
+    
   };
 
+
   const handleFindIDSeleced = (id?: number | string): boolean => {
+  console.log('listIdSelected', listIdSelected)
+  console.log("id", id)
+
     const fintID = listIdSelected.filter((item: any) => item === id);
 
     return fintID.length > 0;
@@ -161,7 +130,7 @@ export function TableCart(props: IProps) {
     for (let i = 0; i < dataInit.length; i++) {
       let isAvailable = false;
       for (let j = 0; j < listIdSelected.length; j++) {
-        const keyCheck = dataInit[i].key ?? dataInit[i].product_id;
+        const keyCheck = dataInit[i].key ? dataInit[i].key:(dataInit[i].variant_id && dataInit[i]?.variant_id !== "") ?dataInit[i].variant_id: dataInit[i].product_id;
         if (keyCheck === listIdSelected[j]) {
           isAvailable = true;
         }
@@ -221,9 +190,7 @@ export function TableCart(props: IProps) {
     }
   }, [listCartGlobal]);
 
-  // useEffect(() => {
-  //   handleTotalCart(dataInit);
-  // }, [dataInit]);
+  // console.log(dataInit, "dataInit")
 
   return (
     <>
@@ -267,103 +234,115 @@ export function TableCart(props: IProps) {
         </div>
         <hr />
 
-        {dataInit.map((item: IItemCart, index: number) => (
-          <div key={index} className="body-list-product">
-            <div className="row-body-list-product">
-              <div className="checkbox-body">
-                <Checkbox
-                  onCheckedChange={(value: boolean) =>
-                    onChangeSelectOneProduct(
-                      value,
-                      item?.key ? item?.key : item?.product_id
-                    )
-                  }
-                  checked={handleFindIDSeleced(
-                    item?.key ? item?.key : item?.product_id
-                  )}
-                  className="border-2 border-[#C4C4C4] max-md:w-[5rem] max-md:h-[5rem]"
-                  aria-label="Select row"
-                />
-              </div>
-              <div className="info-product">
-                <div className="h-[7.5rem] max-md:h-[34rem] flex max-md:grow">
-                  <Image
-                    width={70}
-                    height={70}
-                    className="h-full w-[7.5rem] max-md:w-[32rem] max-md:h-[34rem]"
-                    src={item?.product_image ?? '/img/no_image.jpg'}
-                    alt="img product"
+        {dataInit.map((item: IItemCart, index: number) => {
+          let idCheck: any;
+          if(item?.key){
+            idCheck = item?.key  
+          }else if(item.variant_id && item.variant_id !== ""){
+            idCheck = item?.variant_id 
+          }else{
+            idCheck=item?.product_id
+          }
+          return (
+            <div key={index} className="body-list-product">
+              <div className="row-body-list-product">
+                <div className="checkbox-body">
+                  <Checkbox
+                    onCheckedChange={(value: boolean) =>
+                      onChangeSelectOneProduct(
+                        value,
+                        idCheck
+                      )
+                    }
+                    checked={handleFindIDSeleced(idCheck)}
+                    className="border-2 border-[#C4C4C4] max-md:w-[5rem] max-md:h-[5rem]"
+                    aria-label="Select row"
                   />
-                  <div className="h-full ml-[1rem] flex flex-col justify-center max-md:ml-[3.25rem] max-md:justify-between max-md:grow">
-                    <h4 className="text-[0.875rem] not-italic font-bold  max-md:text-[3.24rem] max-md:mb-[1rem] line-clamp-2 max-md:leading-[5.2rem]">
-                      {item?.product_name}
-                    </h4>
-                    <div className="hidden max-md:flex justify-between mb-[1.2rem]">
-                      <div className="not-italic font-normal  text-[3.15rem] w-1/3">
-                        Price:
+                </div>
+                <div className="info-product">
+                  <div className="h-[7.5rem] max-md:h-[39rem] flex max-md:grow">
+                    <Image
+                      width={70}
+                      height={70}
+                      className="h-full w-[7.5rem] max-md:w-[32rem] max-md:h-[34rem]"
+                      src={item?.product_image ?? '/img/no_image.jpg'}
+                      alt="img product"
+                    />
+                    <div className="h-full ml-[1rem] flex flex-col justify-center max-md:ml-[3.25rem] max-md:justify-between max-md:grow">
+                      <h4 className="text-[0.875rem] not-italic font-bold  max-md:text-[3.24rem] max-md:mb-[1rem] line-clamp-2 max-md:leading-[5.2rem]">
+                        {item?.product_name}
+                      </h4>
+  
+                      <div className='text-[0.75rem] font-bold max-lg:text-[1.5rem] max-md:text-[2.67rem]'>Màu sắc: {item.variant_value}</div>
+                      <div className="hidden max-md:flex justify-between mb-[1.2rem]">
+                        <div className="not-italic font-normal  text-[3.15rem] w-1/3">
+                          Price:
+                        </div>
+                        <div className="not-italic font-bold  text-[3.15rem]">
+                          {formatCurrencyVND(item?.product_price ?? '0')}
+                        </div>
                       </div>
-                      <div className="not-italic font-bold  text-[3.15rem]">
-                        {formatCurrencyVND(totalPrice.toString())}
+                      <div className="hidden max-md:flex justify-between">
+                        <div className="not-italic font-normal  text-[3.15rem] w-1/3">
+                          Subtotal:
+                        </div>
+                        <div className="not-italic font-bold text-[3.15rem]">
+  
+                        {item?.product_price && item?.quantity &&                         
+                              formatCurrencyVND(
+                                (
+                                  parseInt(item.product_price, 10) * item.quantity
+                                ).toString()
+                              )}
+                        </div>
+                      </div>
+                      <div className="mt-[2.5rem] hidden max-md:block ">
+                        <InputChangeAmount
+                          dataItemCart={item}
+                          setDataInit={setDataInit}
+                          dataInit={dataInit}
+                          handleTotalCart={handleTotalCart}
+                        />
                       </div>
                     </div>
-                    <div className="hidden max-md:flex justify-between">
-                      <div className="not-italic font-normal  text-[3.15rem] w-1/3">
-                        Subtotal:
-                      </div>
-                      <div className="not-italic font-bold text-[3.15rem]">
-                        {formatCurrencyVND(totalPrice.toString())}
-                      </div>
-                    </div>
-                    <div className="mt-[2.5rem] hidden max-md:block ">
-                      <InputChangeAmount
-                        dataItemCart={item}
-                        setDataInit={setDataInit}
-                        dataInit={dataInit}
-                        handleTotalCart={handleTotalCart}
-                      />
-                    </div>
-
-                    {/* <u className="text-[1.125rem] not-italic font-normal leading-[1.6875rem] max-md:hidden"> */}
-                    {/*  Xóa */}
-                    {/* </u> */}
                   </div>
                 </div>
-              </div>
-              <div className="price-product">
-                <div className="text-black text-[1rem] font-medium not-italic leading-[1.6875rem]">
-                  {formatCurrencyVND(item?.product_price ?? '0')}
+                <div className="price-product">
+                  <div className="text-black text-[1rem] font-medium not-italic leading-[1.6875rem]">
+                    {formatCurrencyVND(item?.product_price ?? '0')}
+                  </div>
+                </div>
+                <div className="amount-product">
+                  <InputChangeAmount
+                    dataItemCart={item}
+                    setDataInit={setDataInit}
+                    dataInit={dataInit}
+                    handleTotalCart={handleTotalCart}
+                  />
+                </div>
+                <div className="stock-quantity w-[13rem]">
+                  {item?.stock_quantity && (
+                    <div className="text-[1.125rem] not-italic font-bold leading-[1.6875rem]">
+                      {item?.stock_quantity} sản phẩm
+                    </div>
+                  )}
+                </div>
+                <div className="total-product ">
+                  {item?.product_price && item?.quantity && (
+                    <div className="text-[1.125rem] not-italic font-bold leading-[1.6875rem]">
+                      {formatCurrencyVND(
+                        (
+                          parseInt(item.product_price, 10) * item.quantity
+                        ).toString()
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
-              <div className="amount-product">
-                <InputChangeAmount
-                  dataItemCart={item}
-                  setDataInit={setDataInit}
-                  dataInit={dataInit}
-                  handleTotalCart={handleTotalCart}
-                />
-              </div>
-              <div className="stock-quantity w-[13rem]">
-                {item?.stock_quantity && (
-                  <div className="text-[1.125rem] not-italic font-bold leading-[1.6875rem]">
-                    {item?.stock_quantity} sản phẩm
-                  </div>
-                )}
-              </div>
-              <div className="total-product ">
-                {item?.product_price && item?.quantity && (
-                  <div className="text-[1.125rem] not-italic font-bold leading-[1.6875rem]">
-                    {formatCurrencyVND(
-                      (
-                        parseInt(item.product_price, 10) * item.quantity
-                      ).toString()
-                    )}
-                  </div>
-                )}
-              </div>
+              <hr />
             </div>
-            <hr />
-          </div>
-        ))}
+          )
+        })}
       </div>
       <div className="flex max-md:flex-col max-md:mt-[2rem]">
         <button
@@ -400,23 +379,6 @@ export function TableCart(props: IProps) {
           </span>
         </button>
         <div className="flex justify-between max-md:flex-col">
-          {/* <button */}
-          {/*  type="button" */}
-          {/*  onClick={handleUpdateCart} */}
-          {/*  className="flex relative w-fit items-center rounded-[0.5rem] mt-[1.25rem] px-[2rem] py-[0.75rem] bg-[#55D5D2] text-white text-[0.875rem] not-italic font-bold leading-[1.5rem] max-md:w-full max-md:justify-center max-md:text-[2.8rem] max-md:leading-[6.4rem] max-md:h-[11rem] max-md:mt-[2rem]" */}
-          {/* > */}
-          {/*  <div */}
-          {/*    className={cn( */}
-          {/*      'transition-all duration-300 overflow-hidden', */}
-          {/*      isLoading.isLoadingUpdate ? 'w-[2rem]' : 'w-0' */}
-          {/*    )} */}
-          {/*  > */}
-          {/*    <LoadingGlobal stroke="white" /> */}
-          {/*  </div> */}
-          {/*  <span className="mb-0 pb-0 max-md:text-[3.6rem]"> */}
-          {/*    Cập nhật giỏ hàng */}
-          {/*  </span> */}
-          {/* </button> */}
           <Link
             href="/cua-hang"
             className="ml-[1rem] mt-[1.25rem] flex items-center  rounded-[0.5rem] px-[2rem] py-[0.75rem] bg-[#55D5D2] text-white text-[0.875rem] not-italic font-bold leading-[1.5rem] max-md:ml-0 max-md:text-[2.52rem] max-md:leading-[6.4rem] max-md:justify-center max-md:h-[11rem] max-md:mt-[2rem]"

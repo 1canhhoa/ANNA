@@ -148,7 +148,7 @@ export function Fixed(props: IProps) {
                 </p>
               )}
 
-              {dataInit.variations && dataListColor && dataListColor.length > 0 && (
+              {dataInit.variations && dataListColor && dataListColor?.length > 0 && (
                 <ul className=" list-color flex mt-[1.06rem] max-md:hidden">
                   {dataListColor.map((item: any, index: number) => (
                     <li

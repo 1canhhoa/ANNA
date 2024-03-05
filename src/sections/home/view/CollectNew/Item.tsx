@@ -90,7 +90,6 @@ function ItemCollect({ dataCollect, key, category }: IPropsItemCollect) {
                             if(index <= 2){
                               const colorSlug = color.slug;
                               const itemActive = dataCollect.variations?.find((variable:any)=>variable.attributes.attribute_pa_color === colorSlug)
-                              // console.log(itemActive)
                               return (
                                 <button
                                   type="button"

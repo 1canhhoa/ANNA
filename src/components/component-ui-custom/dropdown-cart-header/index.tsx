@@ -25,7 +25,6 @@ interface IProps {
 
 function DropdownCartHeader(props: IProps) {
   const { onMouseLeaveTabMenu, listCartGlobal, quantityProductCart } = props;
-
   const { data: session } = useSession();
   const { handleChangeDataCartGlobal } = useContext<any>(ProductCartContext);
 
@@ -34,7 +33,6 @@ function DropdownCartHeader(props: IProps) {
   const [itemSelected, setItemSelected] = useState(null);
 
   const handleDeleteProduct = async (itemCart: any) => {
-    // console.log("itemCart", itemCart)
     const listKeyDelete: any[] = [];
     const listItemRemaining: any[] = []; // list product remaining
 
@@ -93,6 +91,7 @@ function DropdownCartHeader(props: IProps) {
     setListProductInCart(listCartGlobal);
   }, [listCartGlobal]);
 
+console.log("listCartGlobal", listCartGlobal)
   return (
     <div className="dropdown-cart-header border-none p-0 rounded-[1.5rem]">
       <div className="bg-white px-[0.7rem] py-[1.75rem] rounded-[1.5rem] mt-[0rem]">
@@ -136,16 +135,19 @@ function DropdownCartHeader(props: IProps) {
                   <h3 className="mt-[0.5rem] line-clamp-2 text-[1rem] not-italic font-extrabold leading-[1.2rem]">
                     {item?.product_name}
                   </h3>
-                  <div className="flex items-center mt-[0.5rem]">
+                  {/* <div className="flex items-center mt-[0.5rem]">
                     <div className="w-[0.375rem] h-[0.375rem] bg-[#55D5D2] rounded-full mr-[0.38rem]" />
                     <span className="text-[0.75rem] text-[#828282] not-italic font-bold leading-[0.9rem]">
-                      Chất liệu: nhựa
+                      Chất liệu:
                     </span>
-                  </div>
+                  </div> */}
                   <div className="flex items-center mt-[0.5rem] mb-[0.75rem]">
                     <div className="w-[0.375rem] h-[0.375rem] bg-[#55D5D2] rounded-full mr-[0.38rem]" />
                     <span className="text-[0.75rem] text-[#828282] not-italic font-bold leading-[0.9rem]">
-                      Màu sắc: {item?.variant_value}
+                      {
+                        item?.variant_value?` Màu sắc: ${item?.variant_value}`:item?.product_variation_color? item?.product_variation_color:""
+                      }
+                    
                     </span>
                   </div>
                   <div className="flex items-center">

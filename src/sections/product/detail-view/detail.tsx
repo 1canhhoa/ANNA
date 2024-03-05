@@ -96,6 +96,21 @@ function ProductDetail(props: IProps) {
     );
 
     if (findItemAvailabelStorage.length === 0) {
+
+      let productPrice: any;
+      let stockQty:any;
+
+      if(dataParams?.dataItemProduct?.variations && dataParams?.dataItemProduct?.variations.length > 0){
+        
+        const activeItem = dataParams.dataItemProduct.variations.find((item: any)=>item.variation_id === variantProductSelected.variant_id)
+        productPrice = activeItem.display_price
+        stockQty = activeItem.max_qty
+      }else{
+        productPrice = dataParams.dataItemProduct?.price;
+        stockQty = dataParams.dataItemProduct?.stock_quantity
+      }
+
+      console.log(stockQty)
       const ItemAddToCard = {
         key: dataParams.keyItemAddCartApi,
         product_id: dataParams.dataItemProduct?.id,
@@ -104,9 +119,9 @@ function ProductDetail(props: IProps) {
         category: dataParams.dataItemProduct?.categories
           ? dataParams.dataItemProduct?.categories[0]
           : 'no-dataItemProduct',
-        product_price: dataParams.dataItemProduct?.price,
+        product_price: productPrice,
         // salePrice: dataItemProduct?.sale_price,
-        stock_quantity: dataParams.dataItemProduct?.stock_quantity,
+        stock_quantity: stockQty,
         quantity: dataParams.quantityProduct,
         variant_id: variantProductSelected.variant_id,
         variant_value: variantProductSelected.color_variant,

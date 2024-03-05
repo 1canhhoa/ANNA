@@ -163,6 +163,8 @@ export interface IItemCart {
   product_price?: string;
   quantity?: number;
   stock_quantity?: number;
+  variant_value?:string,
+  variant_id?:string
 }
 
 export interface IDataPagination {

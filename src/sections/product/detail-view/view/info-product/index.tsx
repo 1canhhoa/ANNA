@@ -176,7 +176,6 @@ function InfoProduct(props: IProps) {
       }
     }
   };
-  // console.log(dataInit)
 
   useEffect(() => {
 
