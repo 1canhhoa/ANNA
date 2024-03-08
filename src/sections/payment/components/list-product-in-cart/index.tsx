@@ -15,30 +15,39 @@ import LoadingGlobal from '@/components/component-ui-custom/loading-global';
 import useSWR from 'swr';
 import { fetchDataRest } from '@/lib/fetch-data-rest';
 
-export default function ListProductInCart() {
+export default function ListProductInCart(props: any) {
   const [dataInit, setDataInit] = useState<IItemCart[]>([]);
   const [totalPriceInCart, setTotalPriceInCart] = useState<number>(0);
   const [dataCoupon, setDataCoupon] = useState<string>('');
   const isLoadingCoupon = useBoolean(false);
-  const [priceDiscount, setPriceDiscount] = useState<number>(0);
+  const [priceDiscount, setPriceDiscount] = useState<any>({
+    type:"",
+    value:0,
+  });
 
   const { handleUpdate } = useContext<any>(FormPaymentContext);
   const { listCartGlobal } = useContext(ProductCartContext);
-
+  const {shippingData} = props
   const handleCheckCoupon = async () => {
     isLoadingCoupon.onTrue();
     try {
       await fetchDataAuthen({
-        url: `wp-json/custom/v1/coupon/check?coupon_code=${dataCoupon}`,
+        url: `wp-json/custom/v1/coupon/check`,
         method: 'post',
+        body:JSON.stringify({
+          coupon_code:dataCoupon,
+        })
       }).then((res) => {
         isLoadingCoupon.onFalse();
         if (res.status === 'success') {
           onSuccess({
             message: 'Áp dụng mã thành công!',
           });
-
-          setPriceDiscount(parseInt(res?.amount, 10));
+        let newDiscount = {
+          type: res.discount_type ,
+          value:res.discount_type === "percent"?totalPriceInCart * res.amount / 100:res.amount,
+        }
+          setPriceDiscount(newDiscount);
           handleUpdate(dataCoupon);
         } else {
           onError({
@@ -76,7 +85,6 @@ const {data: dataShipping} = useSWR(
     return res; // Return the data to update the SWR cache
   })
 );
-console.log(dataShipping)
   return (
     <div className="p-[2rem] bg-[#F3F3F3] max-md:p-[4rem]">
       <h3 className="text-[1.5rem] font-bold max-md:text-[6.4rem]">
@@ -156,13 +164,13 @@ console.log(dataShipping)
       <div className="flex justify-between my-[1.5rem] max-md:my-[4rem]">
         <p className="text-[1rem] font-bold max-md:text-[4.267rem]">Phí vận chuyển</p>
         <p className="text-[1rem] text-blueAnna font-bold max-md:text-[4.267rem]">
-          {dataShipping && formatCurrencyVND(dataShipping[0]?.cost?.toString() || 0)}
+          {shippingData && formatCurrencyVND(shippingData[0]?.cost?.toString() || 0)}
         </p>
       </div>
       <div className="flex justify-between my-[1.5rem] max-md:my-[4rem]">
         <p className="text-[1rem] font-bold max-md:text-[4.267rem]">Giảm</p>
         <p className="text-[1rem] text-blueAnna font-bold max-md:text-[4.267rem]">
-          {formatCurrencyVND(priceDiscount.toString())}
+          {formatCurrencyVND(priceDiscount.value.toString())}
         </p>
       </div>
       <hr />
@@ -171,7 +179,7 @@ console.log(dataShipping)
           Tổng cộng
         </p>
         <p className="text-[1rem] text-blueAnna font-bold max-md:text-[4.267rem]">
-          {formatCurrencyVND((totalPriceInCart - priceDiscount + (dataShipping? Number(dataShipping[0]?.cost): 0)).toString())}
+          {formatCurrencyVND((totalPriceInCart - priceDiscount.value + (dataShipping? Number(dataShipping[0]?.cost): 0)).toString())}
         </p>
       </div>
     </div>

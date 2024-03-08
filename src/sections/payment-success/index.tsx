@@ -17,6 +17,7 @@ import { useSession } from 'next-auth/react';
 import { ProductCartContext } from '@/context-provider';
 import { useBoolean } from '@/hooks/use-boolean';
 import LoadingGlobal from '@/components/component-ui-custom/loading-global';
+import { useRouter } from 'next/navigation';
 
 interface IProps {
   slug: string;
@@ -29,9 +30,11 @@ interface IProps {
 function PaymentSuccess(props: IProps) {
   const { slug, searchParams, dataCheckingOrder, idOrder } = props;
   const { data: session } = useSession();
+  const router = useRouter();
+
   const { clearDataCartProductContext } = useContext(ProductCartContext);
   const isLoading = useBoolean(true);
-  const [dataBill, setDataBill] = useState({
+  const [dataBill, setDataBill] = useState<any>({
     date_created: '',
     payment_method_title: '',
     total: '',
@@ -44,6 +47,7 @@ function PaymentSuccess(props: IProps) {
         slug: '',
       },
     ],
+    id: ""
   });
 
   const generateParams = (pickVpc = false) => {
@@ -75,85 +79,102 @@ function PaymentSuccess(props: IProps) {
     return vpc_SecureHash;
   };
 
+  let token = searchParams.token ? session?.user?.token: undefined;
   useEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      localStorage.getItem(keyLocalStorage.keyFormPayment) !== null &&
-      localStorage.getItem(keyLocalStorage.keyFormPayment) !== undefined
-    ) {
-      const dataF = localStorage.getItem(keyLocalStorage.keyFormPayment);
+    console.log("Running");
+    console.log(localStorage.getItem('success'));
+      if(searchParams.token === "true" && !token)return;
+      if(localStorage.getItem('success')) return;
+      if (
+        typeof window !== 'undefined' &&
+        localStorage.getItem(keyLocalStorage.keyFormPayment) !== null &&
+        localStorage.getItem(keyLocalStorage.keyFormPayment) !== undefined
+      ) {
+        const dataF = localStorage.getItem(keyLocalStorage.keyFormPayment);
+  
+        if (!dataF) {
+          return;
+        }
+  
+        const parseDataF = JSON.parse(dataF);
+        const fetcher = async () => {
+  
+          const res = await fetch('/api/check-payment-onepay', {
+            method: 'POST',
+            body: JSON.stringify({
+              vpc_AccessCode: paymentOnepay.ACCESS_CODE,
+              vpc_MerchTxnRef: searchParams?.vpc_MerchTxnRef,
+              vpc_Merchant: paymentOnepay.MERCHANT_ID,
+              vpc_Password: 'op123456',
+              vpc_User: 'op01',
+              vpc_Version: '2',
+              vpc_SecureHash: handleSecureHash(),
+            }),
+          });
+  
+          const data = res.json();
+          return data;
+        };
+  
+        fetcher()
+          .then((res) => {
+            const createOrder = async () => {
+              console.log("create")
+            
+              try {
+                await fetchDataAuthen({
+                  url: 'wp-json/custom/v1/create-order',
+                  method: 'post',
+                  body: JSON.stringify(parseDataF.dataSubmitTmp),
+                  token: token,
+                })
+                  .then((res: any) => {
+                    const currentDate = new Date();
+                    const parseDataF = JSON.parse(dataF);
+  
+                    const productRes = parseDataF.product;
+                    const newProductRes = productRes.map((item: any, index:any)=>{
+                        return{
+                         ...item,
+                         image:item.product_image,
+                         name: res?.item?.product? res?.item?.product[index]?.productName:item.product_name,
+                         total: res?.item?.product? res?.item?.product[index]?.total:0,
+                         slug: res?.item?.product? res?.item?.product[index]?.productSlug:""
+                        }
+                    })
+                    const dataOrderd = Object.assign(
+                      res.item,
+                      { date_created: currentDate },
+                      { product: newProductRes},
+                      {id: res.order_id}
+                    );
 
-      if (!dataF) {
-        return;
+                    setDataBill(dataOrderd);
+                    clearDataCartProductContext();
+                    localStorage.setItem("success",'true');
+                    isLoading.onFalse();
+
+                    console.log("Finish")
+                  })
+                  .catch(() => {});
+              } catch (error: any) {
+                onError();
+                isLoading.onFalse();
+              }
+            };
+            createOrder();
+  
+          })
+          .catch((res) => console.log('error'));
       }
 
-      const parseDataF = JSON.parse(dataF);
-      const fetcher = async () => {
-        const res = await fetch('/api/check-payment-onepay', {
-          method: 'POST',
-          body: JSON.stringify({
-            vpc_AccessCode: paymentOnepay.ACCESS_CODE,
-            vpc_MerchTxnRef: searchParams?.vpc_MerchTxnRef,
-            vpc_Merchant: paymentOnepay.MERCHANT_ID,
-            vpc_Password: 'op123456',
-            vpc_User: 'op01',
-            vpc_Version: '2',
-            vpc_SecureHash: handleSecureHash(),
-          }),
-        });
+  }, [token]);
 
-        const data = res.json();
-        return data;
-      };
-
-      fetcher()
-        .then((res) => {
-          const createOrder = async () => {
-            try {
-              await fetchDataAuthen({
-                url: 'wp-json/custom/v1/create-order',
-                method: 'post',
-                body: JSON.stringify(parseDataF.dataSubmitTmp),
-                token: session?.user?.token,
-              })
-                .then((res) => {
-                  // if (!res.success) {
-                  //   onError({
-                  //     message: res.message,
-                  //   });
-                  //
-                  //   return;
-                  // }
-                  const currentDate = new Date();
-                  const parseDataF = JSON.parse(dataF);
-
-                  const dataOrderd = Object.assign(
-                    res.item,
-                    { date_created: currentDate },
-                    { product: parseDataF.product }
-                  );
-
-                  setDataBill(dataOrderd);
-
-                  clearDataCartProductContext();
-                  localStorage.removeItem(keyLocalStorage.keyProductsInCart);
-
-                  isLoading.onFalse();
-                })
-                .catch(() => {});
-            } catch (error: any) {
-              onError();
-              isLoading.onFalse();
-            }
-          };
-
-          createOrder();
-
-          localStorage.removeItem(keyLocalStorage.keyFormPayment);
-        })
-        .catch((res) => console.log('error'));
+  useEffect(()=>{
+    return()=>{
+      localStorage.removeItem("success")
     }
-  }, []);
+  },[])
 
   return (
     <div className="">
@@ -182,7 +203,7 @@ function PaymentSuccess(props: IProps) {
                   <ICLogo fill="#55D5D2" width="20rem" height="20rem" />
                 </div>
                 <p className="mt-[1.5rem] text-[1.25rem] text-[#828282] not-italic leading-[1.625rem] font-normal  max-md:text-[4.25rem] max-md:leading-[4.625rem] max-md:font-medium">
-                  Thân <span className="uppercase">{props.name}</span>,
+                  Thân <span className="uppercase">{dataBill?.customer?.first_name}</span>,
                 </p>
                 <p className="text-blueAnna text-[2.583rem] not-italic font-black leading-[3.35794rem] max-md:text-[7.583rem] max-md:leading-[8rem] max-md:font-extrabold max-md:mt-[2rem]">
                   CẢM ƠN BẠN
@@ -201,7 +222,7 @@ function PaymentSuccess(props: IProps) {
                     />
                   </div>
                 </div>
-                <div className="text-[1.75rem] text-blackAnna font-bold not-italic leading-[2rem] text-center mt-[0.56rem] mb-[1.56rem] max-md:text-[3.8rem] max-md:leading-[3.8rem] max-md:mt-[1.56rem] max-md:mb-[2.56rem]">
+                <div className="text-[0.75rem] text-blackAnna font-bold not-italic leading-[0.975rem] text-center mt-[0.56rem] mb-[1.56rem] max-md:text-[3.8rem] max-md:leading-[3.8rem] max-md:mt-[1.56rem] max-md:mb-[2.56rem]">
                   Chúng tôi sẽ liên hệ lại sớm để xác nhận đơn hàng. Bạn có thể
                   kiểm tra tình trạng đơn hàng
                   <Link

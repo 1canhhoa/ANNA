@@ -31,6 +31,7 @@ export function ContextProvider({
 
   const clearDataCartProductContext = (): void => {
     setListCartGlobal([]);
+    localStorage.setItem(keyLocalStorage.keyProductsInCart, "[]")
   };
   // END CONTEXT
 

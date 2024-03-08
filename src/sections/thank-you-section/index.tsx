@@ -15,6 +15,7 @@ interface IProps {
 
 function ThankYou(props: IProps) {
   const { dataCheckingOrder } = props;
+  console.log(dataCheckingOrder)
 
   return (
     <div className="h-screen flex max-md:flex-col max-md:h-fit max-md:mb-[5rem]">

@@ -52,7 +52,10 @@ function DetailOrder(props: IProps) {
 
     return `${company} ${address1} ${address2} ${district} ${city} ${country}`;
   };
-
+  const totalSum = dataDetailOrder?.product?.reduce((total:number, item: any) => {
+    // Add the "total" value of the current object to the accumulator
+    return Number(total) + Number(item.total);
+  }, 0);
   return (
     <div className="detail-order-dashboard">
       <h3 className="text-[1.5rem] not-italic font-semibold leading-[1.5rem] max-md:pb-[3rem] max-md:text-[4.5rem] max-md:leading-[5rem]">
@@ -123,7 +126,7 @@ function DetailOrder(props: IProps) {
                   <div key={index} className="row-body-list-product">
                     {index !== 0 && <hr />}
                     <div className="info-product">
-                      <div className="flex items-center">
+                      <div className="flex items-center w-[5rem] max-md:w-[18.133rem]">
                         <Image
                           width={70}
                           height={70}
@@ -131,23 +134,9 @@ function DetailOrder(props: IProps) {
                           src={item?.image ?? '/img/no_image.jpg'}
                           alt="img product"
                         />
-                        {/* <div className="h-full grow ml-[1rem] flex flex-col justify-center max-md:ml-[3.25rem] max-md:justify-between"> */}
-                        {/*  <div className="grow"> */}
-                        {/*    <h4 className="text-[1rem] font-semibold leading-[1.875rem] max-md:text-[3.733rem] max-md:leading-[4.5rem]"> */}
-                        {/*      {item?.name} */}
-                        {/*    </h4> */}
-                        {/*    <div className="flex items-center max-md:mt-[1rem]"> */}
-                        {/*      <h4 className="text-[1rem] font-medium leading-[1.875rem] font-Nexa-Medium max-md:text-[3.733rem] max-md:leading-[5rem]"> */}
-                        {/*        màu: */}
-                        {/*      </h4> */}
-                        {/*      <div className="h-[0.875rem] w-[0.875rem] rounded-full bg-black ml-[0.3rem] max-md:h-[3rem] max-md:w-[3rem] max-md:mt-[0.8rem] max-md:ml-[1rem]" /> */}
-                        {/*    </div> */}
-                        {/*  </div> */}
-                        {/*  <div className="hidden max-md:block max-md:text-[3.733rem] underline max-md:leading-[4.5rem] text-blueAnna"> */}
-                        {/*    Mua lại */}
-                        {/*  </div> */}
-                        {/* </div> */}
+                       
                       </div>
+                      <div className='text-[1rem] font-bold ml-[1rem] flex w-[20rem]'>{item?.name}</div>
                     </div>
                     <div
                       style={{
@@ -162,11 +151,11 @@ function DetailOrder(props: IProps) {
                       </div>
                     </div>
                     <div className="amount-product">
-                      <p className="text-[1rem] font-medium leading-[1.5rem] font-Nexa-Normal">
-                        {item?.category}
+                      <p className="text-[0.75rem] font-medium leading-[1.5rem] font-Nexa-Normal">
+                        {item?.category && item?.category.join(', ')}
                       </p>
                     </div>
-                    <div className="total-product ">
+                    <div className="total-product flex justify-center">
                       <span className="text-[1rem] font-medium leading-[1.5rem] font-Nexa-Normal">
                         {item?.quantity}
                       </span>
@@ -206,7 +195,7 @@ function DetailOrder(props: IProps) {
               Tổng tiền:
             </span>
             <span className="text-[0.875rem] font-semibold leading-[1.3125rem] font-Nexa-Medium not-italic max-md:text-[2.88rem] max-md:leading-[5.6rem]">
-              {formatCurrencyVND(dataDetailOrder?.total.toString())}
+              {formatCurrencyVND(totalSum?.toString())}
             </span>
           </div>
           <div className="mb-[0.3rem] flex justify-between">
@@ -214,8 +203,9 @@ function DetailOrder(props: IProps) {
               Vận chuyển:
             </span>
             <span className="text-[0.875rem] font-semibold leading-[1.3125rem] font-Nexa-Medium not-italic max-md:text-[2.88rem] max-md:leading-[5.6rem]">
-              540.000 đ
-            </span>          </div>
+            {dataDetailOrder?.shipping_lines && formatCurrencyVND(dataDetailOrder?.shipping_lines[0]?.total?.toString() || 0)}
+            </span>
+            </div>
           <div className="mb-[0.75rem] flex justify-between">
             <span className="text-[1rem] font-medium not-italic max-md:text-[2.88rem] max-md:font-Nexa-Bold">
               Phương thức thanh toán:
@@ -240,10 +230,13 @@ function DetailOrder(props: IProps) {
           </h3>
           <hr className="bg-[#E5EAEA]" />
           <h3 className="text-[0.875rem] not-italic font-medium pt-[0.6rem] max-md:text-[2.88rem] max-md:font-Nexa-Bold">
-            {`${dataDetailOrder?.shipping?.first_name} ${dataDetailOrder?.shipping?.last_name}`}
+            {`${dataDetailOrder?.customer?.first_name} ${dataDetailOrder?.customer?.last_name}`}
           </h3>
           <h3 className="text-[0.875rem] not-italic font-medium pt-[0.6rem] max-md:text-[2.88rem] max-md:font-Nexa-Bold">
-            {dataDetailOrder?.phone}
+            {dataDetailOrder?.shipping?.phone}
+          </h3>
+          <h3 className="text-[0.875rem] not-italic font-medium pt-[0.6rem] max-md:text-[2.88rem] max-md:font-Nexa-Bold">
+            {dataDetailOrder?.billing?.email}
           </h3>
           <h3 className="text-[0.875rem] not-italic font-medium pt-[0.6rem] max-md:text-[2.88rem] max-md:font-Nexa-Bold">
             {handleConvertAddress()}

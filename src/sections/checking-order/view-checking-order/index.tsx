@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import ICPhone from '@/components/Icons/ICPhone';
 import './style.css';
@@ -16,6 +16,8 @@ interface IProps {
 }
 function ViewCheckingOrder(props: IProps) {
   const { dataGetDetailOrder } = props;
+
+  // console.log(dataGetDetailOrder)
 
   const handleConvertAddress = () => {
     const company = `${dataGetDetailOrder?.shipping?.company}${
@@ -39,6 +41,11 @@ function ViewCheckingOrder(props: IProps) {
 
     return `${company} ${address1} ${address2} ${district} ${city} ${country}`;
   };
+
+  const totalSum = dataGetDetailOrder?.product?.reduce((total:number, item: any) => {
+    // Add the "total" value of the current object to the accumulator
+    return Number(total) + Number(item.total);
+  }, 0);
 
   return (
     <div className="checking-order w-full pb-[3rem]">
@@ -132,6 +139,8 @@ function ViewCheckingOrder(props: IProps) {
                           alt="img product"
                         />
                       </div>
+
+                      <div className='text-[1rem] font-bold ml-[1rem]'>{item?.name}</div>
                     </div>
                     <div
                       style={{
@@ -148,12 +157,7 @@ function ViewCheckingOrder(props: IProps) {
                           formatCurrencyVND(item.product_price.toString())}
                       </div>
                     </div>
-                    {/* <div className="amount-product"> */}
-                    {/*  <p className="text-[1rem] font-medium leading-[1.5rem] font-Nexa-Normal"> */}
-                    {/*    {item?.category} */}
-                    {/*  </p> */}
-                    {/* </div> */}
-                    <div className="total-product ">
+                    <div className="total-product flex justify-center">
                       <span className="text-[1rem] font-medium leading-[1.5rem] font-Nexa-Normal">
                         {item?.quantity}
                       </span>
@@ -193,17 +197,19 @@ function ViewCheckingOrder(props: IProps) {
               Tổng tiền:
             </span>
             <span className="text-[0.875rem] font-semibold leading-[1.3125rem] font-Nexa-Medium not-italic max-md:text-[3.2rem] max-md:leading-[5.6rem]">
-              {formatCurrencyVND(dataGetDetailOrder?.total.toString())}
+              {formatCurrencyVND(totalSum.toString())}
             </span>
           </div>
-          {/* <div className="mb-[0.3rem] flex justify-between"> */}
-          {/*  <span className="text-[1rem] font-medium not-italic max-md:text-[3.2rem] max-md:font-Nexa-Bold"> */}
-          {/*    Vận chuyển: */}
-          {/*  </span> */}
-          {/*  <span className="text-[0.875rem] font-semibold leading-[1.3125rem] font-Nexa-Medium not-italic max-md:text-[3.2rem] max-md:leading-[5.6rem]"> */}
-          {/*    540.000 đ */}
-          {/*  </span> */}
-          {/* </div> */}
+         
+          <div className="mt-[0.75rem] mb-[0.3rem] flex justify-between max-md:mt-[2rem]">
+            <span className="text-[1rem] font-medium not-italic max-md:text-[3.2rem] max-md:font-Nexa-Bold">
+              Phí ship:
+            </span>
+            <span className="text-[0.875rem] font-semibold leading-[1.3125rem] font-Nexa-Medium not-italic max-md:text-[3.2rem] max-md:leading-[5.6rem]">
+              {dataGetDetailOrder?.shipping_lines&& formatCurrencyVND(dataGetDetailOrder?.shipping_lines[0]?.total || 0)}
+            </span>
+          </div>
+
           <div className="mb-[0.75rem] flex justify-between">
             <span className="text-[1rem] font-medium not-italic max-md:text-[3.2rem] max-md:font-Nexa-Bold">
               Phương thức thanh toán:
@@ -218,7 +224,7 @@ function ViewCheckingOrder(props: IProps) {
               Thành tiền:
             </span>
             <span className="text-[0.875rem] leading-[1.3125rem] font-extrabold not-italic max-md:text-[3.2rem] max-md:leading-[5.6rem]">
-              {formatCurrencyVND(dataGetDetailOrder?.total.toString())}
+              {formatCurrencyVND(dataGetDetailOrder?.total?.toString())}
             </span>
           </div>
         </div>
@@ -228,9 +234,7 @@ function ViewCheckingOrder(props: IProps) {
           </h3>
           <hr className="bg-[#E5EAEA]" />
           <h3 className="text-[0.875rem] not-italic font-medium pt-[0.6rem] max-md:text-[3.2rem] max-md:font-Nexa-Bold">
-            {/* {`${dataGetDetailOrder?.billing?.finamerst_name} ${dataGetDetailOrder?.billing?.last_name}`} */}
-
-            {`${dataGetDetailOrder?.billing?.name}`}
+            {`${dataGetDetailOrder?.customer?.first_name}`}
           </h3>
           {dataGetDetailOrder?.billing?.phone && (
             <h3 className="text-[0.875rem] not-italic font-medium pt-[0.6rem] max-md:text-[3.2rem] max-md:font-Nexa-Bold">

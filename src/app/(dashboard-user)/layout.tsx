@@ -1,6 +1,7 @@
 import Navbar from '@/sections/main/components/navbar/navbar';
 import SidebarDashboardUser from '../../sections/dashboard-user/components/sidebar-dashboard-user';
 import { postData } from '@/lib/post-data';
+import Link from 'next/link';
 
 const MainLayout = async ({ children }: { children: React.ReactNode }) => {
   const bodyGetProductHeader: any = {
@@ -14,8 +15,6 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
     <div>
       <main className="bg-[#FAFAFA] mt-[9rem] max-md:mt-0 max-md:h-fit max-md:max-h-fit">
         <Navbar
-          // avatarUser={dataGetInforUser?.avatar_url}
-          // dataListCart={dataListCart}
           dataListProductHeader={dataListProductHeader}
         />
         <div className="h-[calc(100vh-4.5rem-9rem)] w-[87.5rem] mx-auto flex py-[2rem] max-h-full max-md:flex-col max-md:h-fit max-md:max-h-auto max-md:w-full max-md:px-[3rem] max-md:mt-[17rem]">
@@ -36,15 +35,15 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
               </h3>
             </div>
             <div className="flex max-md:flex-col max-md:mb-[2rem]">
-              <h3 className="px-[2rem] font-medium text-[1rem] leading-[1.7rem] text-[#444] opacity-70 max-md:text-[3.6rem] max-md:leading-[5rem] max-md:pl-[0rem]">
+              <Link href="/he-thong-cua-hang" className="px-[2rem] font-medium text-[1rem] leading-[1.7rem] text-[#444] opacity-70 max-md:text-[3.6rem] max-md:leading-[5rem] max-md:pl-[0rem]">
                 Hệ Thống Cửa Hàng
-              </h3>
-              <h3 className="px-[2rem] font-medium text-[1rem] leading-[1.7rem] text-[#444] opacity-70 max-md:text-[3.6rem] max-md:leading-[5rem] max-md:pl-[0rem]">
+              </Link>
+              <Link href="/cua-hang" className="px-[2rem] font-medium text-[1rem] leading-[1.7rem] text-[#444] opacity-70 max-md:text-[3.6rem] max-md:leading-[5rem] max-md:pl-[0rem]">
                 Danh sách sản phẩm
-              </h3>
-              <h3 className="px-[2rem] font-medium text-[1rem] leading-[1.7rem] text-[#444] opacity-70 max-md:text-[3.6rem] max-md:leading-[5rem] max-md:pl-[0rem]">
+              </Link>
+              <Link href="/blog" className="px-[2rem] font-medium text-[1rem] leading-[1.7rem] text-[#444] opacity-70 max-md:text-[3.6rem] max-md:leading-[5rem] max-md:pl-[0rem]">
                 Bài viết
-              </h3>
+              </Link>
             </div>
           </div>
         </div>
