@@ -7,9 +7,10 @@ import { createContext, useMemo, useState } from 'react';
 
 export const FormPaymentContext = createContext<any>({});
 
-export default function Payment() {
+export default function Payment(props: any) {
   const [voucher, setVoucher] = useState<string | null>(null);
-
+  const {shippingData} = props
+  console.log(shippingData)
   const handleUpdate = (value: any): void => {
     setVoucher(value);
   };
@@ -23,11 +24,11 @@ export default function Payment() {
             THANH TOÁN
           </span>
           <div className="mt-[1rem] max-md:mt-[3rem]">
-            <FormPayment voucher={voucher} />
+            <FormPayment voucher={voucher} shippingData={shippingData}/>
           </div>
         </div>
         <div className="grow max-md:hidden">
-          <ListProductInCart />
+          <ListProductInCart shippingData={shippingData}/>
         </div>
       </div>
     </FormPaymentContext.Provider>

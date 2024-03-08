@@ -6,13 +6,15 @@ const generateParamsPayment = (
   dataOrder: any,
   pickVpc = false,
   ip: string,
-  idOrder: number
+  idOrder: number,
+  amount: any,
+  isLoggin:any,
 ) => {
   const reqParam = {
     AgainLink: paymentOnepay.BASE_URL,
     Title: 'Kinh mat Anna',
     vpc_AccessCode: paymentOnepay.ACCESS_CODE,
-    vpc_Amount: 200000 + '00',
+    vpc_Amount: amount + "00",
     vpc_CardList: 'INTERNATIONAL',
     vpc_Command: 'pay',
     vpc_Currency: 'VND',
@@ -22,7 +24,7 @@ const generateParamsPayment = (
     vpc_OrderInfo: dataOrder?.name,
     vpc_ReturnURL:
       paymentOnepay.BASE_URL +
-      `/payment-successfull/${idOrder}-${dataOrder?.email}`,
+      `/payment-successfull/${idOrder}-${dataOrder?.email}/?token=${isLoggin}`,
     vpc_TicketNo: ip,
     vpc_Version: '2',
   };

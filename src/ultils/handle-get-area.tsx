@@ -11,8 +11,8 @@ interface IItemArea {
 
 const handlePushArrayArea = (listArray: IItemArea[], itemPush: any): void => {
   listArray.push({
-    label: itemPush.name,
-    value: itemPush.code,
+    label: itemPush?.name,
+    value: itemPush?.code,
   });
 };
 

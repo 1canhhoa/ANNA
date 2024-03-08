@@ -37,6 +37,7 @@ import { setItemLocalstorage } from '@/ultils/set-item-localstorage';
 
 interface IProps {
   voucher: any;
+  shippingData: any
 }
 
 interface IParamItemDistrict {
@@ -45,7 +46,7 @@ interface IParamItemDistrict {
 }
 
 export default function FormPayment(props: IProps) {
-  const { voucher } = props;
+  const { voucher, shippingData } = props;
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -65,14 +66,31 @@ export default function FormPayment(props: IProps) {
     },
   ]);
   const [dataSubmit, setDataSubmit] = useState({});
+  const [totalPriceInCart, setTotalPriceInCart] = useState<number>(0);
+
   const [paymentMethodSubmit, setPaymentMethodSubmit] = useState({
     payment_method: 'cod',
-    payment_method_title: 'Cash on delivery',
+    payment_method_title: 'Thanh toán khi nhận hàng',
   });
 
   const { listCartGlobal, clearDataCartProductContext } =
     useContext(ProductCartContext);
+    useEffect(() => {
+      let total = 0;
+      listCartGlobal?.map(
+        // eslint-disable-next-line no-return-assign
+        (item: any) =>
+          (total +=
+            (item?.quantity ?? 0) * parseInt(item?.product_price ?? '0', 10))
+      );
+      console.log(shippingData);
 
+      const shippingTotal = shippingData && shippingData[0].cost && shippingData[0].cost !== "" ? shippingData[0].cost: 0;
+      console.log(shippingTotal)
+      setTotalPriceInCart(total + Number(shippingTotal));
+    }, [listCartGlobal]);
+
+    console.log(totalPriceInCart)
   const formSchema = yup.object({
     first_name: yup.string().required('Họ và tên là bắt buộc!'),
     phone: yup
@@ -111,19 +129,12 @@ export default function FormPayment(props: IProps) {
   const onSubmit = async (data: any) => {
     const arrayProduct: any = [];
 
-    // map(listCartGlobal, (item) =>
-    //   arrayProduct.push({
-    //     cart_key: item.key,
-    //     product_id: item.product_id,
-    //     quantity: item.quantity,
-    //   })
-    // );
-
     map(listCartGlobal, (item) =>
       arrayProduct.push({
-        variant_id: item.variant_id,
+        variation_id: item.variant_id,
         product_id: item.product_id,
         quantity: item.quantity,
+        cart_key:item.key,
       })
     );
 
@@ -142,22 +153,33 @@ export default function FormPayment(props: IProps) {
       voucher: voucher,
     };
 
+    const newShippingData = shippingData.map((item: any)=>{
+      return {
+        ...item,
+        total: item.cost
+      }
+    })
+
     // merge object
     const dataSubmitTmp = Object.assign(newData, dataSubmit, paymentMethod, {
       products: arrayProduct,
+    }, {
+      shipping_lines: newShippingData
     });
     isLoadingSubmit.onTrue();
-
     // list product
 
     if (paymentMethodSubmit.payment_method === 'onepay') {
-      const randomIDOrder = generateRandom4DigitNumber();
-      // REDIRECT ONEPAY
+    const randomIDOrder = generateRandom4DigitNumber();
+      // REDIRECT ONEPAY 
+      const isLoggin = !!session?.user?.token
       const params = generateParamsPayment(
         dataSubmitTmp,
         true,
         ip,
-        randomIDOrder
+        randomIDOrder,
+        totalPriceInCart,
+        isLoggin
       );
       const secretWordArray = CryptoJS.enc.Hex.parse(
         paymentOnepay.SECRET_KEY_HASH
@@ -165,16 +187,20 @@ export default function FormPayment(props: IProps) {
       const hash = CryptoJS.HmacSHA256(params, secretWordArray);
       // eslint-disable-next-line camelcase
       const vpc_SecureHash = hash.toString(CryptoJS.enc.Hex).toUpperCase();
+
+
+      // console.log(isLoggin)
       router.push(
         `${paymentOnepay.ONEPAY_HOST}?${generateParamsPayment(
           dataSubmitTmp,
           false,
           ip,
-          randomIDOrder
+          randomIDOrder,
+          totalPriceInCart,
+          isLoggin
           // eslint-disable-next-line camelcase
         )}&vpc_SecureHash=${vpc_SecureHash}`
       );
-
       setItemLocalstorage(keyLocalStorage.keyFormPayment, {
         dataSubmitTmp: dataSubmitTmp,
         product: listCartGlobal,
@@ -182,39 +208,36 @@ export default function FormPayment(props: IProps) {
       // END;
 
       return;
-    }
+    }else{
 
-    try {
-      await fetchDataAuthen({
-        url: 'wp-json/custom/v1/create-order',
-        method: 'post',
-        body: JSON.stringify(dataSubmitTmp),
-        token: session?.user?.token,
-      })
-        .then((res) => {
-          // if (!res.success) {
-          //   onError({
-          //     message: res.message,
-          //   });
-          //
-          //   return;
-          // }
-
-          onSuccess({
-            message: 'Đặt hàng thành công!',
-          });
-          localStorage.removeItem(keyLocalStorage.keyProductsInCart);
-
-          clearDataCartProductContext();
-          router.push(
-            `/thank-you?email=${data?.email}&name=${data?.first_name}&order_id=${res?.order_id}`
-          );
-          reset();
+      try {
+        await fetchDataAuthen({
+          url: 'wp-json/custom/v1/create-order',
+          method: 'post',
+          body: JSON.stringify(dataSubmitTmp),
+          token: session?.user?.token,
         })
-        .catch(() => {});
-    } catch (error: any) {
-      onError();
+          .then((res: any) => {
+            console.log(res)
+            onSuccess({
+              message: 'Đặt hàng thành công!',
+            });
+            localStorage.removeItem(keyLocalStorage.keyProductsInCart);
+  
+            clearDataCartProductContext();
+            router.push(
+              `/thank-you?email=${data?.email}&name=${data?.first_name}&order_id=${res?.order_id}`
+            );
+            reset();
+          })
+          .catch(() => {});
+      } catch (error: any) {
+        onError();
+      }
+
     }
+
+    
 
     isLoadingSubmit.onFalse();
   };
@@ -310,7 +333,7 @@ export default function FormPayment(props: IProps) {
           handleOnChangeArea={handleOnChangeArea}
         />
         <div className="grow hidden max-md:block mt-[6rem]">
-          <ListProductInCart />
+          <ListProductInCart shippingData={shippingData}/>
         </div>
         <h3 className="text-[1.5rem] font-bold mb-[0.8rem] max-md:text-[6.4rem] max-md:mt-[6rem]">
           Phương thức thanh toán
@@ -327,7 +350,7 @@ export default function FormPayment(props: IProps) {
               payment_method: value?.target.value,
               payment_method_title:
                 value?.target.value === 'cod'
-                  ? 'Trả tiền mặt khi nhận hàng'
+                  ? 'Thanh toán khi nhận hàng'
                   : 'Thanh toán Onepay',
             });
           }}

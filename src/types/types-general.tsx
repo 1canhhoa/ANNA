@@ -164,7 +164,8 @@ export interface IItemCart {
   quantity?: number;
   stock_quantity?: number;
   variant_value?:string,
-  variant_id?:string
+  variant_id?:string,
+  product_variation_color?:string,
 }
 
 export interface IDataPagination {

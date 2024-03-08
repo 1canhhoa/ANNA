@@ -4,13 +4,13 @@ import map from 'lodash.map';
 import ListProductCategory from '@/sections/list-product-category';
 
 // Return a list of `params` to populate the [slug] dynamic segment
-export async function generateStaticParams() {
-  const listCategory = await fetchDataRest('GET', 'custom/v1/categories');
+// export async function generateStaticParams() {
+//   const listCategory = await fetchDataRest('GET', 'custom/v1/categories');
 
-  return map(listCategory, (item: any, index: number) => ({
-    slug: item?.slug || undefined,
-  }));
-}
+//   return map(listCategory, (item: any, index: number) => ({
+//     slug: item?.slug || undefined,
+//   }));
+// }
 
 const ListProductPage = async ({ params: { slug } }: any) => {
   // GET LIST COLOR PRODUCT

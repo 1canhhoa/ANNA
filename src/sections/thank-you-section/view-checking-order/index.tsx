@@ -175,7 +175,7 @@ function ViewCheckingOrder(props: IProps) {
               Tổng tiền:
             </span>
             <span className="text-[0.875rem] font-semibold leading-[1.3125rem] font-Nexa-Medium not-italic max-md:text-[3.2rem] max-md:leading-[5.6rem]">
-              {formatCurrencyVND(dataGetDetailOrder?.total.toString())}
+              {formatCurrencyVND(dataGetDetailOrder?.total?.toString())}
             </span>
           </div>
           <div className="mb-[0.3rem] flex justify-between">
@@ -200,7 +200,7 @@ function ViewCheckingOrder(props: IProps) {
               Thành tiền:
             </span>
             <span className="text-[0.875rem] leading-[1.3125rem] font-extrabold not-italic max-md:text-[3.2rem] max-md:leading-[5.6rem]">
-              {formatCurrencyVND(dataGetDetailOrder?.total.toString())}
+              {formatCurrencyVND(dataGetDetailOrder?.total?.toString())}
             </span>
           </div>
         </div>

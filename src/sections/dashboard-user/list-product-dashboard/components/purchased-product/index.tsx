@@ -29,6 +29,7 @@ function PurchasedProduct(props: IProps) {
     return quantity;
   };
 
+  console.log('dataGetListOrder', dataGetListOrder)
   return (
     <div className="mt-[1.5rem] max-md:mt-[8rem]">
       <h3 className="text-title-level-black text-[1.5rem] font-bold leading-[1.5rem] max-md:text-[4.5rem] max-md:pb-[3rem]">

@@ -203,27 +203,6 @@ function UserInfo() {
           <div className="grow ml-[2rem] flex flex-col items-center max-md:ml-[0rem]">
             <div className="mb-[2rem] max-md:hidden">
               <UploadImage imageUpload={getAvatarUpload} />
-              {/* <div className="relative w-fit h-fit"> */}
-              {/*  <Image */}
-              {/*    src={inforUserGlobal?.avatar_url ?? '/img/no_image.jpg'} */}
-              {/*    height={31} */}
-              {/*    width={124} */}
-              {/*    className="object-cover w-[10.9375rem] h-[10.9375rem] rounded-full max-md:w-[38rem] max-md:h-[38rem]" */}
-              {/*    alt="Logo" */}
-              {/*  /> */}
-              {/*  <button */}
-              {/*    type="button" */}
-              {/*    className="max-md:hidden absolute bottom-[0.6rem] right-[1.1rem] p-[0.3rem] rounded-full flex justify-center items-center bg-[#F8F8F8] shadow-lg border-[1px] border-black" */}
-              {/*  > */}
-              {/*    <ICCamera width="0.85rem" height="0.85rem" /> */}
-              {/*  </button> */}
-              {/*  <button */}
-              {/*    type="button" */}
-              {/*    className="hidden max-md:flex absolute bottom-[0.6rem] right-[1.1rem] p-[2rem] rounded-full justify-center items-center bg-[#F8F8F8] shadow-lg border-[1px] border-black" */}
-              {/*  > */}
-              {/*    <ICCamera width="5rem" height="5rem" /> */}
-              {/*  </button> */}
-              {/* </div> */}
             </div>
             {listInputChangePassword.map((item, index) => (
               <div key={index} className="w-full">

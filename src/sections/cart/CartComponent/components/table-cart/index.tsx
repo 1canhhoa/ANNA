@@ -190,7 +190,7 @@ export function TableCart(props: IProps) {
     }
   }, [listCartGlobal]);
 
-  // console.log(dataInit, "dataInit")
+  console.log(dataInit, "dataInit")
 
   return (
     <>
@@ -273,7 +273,11 @@ export function TableCart(props: IProps) {
                         {item?.product_name}
                       </h4>
   
-                      <div className='text-[0.75rem] font-bold max-lg:text-[1.5rem] max-md:text-[2.67rem]'>Màu sắc: {item.variant_value}</div>
+                      <div className='text-[0.75rem] font-bold max-lg:text-[1.5rem] max-md:text-[2.67rem]'>
+                      {
+                        item?.variant_value?` Màu sắc: ${item?.variant_value}`:item?.product_variation_color? item?.product_variation_color:""
+                      }
+                      </div>
                       <div className="hidden max-md:flex justify-between mb-[1.2rem]">
                         <div className="not-italic font-normal  text-[3.15rem] w-1/3">
                           Price:
