@@ -146,7 +146,7 @@ function Footer(props: IProps) {
 
   const formSchema = yup.object({
     email: yup
-      .string()
+      .string().matches(/^[a-zA-Z0-9._@-]*$/, 'Vui lòng không điền các kí tự đặc biệt')
       .required('Email là bắt buộc!')
       .email('Email không đúng định dạng!'),
   });
@@ -360,7 +360,7 @@ function Footer(props: IProps) {
               </div>
               <div className="footer-info-row-right">
                 <h2 className="font-extrabold not-italic leading-4 text-[#CAF2F1] text-[1.125rem]">
-                  MST: ${linkSocial.tax_code}
+                  MST: {linkSocial.tax_code}
                 </h2>
                 <Image
                   width={196}

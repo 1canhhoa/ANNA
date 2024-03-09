@@ -101,11 +101,16 @@ function NavItems(props: IProps) {
       setKeyTabMenuActive(null);
     }
   };
-
+  const validCharactersRegex = /^[a-zA-Z0-9\s]*$/;
   const handleOnChangeSearch = (e: any) => {
-    setSearchTerm(e.target.value);
-  };
 
+    if (!validCharactersRegex.test(e.target.value)){
+   return;
+    }else{
+
+      setSearchTerm(e.target.value);
+    }
+  };
   const handleOnKeyEnterSearch = (e: any): void => {
     if (e.keyCode === 13) {
       router.push(`/tim-kiem?search=${searchTerm}`);
