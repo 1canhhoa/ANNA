@@ -328,7 +328,7 @@ function NavMobileDetail(props: IProps) {
               href={`mailto:${linkSocial.email}`}
               className="text-[3.3597rem] text-[#EEFBFB] not-italic leading-[4.85333rem] font-bold ml-[1.87rem]"
             >
-              ${linkSocial.email}
+              {linkSocial.email}
             </a>
           </div>
           <div className="flex items-center">
@@ -337,7 +337,7 @@ function NavMobileDetail(props: IProps) {
               href={`tel:${linkSocial.phone}`}
               className="text-[3.3597rem] text-[#EEFBFB] not-italic leading-[4.85333rem] font-bold ml-[1.87rem]"
             >
-              ${linkSocial.phone}
+              {linkSocial.phone}
             </a>
           </div>
         </div>

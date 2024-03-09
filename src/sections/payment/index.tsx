@@ -10,7 +10,6 @@ export const FormPaymentContext = createContext<any>({});
 export default function Payment(props: any) {
   const [voucher, setVoucher] = useState<string | null>(null);
   const {shippingData} = props
-  console.log(shippingData)
   const handleUpdate = (value: any): void => {
     setVoucher(value);
   };

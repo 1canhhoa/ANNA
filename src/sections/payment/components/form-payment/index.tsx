@@ -83,14 +83,11 @@ export default function FormPayment(props: IProps) {
           (total +=
             (item?.quantity ?? 0) * parseInt(item?.product_price ?? '0', 10))
       );
-      console.log(shippingData);
 
       const shippingTotal = shippingData && shippingData[0].cost && shippingData[0].cost !== "" ? shippingData[0].cost: 0;
-      console.log(shippingTotal)
       setTotalPriceInCart(total + Number(shippingTotal));
     }, [listCartGlobal]);
 
-    console.log(totalPriceInCart)
   const formSchema = yup.object({
     first_name: yup.string().required('Họ và tên là bắt buộc!'),
     phone: yup
@@ -304,7 +301,7 @@ export default function FormPayment(props: IProps) {
     {
       name: 'address_1',
       require: true,
-      placeHolder: 'Xã/Phuờng',
+      placeHolder: 'Xã/Phường',
       type: 'select-option',
       width: '40rem',
       listOption: listWards,
@@ -361,7 +358,7 @@ export default function FormPayment(props: IProps) {
               htmlFor="option-one"
               className="text-[#00225D] font-medium text-[1rem] max-md:text-[3.733rem] pointer-events-auto"
             >
-              Trả tiền mặt khi nhận hàng
+              Thanh toán khi nhận hàng
             </Label>
           </div>
           <div className="flex items-center space-x-2">

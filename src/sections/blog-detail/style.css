@@ -5,8 +5,18 @@
   background-size: cover;
 }
 .blog-content b {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 800;
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .blog-content b {
+    font-size: 2.5rem;
+  }
+}
+@media (max-width: 767px) {
+  .blog-content b {
+    font-size: 3.75rem;
+  }
 }
 .blog-content p,
 .blog-content span,
@@ -32,7 +42,7 @@
 }
 
 .mySwiperBlog .swiper-pagination {
-  bottom: -5px;
+  bottom: 0;
 }
 .mySwiperBlog .swiper-pagination-bullet {
   background: #000;

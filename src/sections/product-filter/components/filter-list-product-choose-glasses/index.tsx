@@ -87,13 +87,15 @@ export default function FilterListProductChooseGlass(props: IProps) {
 
   const getlistProduct = useSWR(bodyGetListProduct.url, () =>
     postData(bodyGetListProduct).then((res) => {
-      setDataInit(res?.item);
+      setDataInit(res?.data);
       setDataPagination({
         ...dataPagination,
         total: res?.total,
       });
     })
   );
+
+  // console.log("getlistProduct", getlistProduct)
 
   const handleScrollProduct = (): void => {
     refListProduct.current?.scrollIntoView({
