@@ -41,25 +41,14 @@ function ItemSelectOption(props: IPropsItemSelectOption) {
   const [currentValue, setCurrentValue] = useState<string | number | undefined>(
     undefined
   );
+  const [searchVal, setSearchVal] = useState<string>("")
 
-  const [newSelectOption, setNewSelectOption] = useState<any>(itemSelectOption)
-
-
-  useEffect(()=>{
-    setNewSelectOption(itemSelectOption)
-  }, [itemSelectOption])
-
-
-  const handleSearchVal = (value: any) =>{
-    const newListOption = itemSelectOption.listOption;
-    const newList = newListOption.filter((item:any)=>item?.label?.toLowerCase().includes(value?.trim()?.toLowerCase()))
-    const newState = {
-      ...itemSelectOption,
-      listOption: newList
-    }
-    setNewSelectOption(newState);
-  }
-  // console.log(newSelectOption)
+  const handleSearchVal = (value: any) => {
+    setSearchVal(value);
+};
+  const filteredOptions = itemSelectOption.listOption.filter((itemOption: any) =>
+  itemOption.label.toLowerCase().includes(searchVal.toLowerCase())
+);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -72,14 +61,14 @@ function ItemSelectOption(props: IPropsItemSelectOption) {
         >
           {currentValue ? (
             <span className="text-[#414141]">
-              {newSelectOption.listOption &&
-                newSelectOption.listOption.find(
+              {filteredOptions &&
+                filteredOptions.find(
                   (item: any) => item.value === currentValue
                 )?.label}
             </span>
           ) : (
             <span className="text-[#E3E3E3]">
-              {newSelectOption.placeHolder ?? 'No data found.'}
+              {itemSelectOption.placeHolder ?? 'No data found.'}
             </span>
           )}
         </Button>
@@ -89,48 +78,50 @@ function ItemSelectOption(props: IPropsItemSelectOption) {
         style={{
           width:
             window.innerWidth > 767
-              ? newSelectOption.width ?? '25rem'
+              ? itemSelectOption.width ?? '25rem'
               : '87.8rem',
         }}
         className={cn('p-0')}
       >
-        <Command className="w-full">
+        <Command className="w-full" shouldFilter={false}>
           <CommandInput
-            placeholder={newSelectOption?.placeHolder ?? ''}
+            placeholder={itemSelectOption?.placeHolder ?? ''}
             className="h-9 w-full max-md:text-[2.875rem] max-md:leading-[4.25rem] max-md:h-[7rem]"
             onValueChange={(value)=>handleSearchVal(value)}
-
+            value={searchVal}
           />
-          <CommandEmpty>No data found.</CommandEmpty>
+
+          {/* <CommandEmpty>No data found.</CommandEmpty> */}
           <CommandGroup className="w-full max-h-[30rem] overflow-y-auto max-md:max-h-[60rem]">
-            {map(newSelectOption.listOption, (itemOption: any) => (
-              <CommandItem
-                key={itemOption.value}
-                value={itemOption.value}
-                onSelect={(value: string) => {
-                  // eslint-disable-next-line no-unused-expressions
-                  handleOnChangeArea &&
-                    handleOnChangeArea(newSelectOption?.name, value);
-                  setCurrentValue(value === currentValue ? '' : value);
-                  setValueInputSelectOption(newSelectOption.name, value);
-                  setOpen(false);
-                }}
-                className="w-full"
-              >
-                <span className="max-md:text-[2.875rem] max-md:leading-[4.25rem]">
-                  {itemOption.label}
-                </span>
-                <CheckIcon
-                  className={cn(
-                    'ml-auto h-4 w-4',
-                    currentValue === itemOption.value
-                      ? 'opacity-100'
-                      : 'opacity-0'
-                  )}
-                />
-              </CommandItem>
-            ))}
+            {filteredOptions.length > 0?
+            (filteredOptions.map((itemOption:any)=><CommandItem
+            key={itemOption.value}
+            value={itemOption.value}
+            onSelect={(value: string) => {
+              // eslint-disable-next-line no-unused-expressions
+              handleOnChangeArea &&
+                handleOnChangeArea(itemSelectOption?.name, value);
+              setCurrentValue(value === currentValue ? '' : value);
+              setValueInputSelectOption(itemSelectOption.name, value);
+              setOpen(false);
+            }}
+            className="w-full"
+          >
+            <span className="max-md:text-[2.875rem] max-md:leading-[4.25rem]">
+              {itemOption.label}
+            </span>
+            <CheckIcon
+              className={cn(
+                'ml-auto h-4 w-4',
+                currentValue === itemOption.value
+                  ? 'opacity-100'
+                  : 'opacity-0'
+              )}
+            />
+          </CommandItem>))
+            :(<CommandEmpty>No data found.</CommandEmpty>)}
           </CommandGroup>
+       
         </Command>
       </PopoverContent>
     </Popover>

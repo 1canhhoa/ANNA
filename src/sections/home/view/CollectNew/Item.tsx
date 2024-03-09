@@ -77,7 +77,7 @@ function ItemCollect({ dataCollect, key, category }: IPropsItemCollect) {
         </div>
         <div className="relative z-2 -mt-[9rem] md:-mt-[3.5rem] z-9 left-0 right-0 w-full box-slide ">
           <div className="p-[2.5rem] md:p-[1rem] rounded-[4.26667rem] md:rounded-[1rem] bg-[#FFF] box-slide">
-            <span className="text-[3.36rem] md:text-base line-clamp-2 mb-[0.25rem] text-[#454545] font-extrabold">
+            <span className="text-[3.36rem] md:text-base line-clamp-2 mb-[0.25rem] text-[#454545] font-extrabold md:h-[3rem] h-[10rem]">
               {dataCollect?.name}
             </span>
             <div className="flex max-md:flex-row-reverse justify-between items-center mt-[1.07rem] md:mt-[0.25rem] mb-[1.6rem] md:mb-[0.75rem]">
