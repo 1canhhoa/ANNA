@@ -37,7 +37,7 @@ const ListProductPage = async ({
     listShape,
     listFeature,
   ]);
-
+  console.log('dataListProductInit', dataListProductInit)
   return (
     <ListProduct
       searchParams={searchParams}

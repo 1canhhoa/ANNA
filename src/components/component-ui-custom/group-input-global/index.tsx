@@ -2,7 +2,7 @@
 
 import './style.css';
 import { listInputGlobal } from '@/types/types-general';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Popover,
   PopoverContent,
@@ -42,6 +42,25 @@ function ItemSelectOption(props: IPropsItemSelectOption) {
     undefined
   );
 
+  const [newSelectOption, setNewSelectOption] = useState<any>(itemSelectOption)
+
+
+  useEffect(()=>{
+    setNewSelectOption(itemSelectOption)
+  }, [itemSelectOption])
+
+
+  const handleSearchVal = (value: any) =>{
+    const newListOption = itemSelectOption.listOption;
+    const newList = newListOption.filter((item:any)=>item?.label?.toLowerCase().includes(value?.trim()?.toLowerCase()))
+    const newState = {
+      ...itemSelectOption,
+      listOption: newList
+    }
+    setNewSelectOption(newState);
+  }
+  // console.log(newSelectOption)
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -51,22 +70,16 @@ function ItemSelectOption(props: IPropsItemSelectOption) {
           aria-expanded={open}
           className="w-full h-[3.43rem] justify-between max-md:h-[10rem] max-md:text-[4rem] max-md:pl-[10px]"
         >
-          {/* {currentValue */}
-          {/*  ? itemSelectOption.listOption && */}
-          {/*    itemSelectOption.listOption.find( */}
-          {/*      (item: any) => item.value === currentValue */}
-          {/*    )?.label */}
-          {/*  : itemSelectOption.placeHolder ?? 'No data found.'} */}
           {currentValue ? (
             <span className="text-[#414141]">
-              {itemSelectOption.listOption &&
-                itemSelectOption.listOption.find(
+              {newSelectOption.listOption &&
+                newSelectOption.listOption.find(
                   (item: any) => item.value === currentValue
                 )?.label}
             </span>
           ) : (
             <span className="text-[#E3E3E3]">
-              {itemSelectOption.placeHolder ?? 'No data found.'}
+              {newSelectOption.placeHolder ?? 'No data found.'}
             </span>
           )}
         </Button>
@@ -76,28 +89,30 @@ function ItemSelectOption(props: IPropsItemSelectOption) {
         style={{
           width:
             window.innerWidth > 767
-              ? itemSelectOption.width ?? '25rem'
+              ? newSelectOption.width ?? '25rem'
               : '87.8rem',
         }}
         className={cn('p-0')}
       >
         <Command className="w-full">
           <CommandInput
-            placeholder={itemSelectOption?.placeHolder ?? ''}
+            placeholder={newSelectOption?.placeHolder ?? ''}
             className="h-9 w-full max-md:text-[2.875rem] max-md:leading-[4.25rem] max-md:h-[7rem]"
+            onValueChange={(value)=>handleSearchVal(value)}
+
           />
           <CommandEmpty>No data found.</CommandEmpty>
           <CommandGroup className="w-full max-h-[30rem] overflow-y-auto max-md:max-h-[60rem]">
-            {map(itemSelectOption.listOption, (itemOption: any) => (
+            {map(newSelectOption.listOption, (itemOption: any) => (
               <CommandItem
                 key={itemOption.value}
                 value={itemOption.value}
                 onSelect={(value: string) => {
                   // eslint-disable-next-line no-unused-expressions
                   handleOnChangeArea &&
-                    handleOnChangeArea(itemSelectOption?.name, value);
+                    handleOnChangeArea(newSelectOption?.name, value);
                   setCurrentValue(value === currentValue ? '' : value);
-                  setValueInputSelectOption(itemSelectOption.name, value);
+                  setValueInputSelectOption(newSelectOption.name, value);
                   setOpen(false);
                 }}
                 className="w-full"
@@ -151,18 +166,14 @@ export default function GroupInputGlobal(props: IProps) {
                     {...register(item.name, { required: item.require })}
                     name="input"
                     placeholder={item.placeHolder}
-                    onChange={(value) =>
+                    onChange={(value) =>{
                       setValueInput(item.name, value.target.value)
+
+                    }
                     }
                     className="px-[1rem] font-medium placeholder:text-[#E3E3E3] text-[#414141] border-[1px] border-[#EAEAEA] outline-[#EAEAEA] focus:outline-[#55D5D2] focus:border-[#55D5D2] rounded-[0.3rem] h-[3.43rem]  w-full text-[1rem] transition-all duration-100 ease-linear max-md:h-[10rem] max-md:text-[4rem]"
                   />
-                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                  {/* <label */}
-                  {/*  className="absolute font-medium bg-white top-[50%] -translate-y-1/2 left-[10px] py-[0px] px-[4px] text-[#00000040] transition-all duration-100 ease-linear max-md:text-[4rem]" */}
-                  {/*  htmlFor="input" */}
-                  {/* > */}
-                  {/*  {item.placeHolder} */}
-                  {/* </label> */}
+             
                 </div>
                 {errors[item.name] && (
                   <span className="mt-[0.5rem] text-[#ff5660] font-bold text-[0.8rem] pb-[0.4rem] max-md:text-[3rem] max-md:mt-[0.1rem]">
@@ -196,13 +207,7 @@ export default function GroupInputGlobal(props: IProps) {
                     focus:border-[#55D5D2] rounded-[0.3rem] h-[8rem] w-full
                     text-[1rem] transition-all duration-100 ease-linear max-md:h-[10rem] max-md:text-[4rem]"
                   />
-                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                  {/* <label */}
-                  {/*  className="absolute font-medium bg-white top-[50%] -translate-y-1/2 left-[10px] py-[0px] px-[4px] text-[#00000040] transition-all duration-100 ease-linear max-md:text-[4rem]" */}
-                  {/*  htmlFor="input" */}
-                  {/* > */}
-                  {/*  {item.placeHolder} */}
-                  {/* </label> */}
+             
                 </div>
                 {errors[item.name] && (
                   <span className="mt-[0.5rem] text-[#ff5660] font-bold text-[0.8rem] pb-[0.4rem] max-md:text-[3rem]">
