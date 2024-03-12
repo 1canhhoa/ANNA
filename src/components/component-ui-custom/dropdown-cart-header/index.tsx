@@ -91,7 +91,6 @@ function DropdownCartHeader(props: IProps) {
     setListProductInCart(listCartGlobal);
   }, [listCartGlobal]);
 
-console.log("listCartGlobal", listCartGlobal)
   return (
     <div className="dropdown-cart-header border-none p-0 rounded-[1.5rem]">
       <div className="bg-white px-[0.7rem] py-[1.75rem] rounded-[1.5rem] mt-[0rem]">

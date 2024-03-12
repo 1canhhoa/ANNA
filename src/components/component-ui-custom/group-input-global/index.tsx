@@ -47,7 +47,7 @@ function ItemSelectOption(props: IPropsItemSelectOption) {
     setSearchVal(value);
 };
   const filteredOptions = itemSelectOption.listOption.filter((itemOption: any) =>
-  itemOption.label.toLowerCase().includes(searchVal.toLowerCase())
+  itemOption?.label?.toLowerCase().includes(searchVal.toLowerCase())
 );
 
   return (
@@ -108,7 +108,7 @@ function ItemSelectOption(props: IPropsItemSelectOption) {
             className="w-full"
           >
             <span className="max-md:text-[2.875rem] max-md:leading-[4.25rem]">
-              {itemOption.label}
+              {itemOption?.label}
             </span>
             <CheckIcon
               className={cn(

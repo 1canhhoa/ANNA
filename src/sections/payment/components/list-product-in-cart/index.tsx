@@ -20,14 +20,14 @@ export default function ListProductInCart(props: any) {
   const [totalPriceInCart, setTotalPriceInCart] = useState<number>(0);
   const [dataCoupon, setDataCoupon] = useState<string>('');
   const isLoadingCoupon = useBoolean(false);
-  const [priceDiscount, setPriceDiscount] = useState<any>({
-    type:"",
-    value:0,
-  });
+  // const [priceDiscount, setPriceDiscount] = useState<any>({
+  //   type:"",
+  //   value:0,
+  // });
 
   const { handleUpdate } = useContext<any>(FormPaymentContext);
   const { listCartGlobal } = useContext(ProductCartContext);
-  const {shippingData} = props
+  const {shippingData,priceDiscount,setPriceDiscount  } = props
   const handleCheckCoupon = async () => {
     isLoadingCoupon.onTrue();
     try {

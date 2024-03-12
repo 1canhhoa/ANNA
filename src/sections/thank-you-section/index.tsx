@@ -56,7 +56,7 @@ function ThankYou(props: IProps) {
               />
             </div>
           </div>
-          <div className="text-[0.75rem] text-blackAnna font-bold not-italic leading-[0.975rem] text-center mt-[0.56rem] mb-[1.56rem] max-md:text-[3.8rem] max-md:leading-[3.8rem] max-md:mt-[1.56rem] max-md:mb-[2.56rem]">
+          <div className="text-[0.75rem] text-blackAnna font-bold not-italic leading-[0.975rem] text-center mt-[0.56rem] mb-[1.56rem] max-md:text-[3.8rem] max-md:leading-[1.5] max-md:mt-[1.56rem] max-md:mb-[2.56rem]">
             Chúng tôi sẽ liên hệ lại sớm để xác nhận đơn hàng. Bạn có thể kiểm
             tra tình trạng đơn hàng
             <Link

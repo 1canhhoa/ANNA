@@ -54,7 +54,7 @@ function DetailOrder(props: IProps) {
   };
   const totalSum = dataDetailOrder?.product?.reduce((total:number, item: any) => {
     // Add the "total" value of the current object to the accumulator
-    return Number(total) + Number(item.total);
+    return Number(total) + (Number(item.price) * Number(item.quantity));
   }, 0);
   return (
     <div className="detail-order-dashboard">

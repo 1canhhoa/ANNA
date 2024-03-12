@@ -67,8 +67,9 @@ export function Register() {
     } catch (error: any) {
       isLoading.onFalse();
       if (error?.message) {
+        console.log("msg", error?.message)
         setError('password', {
-          message: JSON.parse(error?.message)?.error?.message,
+          message: JSON.parse(error?.message)?.message,
         });
         return;
       }

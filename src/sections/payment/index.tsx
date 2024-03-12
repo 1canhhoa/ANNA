@@ -9,6 +9,10 @@ export const FormPaymentContext = createContext<any>({});
 
 export default function Payment(props: any) {
   const [voucher, setVoucher] = useState<string | null>(null);
+  const [priceDiscount, setPriceDiscount] = useState<any>({
+    type:"",
+    value:0,
+  });
   const {shippingData} = props
   const handleUpdate = (value: any): void => {
     setVoucher(value);
@@ -23,11 +27,11 @@ export default function Payment(props: any) {
             THANH TOÁN
           </span>
           <div className="mt-[1rem] max-md:mt-[3rem]">
-            <FormPayment voucher={voucher} shippingData={shippingData}/>
+            <FormPayment voucher={voucher} shippingData={shippingData} priceDiscount={priceDiscount} setPriceDiscount={setPriceDiscount}/>
           </div>
         </div>
         <div className="grow max-md:hidden">
-          <ListProductInCart shippingData={shippingData}/>
+          <ListProductInCart shippingData={shippingData} priceDiscount={priceDiscount} setPriceDiscount={setPriceDiscount}/>
         </div>
       </div>
     </FormPaymentContext.Provider>

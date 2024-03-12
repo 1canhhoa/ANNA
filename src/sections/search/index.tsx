@@ -6,6 +6,8 @@ import ICArrowRight2 from '@/components/Icons/ICArrowRight2';
 import Image from 'next/image';
 import map from 'lodash.map';
 import ItemMobile from '@/components/component-ui-custom/item-product-mobile';
+import Link from 'next/link';
+import SlideProductComponent from '@/components/component-ui-custom/slide-swiper-product/slide-product';
 
 interface IProps {
   listRes?: any;
@@ -20,6 +22,7 @@ interface IProps {
 
 export default function Search(props: IProps) {
   const { listRes, searchParams, listSearchSwiper } = props;
+  console.log('listSearchSwiper', listSearchSwiper)
   return (
     <div className="list-product-container mb-[2.94rem]">
       {/* banner */}
@@ -44,9 +47,9 @@ export default function Search(props: IProps) {
             LỜI CẢM ƠN
           </h1>
           <div className="flex items-center">
-            <span className="text-white text-[0.875rem] font-semibold leading-[2.25rem] not-italic max-md:text-[3.2rem]">
+            <Link href={"/"} className="text-white text-[0.875rem] font-semibold leading-[2.25rem] not-italic max-md:text-[3.2rem]">
               Trang chủ
-            </span>
+            </Link>
             <div className="bg-[#81C8C2] h-[0.625rem] w-[0.625rem] rounded-full mx-[1rem] max-md:w-[2.13333rem] max-md:h-[2.13333rem] max-md:mx-[2rem]" />
             <span className="text-white text-[0.875rem] font-semibold leading-[2.25rem] not-italic max-md:text-[3.2rem] max-md:leading-[4.8rem]">
               Tìm kiếm sản phẩm
@@ -78,15 +81,15 @@ export default function Search(props: IProps) {
           </div>
           <div className="w-full max-md:hidden">
             {/* <OutstandingProduct /> */}
-            {/* <SlideProductComponent */}
-            {/*  keySlide="out-standing-product" */}
-            {/*  breakPoint={{ PerView767: 2 }} */}
-            {/*  data={listSearchSwiper?.products} */}
-            {/* /> */}
+            <SlideProductComponent
+             keySlide="out-standing-product"
+             breakPoint={{ PerView767: 2 }}
+             data={listSearchSwiper?.data}
+            />
           </div>
 
           <div className="hidden max-md:flex w-full overflow-x-auto hide-scrollbar-global">
-            {map(listSearchSwiper, (item, index) => (
+            {map(listSearchSwiper?.data, (item, index) => (
               <div className="min-w-[45.2rem] mr-[3.2rem]" key={index}>
                 <ItemMobile itemProduct={item} />
               </div>
@@ -108,18 +111,18 @@ export default function Search(props: IProps) {
               alt=""
             />
             <div className="grow w-full overflow-hidden h-[21.875rem] max-md:hidden">
-              {/* <SlideProductComponent */}
-              {/*  keySlide="list-new-product" */}
-              {/*  breakPoint={{ */}
-              {/*    PerView1280: 3, */}
-              {/*  }} */}
-              {/*  heightImage={17} */}
-              {/*  data={dataListProductInit?.item} */}
-              {/*  left */}
-              {/* /> */}
+              <SlideProductComponent 
+               keySlide="list-new-product" 
+               breakPoint={{ 
+                 PerView1280: 3, 
+               }} 
+               heightImage={17} 
+               data={listSearchSwiper?.data} 
+               left 
+              /> 
             </div>
             <div className="hidden max-md:flex grow w-full overflow-x-auto hide-scrollbar-global overflow-hidden h-[66.26667rem]">
-              {map(listSearchSwiper, (item, index) => (
+              {map(listSearchSwiper?.data, (item, index) => (
                 <div className="min-w-[45.2rem] mr-[3.2rem]" key={index}>
                   <ItemMobile itemProduct={item} />
                 </div>

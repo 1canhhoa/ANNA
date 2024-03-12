@@ -50,6 +50,7 @@ export function Login() {
   const { handleSubmit } = methods;
 
   const onSubmit = async (values: any) => {
+    console.log(values,"values")
     setIsLoading(true);
     try {
       const { ok, error }: any = await signIn('credentials', {
@@ -57,10 +58,11 @@ export function Login() {
         password: values.password,
         redirect: false,
       });
+
+      console.log(error, "error")
       if (ok) {
         clearDataCartProductContext();
         router.push('/list-product-dashboard');
-
         localStorage.removeItem(keyLocalStorage.keyProductsInCart);
       } else {
         onErrorContact({
@@ -69,6 +71,8 @@ export function Login() {
       }
       setIsLoading(false);
     } catch (error) {
+
+      console.log(error)
       onErrorContact({
         message: 'Đăng nhập thất bại ! Vui lòng thử lại',
       });
