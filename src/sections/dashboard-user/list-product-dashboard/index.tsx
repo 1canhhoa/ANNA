@@ -24,7 +24,12 @@ function ListProductDashboard() {
   };
 
   const dataGetWishList = useSWR(bodyGetListWishList.url, () =>
-    session !== null ? fetchDataAuthen(bodyGetListWishList) : undefined
+    session !== null ? fetchDataAuthen(bodyGetListWishList) : undefined,
+    {
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
+    }
   );
   // END
 
@@ -36,7 +41,11 @@ function ListProductDashboard() {
   };
 
   const dataGetListOrder = useSWR(bodyGetListOrder.url, () =>
-    session !== null ? fetchDataAuthen(bodyGetListOrder) : undefined
+    session !== null ? fetchDataAuthen(bodyGetListOrder) : undefined,{
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
+    }
   );
 
   const handleDeleteProductWishList = async (id: number): Promise<void> => {

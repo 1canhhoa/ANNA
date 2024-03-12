@@ -43,7 +43,11 @@ function Contact() {
   const getListContact = useSWR(`${baseUrl}${paramApi.urlContact}`, () =>
     fetchDataRest(paramApi.method, paramApi.urlContact).then((res: any) =>
       setDataContact(res)
-    )
+    ),{
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
+    }
   );
 
   useEffect(() => {

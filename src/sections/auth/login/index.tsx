@@ -50,7 +50,6 @@ export function Login() {
   const { handleSubmit } = methods;
 
   const onSubmit = async (values: any) => {
-    console.log(values,"values")
     setIsLoading(true);
     try {
       const { ok, error }: any = await signIn('credentials', {
@@ -58,8 +57,6 @@ export function Login() {
         password: values.password,
         redirect: false,
       });
-
-      console.log(error, "error")
       if (ok) {
         clearDataCartProductContext();
         router.push('/list-product-dashboard');
@@ -84,6 +81,10 @@ export function Login() {
 
   const handleFacebookLogin = () => {
     signIn('facebook');
+  };
+
+  const handleGoogleLogin = () => {
+    signIn('google');
   };
 
   return (
@@ -194,7 +195,7 @@ export function Login() {
             {/*  Click here to login or register */}
             {/* </a> */}
             <div className="p-12 md:p-3 text-[3.15rem] md:text-base rounded-3xl md:rounded-xl mt-12 md:mt-3 btn-login-gg">
-              <button type="button" className="w-full flex items-center">
+              <button type="button" className="w-full flex items-center" onClick={handleGoogleLogin}>
                 <ICGoogle width={35} height={35} />
                 <p className="text-center w-full font-semibold">
                   Đăng nhập bằng

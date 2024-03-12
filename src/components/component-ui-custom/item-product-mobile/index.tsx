@@ -46,6 +46,10 @@ function ItemMobile(props: IProps) {
         });
       }
       return null;
+    },{
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
     }
   );
 

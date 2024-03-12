@@ -47,7 +47,11 @@ function CheckingOrder(props: IProps) {
             }
           })
           .catch((res) => {})
-      : undefined
+      : undefined,{
+        revalidateOnFocus: false,
+        revalidateIfStale: false,
+        revalidateOnReconnect: false
+      }
   );
 
   const listInput: listInputGlobal[] = [

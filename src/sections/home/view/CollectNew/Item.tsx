@@ -48,6 +48,10 @@ function ItemCollect({ dataCollect, key, category }: IPropsItemCollect) {
         });
       }
       return null;
+    },{
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
     }
   );
   return (

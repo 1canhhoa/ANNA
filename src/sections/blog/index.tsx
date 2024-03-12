@@ -27,12 +27,20 @@ function Blog(props: IProps) {
     () =>
       fetchDataRest('GET', `post/v1/posts?per_page=9&page=${page}`).then(
         (res: any) => setListBlog(res)
-      )
+      ),{
+        revalidateOnFocus: false,
+        revalidateIfStale: false,
+        revalidateOnReconnect: false
+      }
   );
   const getTotal = useSWR(`${baseUrl}post/v1/posts`, () =>
     fetchDataRest('GET', `post/v1/posts`).then((res: any) =>
       setTotalBlog(res?.countItem)
-    )
+    ),{
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
+    }
   );
 
   useEffect(() => {

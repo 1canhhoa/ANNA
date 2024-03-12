@@ -28,7 +28,11 @@ function AddressInfo() {
   const dataGetListAddress = useSWR(bodyGetListAddress.url, () =>
     fetchDataAuthen(bodyGetListAddress).then((res) =>
       setDataAddessInit(res.shipping_addresses)
-    )
+    ),{
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
+    }
   );
 
   const deleteAddress = async (value: any) => {
@@ -151,7 +155,7 @@ function AddressInfo() {
           ) : (
             <div className="w-full flex justify-center">
               <Image
-                src="/img/no-data.avif"
+                src="/img/no-data.svg"
                 alt="banner-aboutus"
                 height={300}
                 width={300}

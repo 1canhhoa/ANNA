@@ -48,6 +48,7 @@ export default function FilterListProduct(props: IProps) {
   //     history: 'push',
   //   }
   // );
+  const isCalling = useRef(false)
   const [dataPagination, setDataPagination] = useState<IDataPagination>({
     total: 12,
     currentPage: 1,
@@ -87,15 +88,26 @@ export default function FilterListProduct(props: IProps) {
     url: `wp-json/product/v1/products/filter?per_page=12&page=${dataPagination.currentPage}&${paramRouterGetApi}`,
     method: 'get',
   };
-  const getlistProduct = useSWR(bodyGetListProduct.url, () =>
-    postData(bodyGetListProduct).then((res) => {
-      setDataInit(res?.data);
-      setDataPagination({
-        ...dataPagination,
-        total: res?.countItem,
-      });
-    })
+
+  const fetcher = () =>{
+      postData(bodyGetListProduct).then((res) => {
+        setDataInit(res?.data);
+        setDataPagination({
+          ...dataPagination,
+          total: res?.countItem || 0,
+        });
+      })
+  }
+  const getlistProduct = useSWR(bodyGetListProduct.url, fetcher
+   ,{
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
+    }
   );
+
+  console.log("getlistProduct", getlistProduct)
+
 
   const convertParamFilterToParamQuery = (
     listParams: IParamsFilter[]
@@ -295,7 +307,7 @@ export default function FilterListProduct(props: IProps) {
           ) : (
             <div className="flex justify-center">
               <Image
-                src="/img/no-data.avif"
+                src="/img/no-data.svg"
                 alt="banner-aboutus"
                 height={300}
                 width={300}

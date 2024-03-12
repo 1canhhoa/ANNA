@@ -153,7 +153,7 @@
 //               ) : (
 //                 <div className="w-full flex justify-center">
 //                   <Image
-//                     src="/img/no-data.avif"
+//                     src="/img/no-data.svg"
 //                     alt="banner-aboutus"
 //                     height={300}
 //                     width={300}

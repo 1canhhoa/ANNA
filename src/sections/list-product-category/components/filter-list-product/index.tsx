@@ -104,7 +104,11 @@ export default function FilterListProductCategory(props: IProps) {
             total: res?.countItem,
           });
         })
-      : undefined
+      : undefined,{
+        revalidateOnFocus: false,
+        revalidateIfStale: false,
+        revalidateOnReconnect: false
+      }
   );
 
   const handleScrollListProduct = (): void => {
@@ -370,7 +374,7 @@ export default function FilterListProductCategory(props: IProps) {
           ) : (
             <div className="flex justify-center">
               <Image
-                src="/img/no-data.avif"
+                src="/img/no-data.svg"
                 alt="banner-aboutus"
                 height={300}
                 width={300}
@@ -380,7 +384,7 @@ export default function FilterListProductCategory(props: IProps) {
           {/* {dataInit && dataInit?.item?.length === 0 && ( */}
           {/*  <div className="flex justify-center"> */}
           {/*    <Image */}
-          {/*      src="/img/no-data.avif" */}
+          {/*      src="/img/no-data.svg" */}
           {/*      alt="banner-aboutus" */}
           {/*      height={300} */}
           {/*      width={300} */}

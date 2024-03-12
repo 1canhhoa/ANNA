@@ -80,7 +80,11 @@ function SystemStore({ listCity }: IPropsSystem) {
       ).then((res: any) => {
         setDistrict(res?.children);
         setIsLoading(false);
-      })
+      }),{
+        revalidateOnFocus: false,
+        revalidateIfStale: false,
+        revalidateOnReconnect: false
+      }
   );
 
   const getListSystemStore = useSWR(
@@ -101,7 +105,11 @@ function SystemStore({ listCity }: IPropsSystem) {
         });
 
         setIsLoading(false);
-      })
+      }),{
+        revalidateOnFocus: false,
+        revalidateIfStale: false,
+        revalidateOnReconnect: false
+      }
   );
 
   useEffect(() => {
