@@ -4,6 +4,7 @@ import './style.css';
 import FilterListProductChooseGlass from './components/filter-list-product-choose-glasses';
 import Image from 'next/image';
 import { IItemAttributeProduct } from '@/types/types-general';
+import Link from 'next/link';
 
 interface IProps {
   routerSearchCustom: string;
@@ -37,9 +38,9 @@ export default function ProductFilter(props: IProps) {
             LỜI CẢM ƠN
           </h1>
           <div className="flex items-center">
-            <span className="text-white text-[0.875rem] font-semibold leading-[2.25rem] not-italic max-md:text-[3.2rem]">
+            <Link href={"/"} className="text-white text-[0.875rem] font-semibold leading-[2.25rem] not-italic max-md:text-[3.2rem]">
               Trang chủ
-            </span>
+            </Link>
             <div className="bg-[#81C8C2] h-[0.625rem] w-[0.625rem] rounded-full mx-[1rem] max-md:w-[2.13333rem] max-md:h-[2.13333rem] max-md:mx-[2rem]" />
             <span className="text-white text-[0.875rem] font-semibold leading-[2.25rem] not-italic max-md:text-[3.2rem] max-md:leading-[4.8rem]">
               Danh sách sản phẩm

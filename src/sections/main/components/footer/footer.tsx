@@ -234,7 +234,7 @@ function Footer(props: IProps) {
                   href={`tel:${linkSocial.phone}`}
                   className="text-[3.84rem] text-white leading-[5.97333rem] font-bold not-italic mt-[3.2rem] mb-[2.6rem]"
                 >
-                  ${linkSocial.phone}
+                  {linkSocial.phone}
                 </Link>
               </div>
               <div>
@@ -249,7 +249,7 @@ function Footer(props: IProps) {
             <div className="hidden max-md:block w-full my-[4.8rem] h-[0.26667rem] bg-white bg-opacity-30" />
             <div className="hidden max-md:flex flex-col items-center">
               <h2 className="font-bold not-italic leading-[5.376rem] text-white text-[3.84rem] mb-[3.2rem]">
-                MST: ${linkSocial.tax_code}
+                MST: {linkSocial.tax_code}
               </h2>
               <Image
                 width={196}

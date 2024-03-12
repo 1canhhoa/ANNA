@@ -139,7 +139,8 @@ function PaymentSuccess(props: IProps) {
                          image:item.product_image,
                          name: res?.item?.product? res?.item?.product[index]?.productName:item.product_name,
                          total: res?.item?.product? res?.item?.product[index]?.total:0,
-                         slug: res?.item?.product? res?.item?.product[index]?.productSlug:""
+                         slug: res?.item?.product? res?.item?.product[index]?.productSlug:"",
+                         price:item?.product_price
                         }
                     })
                     const dataOrderd = Object.assign(
@@ -194,7 +195,7 @@ function PaymentSuccess(props: IProps) {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="flex w-[40%] items-center justify-center max-md:pt-[15rem] max-md:h-[90rem] max-md:w-full">
+            <div className="flex w-[40%] items-center justify-center max-md:pt-[15rem] max-md:h-[100rem] max-md:w-full">
               <div className="w-[31rem] flex flex-col items-center max-md:w-full max-md:px-[5rem]">
                 <div className="max-md:hidden">
                   <ICLogo fill="#55D5D2" width="6.8125rem" height="6.125rem" />
@@ -222,7 +223,7 @@ function PaymentSuccess(props: IProps) {
                     />
                   </div>
                 </div>
-                <div className="text-[0.75rem] text-blackAnna font-bold not-italic leading-[0.975rem] text-center mt-[0.56rem] mb-[1.56rem] max-md:text-[3.8rem] max-md:leading-[3.8rem] max-md:mt-[1.56rem] max-md:mb-[2.56rem]">
+                <div className="text-[0.75rem] text-blackAnna font-bold not-italic leading-[0.975rem] text-center mt-[0.56rem] mb-[1.56rem] max-md:text-[3.8rem] max-md:leading-[1.5] max-md:mt-[1.56rem] max-md:mb-[2.56rem]">
                   Chúng tôi sẽ liên hệ lại sớm để xác nhận đơn hàng. Bạn có thể
                   kiểm tra tình trạng đơn hàng
                   <Link

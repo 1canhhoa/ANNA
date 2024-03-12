@@ -37,7 +37,9 @@ import { setItemLocalstorage } from '@/ultils/set-item-localstorage';
 
 interface IProps {
   voucher: any;
-  shippingData: any
+  shippingData: any,
+  priceDiscount:any,
+  setPriceDiscount: any
 }
 
 interface IParamItemDistrict {
@@ -46,7 +48,7 @@ interface IParamItemDistrict {
 }
 
 export default function FormPayment(props: IProps) {
-  const { voucher, shippingData } = props;
+  const { voucher, shippingData, priceDiscount, setPriceDiscount } = props;
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -85,8 +87,10 @@ export default function FormPayment(props: IProps) {
       );
 
       const shippingTotal = shippingData && shippingData[0].cost && shippingData[0].cost !== "" ? shippingData[0].cost: 0;
-      setTotalPriceInCart(total + Number(shippingTotal));
-    }, [listCartGlobal]);
+      setTotalPriceInCart(total + Number(shippingTotal) - Number(priceDiscount.value));
+    }, [listCartGlobal, priceDiscount]);
+
+    // console.log("totalPriceInCart", totalPriceInCart)
 
   const formSchema = yup.object({
     first_name: yup.string().required('Họ và tên là bắt buộc!'),
@@ -147,7 +151,7 @@ export default function FormPayment(props: IProps) {
     const paymentMethod = {
       payment_method: paymentMethodSubmit.payment_method,
       payment_method_title: paymentMethodSubmit.payment_method_title,
-      voucher: voucher,
+      coupon_lines: voucher,
     };
 
     const newShippingData = shippingData.map((item: any)=>{
@@ -330,7 +334,7 @@ export default function FormPayment(props: IProps) {
           handleOnChangeArea={handleOnChangeArea}
         />
         <div className="grow hidden max-md:block mt-[6rem]">
-          <ListProductInCart shippingData={shippingData}/>
+          <ListProductInCart shippingData={shippingData} priceDiscount={priceDiscount} setPriceDiscount={setPriceDiscount}/>
         </div>
         <h3 className="text-[1.5rem] font-bold mb-[0.8rem] max-md:text-[6.4rem] max-md:mt-[6rem]">
           Phương thức thanh toán

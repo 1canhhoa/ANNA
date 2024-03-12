@@ -12,7 +12,9 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
           type: 'text',
           placeholder: 'username',
         },
-        password: { label: 'password', type: 'password' },
+        password: { 
+          label: 'password', 
+        type: 'password' },
       },
       async authorize(credentials, req) {
         const res = await fetch(
@@ -23,6 +25,7 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
             headers: { 'Content-Type': 'application/json' },
           }
         );
+        // console.log(res, "res")
 
         const { data } = await res.json();
 

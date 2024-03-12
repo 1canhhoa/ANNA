@@ -56,7 +56,6 @@ export default function FilterListProduct(props: IProps) {
 
   const handleScroll = (): void => {
     refListProduct.current?.scrollIntoView({
-      block: 'center',
       behavior: 'smooth',
     });
   };
@@ -184,6 +183,8 @@ export default function FilterListProduct(props: IProps) {
   // Smooth scroll when click pagination
   useEffect(() => {
     handleScroll();
+  
+    return () =>{}
   }, [dataPagination]);
   return (
     <div className="filter-list-product-container">
@@ -191,7 +192,7 @@ export default function FilterListProduct(props: IProps) {
       <div
         role="button"
         onClick={() => isShowModalMobile.onTrue()}
-        className="hidden max-md:flex fixed bottom-[10rem] left-[5rem] z-20 h-[10.6rem] w-[10.6rem] rounded-full bg-[#55D5D2] justify-center items-center"
+        className="hidden max-md:flex fixed bottom-[32rem] right-[4rem] z-20 h-[10.6rem] w-[10.6rem] rounded-full bg-[#55D5D2] justify-center items-center"
       >
         <ICFilter stroke="white" width="5.33333rem" height="5.33333rem" />
       </div>
@@ -232,7 +233,7 @@ export default function FilterListProduct(props: IProps) {
                           id={`${item.label}-${index}`}
                           className="border-[#ccc] border-[1px] h-[4rem] w-[4rem]"
                         >
-                          <span className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] cursor-pointer text-[#454545] text-[1rem]">
+                          <span className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] max-md:ml-[1.5rem] cursor-pointer text-[#454545] text-[1rem] max-md:text-[3rem]">
                             {itemSubAttribute.name}
                           </span>
                         </Checkbox>
@@ -268,7 +269,7 @@ export default function FilterListProduct(props: IProps) {
                         }
                         className="border-[#ccc] border-[1px]"
                       >
-                        <span className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] cursor-pointer text-[#454545] text-[1rem]">
+                        <span className="font-medium line-clamp-1 text-nowrap ml-[0.7rem] max-md:ml-[1.5rem] cursor-pointer text-[#454545] text-[1rem] max-md:text-[3rem]">
                           {itemSubAttribute.name}
                         </span>
                       </Checkbox>
