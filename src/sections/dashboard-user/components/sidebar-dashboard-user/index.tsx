@@ -32,7 +32,12 @@ function SidebarDashboardUser() {
   const dataUserInfo = useSWR(bodyGetInfoUser.url, () =>
     session !== null
       ? fetchDataAuthen(bodyGetInfoUser).then((res) => setInfoUser(res))
-      : undefined
+      : undefined, 
+      {
+        revalidateOnFocus: false,
+        revalidateIfStale: false,
+        revalidateOnReconnect: false
+      }
   );
 
   const listTab = [

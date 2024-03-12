@@ -92,7 +92,11 @@ export default function FilterListProductChooseGlass(props: IProps) {
         ...dataPagination,
         total: res?.total,
       });
-    })
+    }),{
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
+    }
   );
 
   // console.log("getlistProduct", getlistProduct)
@@ -290,7 +294,7 @@ export default function FilterListProductChooseGlass(props: IProps) {
           {dataInit && dataInit?.length === 0 && (
             <div className="flex justify-center">
               <Image
-                src="/img/no-data.avif"
+                src="/img/no-data.svg"
                 alt="banner-aboutus"
                 height={300}
                 width={300}

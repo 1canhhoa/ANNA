@@ -26,6 +26,8 @@ export default function ListProduct(props: IProps) {
     searchParams,
     listAttributeNew,
   } = props;
+
+  // console.log("Re-render")
   return (
     <div className="list-product-container mb-[2.94rem]">
       {/* banner */}

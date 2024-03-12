@@ -1,6 +1,8 @@
 import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import FacebookProvider from 'next-auth/providers/facebook';
+import GoogleProvider from 'next-auth/providers/google';
+
 
 export const NEXT_AUTH_OPTIONS: AuthOptions = {
   providers: [
@@ -27,7 +29,7 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
         );
         // console.log(res, "res")
 
-        const { data } = await res.json();
+        const data  = await res.json();
 
         if (res.ok && data) {
           return data;
@@ -39,6 +41,10 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
       clientId: '7838673589552016',
       clientSecret: '7dac65851961ce836601e73a1a7cc5a9',
     }),
+    GoogleProvider({
+      clientId: '7838673589552016',
+      clientSecret: '7dac65851961ce836601e73a1a7cc5a9'
+    })
   ],
   // pages: {
   //   signIn: "/"
@@ -49,8 +55,7 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
       return { ...token, ...user };
     },
     async session({ session, token }) {
-      console.log({ token });
-
+      // console.log({ token });
       session.user = token as any;
       return session;
     },

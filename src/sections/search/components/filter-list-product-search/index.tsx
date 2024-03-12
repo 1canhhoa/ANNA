@@ -89,7 +89,11 @@ export default function FilterListProductSearch(props: IProps) {
         ...dataPagination,
         total: res?.countItem,
       });
-    })
+    }),{
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
+    }
   );
 
   const handleScrollListProduct = (): void => {
@@ -298,7 +302,7 @@ export default function FilterListProductSearch(props: IProps) {
           ) : (
             <div className="flex justify-center">
               <Image
-                src="/img/no-data.avif"
+                src="/img/no-data.svg"
                 alt="banner-aboutus"
                 height={300}
                 width={300}

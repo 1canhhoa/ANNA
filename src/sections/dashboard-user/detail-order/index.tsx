@@ -27,7 +27,12 @@ function DetailOrder(props: IProps) {
   const getListContact = useSWR(bodyGetDetailOrder.url, () =>
     fetchDataAuthen(bodyGetDetailOrder).then((res: any) => {
       setDataDetailOrder(res);
-    })
+    }),
+    {
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false
+    }
   );
 
   const handleConvertAddress = () => {
@@ -173,7 +178,7 @@ function DetailOrder(props: IProps) {
               ) : (
                 <div className="w-full flex justify-center">
                   <Image
-                    src="/img/no-data.avif"
+                    src="/img/no-data.svg"
                     alt="banner-aboutus"
                     height={300}
                     width={300}

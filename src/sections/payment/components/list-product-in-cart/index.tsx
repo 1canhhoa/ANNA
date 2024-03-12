@@ -83,7 +83,11 @@ const {data: dataShipping} = useSWR(
   bodyItemShipping.url,
   () => fetchDataRest('GET', bodyItemShipping.url).then((res: any) => {
     return res; // Return the data to update the SWR cache
-  })
+  }),{
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false
+  }
 );
   return (
     <div className="p-[2rem] bg-[#F3F3F3] max-md:p-[4rem]">

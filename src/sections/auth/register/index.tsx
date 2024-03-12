@@ -47,10 +47,14 @@ export function Register() {
   const onSubmit = async (values: any) => {
     isLoading.onTrue();
     try {
-      await postDataBase({
+      const res = await postDataBase({
         url: 'custom/v1/register',
         body: JSON.stringify(values),
       });
+
+    //  if(res.status === "success"){
+    //   router.push('/tai-khoan');
+    //  }
       const { ok, error }: any = await signIn('credentials', {
         username: values.username,
         password: values.password,
