@@ -57,7 +57,7 @@ function ItemSelectOption(props: IPropsItemSelectOption) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full h-[3.43rem] justify-between max-md:h-[10rem] max-md:text-[4rem] max-md:pl-[10px]"
+          className="w-full h-[3.43rem] justify-between max-md:h-[10rem] max-md:text-[4rem] max-md:pl-[10px] rounded-[0.3rem]"
         >
           {currentValue ? (
             <span className="text-[#414141]">

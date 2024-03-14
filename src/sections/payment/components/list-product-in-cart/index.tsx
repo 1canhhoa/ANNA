@@ -90,7 +90,7 @@ const {data: dataShipping} = useSWR(
   }
 );
   return (
-    <div className="p-[2rem] bg-[#F3F3F3] max-md:p-[4rem]">
+    <div className="p-[2rem] bg-[#F3F3F3] max-md:p-[4rem] rounded-[0.3rem]">
       <h3 className="text-[1.5rem] font-bold max-md:text-[6.4rem]">
         Nhập mã giảm giá
       </h3>

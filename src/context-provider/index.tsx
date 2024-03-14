@@ -5,12 +5,9 @@ import { IItemCart } from '@/types/types-general';
 import { keyLocalStorage } from '@/configs/config';
 import { SessionProvider } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-import { fetchDataAuthen, postData } from '@/lib/post-data';
-import { listIdPopup } from '@/context-provider/list-id-popup';
-import useSWR from 'swr';
+import { fetchDataAuthen } from '@/lib/post-data';
 import { useBoolean } from '@/hooks/use-boolean';
 import ChooseGlasses from '@/components/component-ui-custom/choose-glasses';
-// import PopupGeneral from '@/components/component-ui-custom/popup-general';
 
 export const ProductCartContext = createContext<any>({});
 export function ContextProvider({
@@ -19,7 +16,6 @@ export function ContextProvider({
   listAttributeChooseGlasses,
 }: any) {
   const pathname = usePathname();
-  const isShowPopupGlobal = useBoolean(false);
   const isShowPopupChooseGlasses = useBoolean(false);
 
   const [inforUserGlobal, setInfoUserGlobal] = useState<any>(undefined);
@@ -59,11 +55,6 @@ export function ContextProvider({
     method: 'get',
     token: session?.user.token,
   };
-
-  // const dataPopup: any = {
-  //   url: `wp-json/custom/v1/get-wishlist`,
-  //   method: 'get',
-  // }
 
   useEffect(() => {
     if (
@@ -118,7 +109,7 @@ export function ContextProvider({
           listCartGlobal,
           isLogin,
           inforUserGlobal,
-          isShowPopupGlobal,
+          // isShowPopupGlobal,
           // getDataDetailPopup,
           isShowPopupChooseGlasses,
         }}
@@ -127,10 +118,6 @@ export function ContextProvider({
           isShowPopupChooseGlasses={isShowPopupChooseGlasses}
           listAttributeChooseGlasses={listAttributeChooseGlasses}
         />
-        {/* <PopupGeneral
-          isShowPopupGlobal={isShowPopupGlobal} 
-          // detailPopupById={getDataDetailPopup.data} 
-         />  */}
         {children}
       </ProductCartContext.Provider>
     </SessionProvider>

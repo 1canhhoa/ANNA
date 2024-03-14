@@ -77,8 +77,6 @@ export function TableCart(props: IProps) {
 
 
   const handleFindIDSeleced = (id?: number | string): boolean => {
-  console.log('listIdSelected', listIdSelected)
-  console.log("id", id)
 
     const fintID = listIdSelected.filter((item: any) => item === id);
 

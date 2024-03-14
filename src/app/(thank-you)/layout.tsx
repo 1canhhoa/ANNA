@@ -30,7 +30,7 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
           dataListProductHeader={dataListProductHeader}
           dataHistorySearch={dataHistorySearch}
         />
-        <div>{children}</div>
+        <div className='bg-white relative z-[10000]'>{children}</div>
         <Toaster />
         <div className="hidden max-md:block">
           <Footer dataListProduct={dataListProductHeader} />

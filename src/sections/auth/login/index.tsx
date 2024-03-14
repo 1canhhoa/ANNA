@@ -83,8 +83,8 @@ export function Login() {
     signIn('facebook');
   };
 
-  const handleGoogleLogin = () => {
-    signIn('google');
+  const handleGoogleLogin = async () => {
+     await signIn('google');
   };
 
   return (

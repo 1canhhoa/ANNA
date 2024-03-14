@@ -332,7 +332,7 @@ export default function FilterListProductCategory(props: IProps) {
       <div className="flex justify-between  max-md:hidden pt-[2rem]">
         <div className="min-w-[15rem] overflow-hidden pr-[1rem]">
           {listAttributeConvert.map((item, index) => (
-            <div key={index} className="w-full mb-[1rem]">
+            <div key={index} className="w-full mb-[2.5rem]">
               <h3 className="title-filter">{item.label}</h3>
               {item.listAttribute &&
                 item.listAttribute.map((itemAttribute: any, index: number) => (

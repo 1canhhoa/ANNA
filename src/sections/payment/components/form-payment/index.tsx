@@ -206,6 +206,8 @@ export default function FormPayment(props: IProps) {
         dataSubmitTmp: dataSubmitTmp,
         product: listCartGlobal,
       });
+
+      localStorage.setItem("payment", "true")
       // END;
 
       return;
@@ -383,7 +385,7 @@ export default function FormPayment(props: IProps) {
         <Button
           disabled={isLoadingSubmit.value}
           type="submit"
-          className="mt-[1.2rem] w-[20rem] bg-[#55D5D2] text-[1rem] not-italic font-bold leading-[1.5rem] max-md:h-[10rem] max-md:w-full max-md:text-[3.733rem]"
+          className="mt-[1.2rem] w-[20rem] bg-[#55D5D2] text-[1rem] not-italic font-bold leading-[1.5rem] max-md:h-[10rem] max-md:w-full max-md:text-[3.733rem] rounded-[0.3rem]"
         >
           {isLoadingSubmit.value && (
             <div>

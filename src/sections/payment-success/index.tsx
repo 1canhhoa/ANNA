@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './style.css';
 import ViewCheckingOrder from '@/sections/checking-order/view-checking-order';
 import ICLogo from '@/components/Icons/ICLogo';
@@ -32,6 +32,10 @@ function PaymentSuccess(props: IProps) {
   const { data: session } = useSession();
   const router = useRouter();
 
+  const isCalling = useRef(true)
+
+  
+
   const { clearDataCartProductContext } = useContext(ProductCartContext);
   const isLoading = useBoolean(true);
   const [dataBill, setDataBill] = useState<any>({
@@ -49,7 +53,7 @@ function PaymentSuccess(props: IProps) {
     ],
     id: ""
   });
-
+  
   const generateParams = (pickVpc = false) => {
     const reqParam = {
       vpc_AccessCode: paymentOnepay.ACCESS_CODE,
@@ -81,101 +85,97 @@ function PaymentSuccess(props: IProps) {
 
   let token = searchParams.token ? session?.user?.token: undefined;
   useEffect(() => {
-    console.log("Running");
-    console.log(localStorage.getItem('success'));
-      if(searchParams.token === "true" && !token)return;
-      if(localStorage.getItem('success')) return;
-      if (
-        typeof window !== 'undefined' &&
-        localStorage.getItem(keyLocalStorage.keyFormPayment) !== null &&
-        localStorage.getItem(keyLocalStorage.keyFormPayment) !== undefined
-      ) {
-        const dataF = localStorage.getItem(keyLocalStorage.keyFormPayment);
-  
-        if (!dataF) {
-          return;
-        }
-  
-        const parseDataF = JSON.parse(dataF);
-        const fetcher = async () => {
-  
-          const res = await fetch('/api/check-payment-onepay', {
-            method: 'POST',
-            body: JSON.stringify({
-              vpc_AccessCode: paymentOnepay.ACCESS_CODE,
-              vpc_MerchTxnRef: searchParams?.vpc_MerchTxnRef,
-              vpc_Merchant: paymentOnepay.MERCHANT_ID,
-              vpc_Password: 'op123456',
-              vpc_User: 'op01',
-              vpc_Version: '2',
-              vpc_SecureHash: handleSecureHash(),
-            }),
-          });
-  
-          const data = res.json();
-          return data;
-        };
-  
-        fetcher()
-          .then((res) => {
-            const createOrder = async () => {
-              console.log("create")
-            
-              try {
-                await fetchDataAuthen({
-                  url: 'wp-json/custom/v1/create-order',
-                  method: 'post',
-                  body: JSON.stringify(parseDataF.dataSubmitTmp),
-                  token: token,
-                })
-                  .then((res: any) => {
-                    const currentDate = new Date();
-                    const parseDataF = JSON.parse(dataF);
-  
-                    const productRes = parseDataF.product;
-                    const newProductRes = productRes.map((item: any, index:any)=>{
-                        return{
-                         ...item,
-                         image:item.product_image,
-                         name: res?.item?.product? res?.item?.product[index]?.productName:item.product_name,
-                         total: res?.item?.product? res?.item?.product[index]?.total:0,
-                         slug: res?.item?.product? res?.item?.product[index]?.productSlug:"",
-                         price:item?.product_price
-                        }
-                    })
-                    const dataOrderd = Object.assign(
-                      res.item,
-                      { date_created: currentDate },
-                      { product: newProductRes},
-                      {id: res.order_id}
-                    );
-
-                    setDataBill(dataOrderd);
-                    clearDataCartProductContext();
-                    localStorage.setItem("success",'true');
-                    isLoading.onFalse();
-
-                    console.log("Finish")
+      if(typeof window !== 'undefined' && !localStorage.getItem("payment") && isCalling.current){
+        router.push("/");
+        return;
+      }else{
+        if(searchParams.token === "true" && !token)return;
+        if(!isCalling.current) return;
+        if (
+          typeof window !== 'undefined' &&
+          localStorage.getItem(keyLocalStorage.keyFormPayment) !== null &&
+          localStorage.getItem(keyLocalStorage.keyFormPayment) !== undefined
+        ) {
+          const dataF = localStorage.getItem(keyLocalStorage.keyFormPayment);
+    
+          if (!dataF) {
+            return;
+          }
+          isCalling.current = false
+          const parseDataF = JSON.parse(dataF);
+          const fetcher = async () => {
+            const res = await fetch('/api/check-payment-onepay', {
+              method: 'POST',
+              body: JSON.stringify({
+                vpc_AccessCode: paymentOnepay.ACCESS_CODE,
+                vpc_MerchTxnRef: searchParams?.vpc_MerchTxnRef,
+                vpc_Merchant: paymentOnepay.MERCHANT_ID,
+                vpc_Password: 'op123456',
+                vpc_User: 'op01',
+                vpc_Version: '2',
+                vpc_SecureHash: handleSecureHash(),
+              }),
+            });
+    
+            const data = res.json();
+            return data;
+          };
+    
+          fetcher()
+            .then((res) => {
+              const createOrder = async () => {
+                try {
+                  await fetchDataAuthen({
+                    url: 'wp-json/custom/v1/create-order',
+                    method: 'post',
+                    body: JSON.stringify(parseDataF.dataSubmitTmp),
+                    token: token,
                   })
-                  .catch(() => {});
-              } catch (error: any) {
-                onError();
-                isLoading.onFalse();
-              }
-            };
-            createOrder();
+                    .then((res: any) => {
+                      const currentDate = new Date();
+                      const parseDataF = JSON.parse(dataF);
+    
+                      const productRes = parseDataF.product;
+                      const newProductRes = productRes.map((item: any, index:any)=>{
+                          return{
+                           ...item,
+                           image:item.product_image,
+                           name: res?.item?.product? res?.item?.product[index]?.productName:item.product_name,
+                           total: res?.item?.product? res?.item?.product[index]?.total:0,
+                           slug: res?.item?.product? res?.item?.product[index]?.productSlug:"",
+                           price:item?.product_price
+                          }
+                      })
+                      const dataOrderd = Object.assign(
+                        res.item,
+                        { date_created: currentDate },
+                        { product: newProductRes},
+                        {id: res.order_id}
+                      );
   
-          })
-          .catch((res) => console.log('error'));
+                      setDataBill(dataOrderd);
+                      clearDataCartProductContext();
+                      isLoading.onFalse();
+                      localStorage.removeItem("payment")
+  
+                    })
+                    .catch(() => {});
+                } catch (error: any) {
+                  onError();
+                  isLoading.onFalse();
+                }
+              };
+              createOrder();
+    
+            })
+            .catch((res) => console.log('error'));
+        }
+
       }
+      
 
   }, [token]);
 
-  useEffect(()=>{
-    return()=>{
-      localStorage.removeItem("success")
-    }
-  },[])
 
   return (
     <div className="">
