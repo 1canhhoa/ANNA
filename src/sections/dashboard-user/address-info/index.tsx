@@ -19,7 +19,7 @@ function AddressInfo() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [keySelected, setKeySelected] = useState<any>(undefined);
   const [dataAddressInit, setDataAddessInit] = useState<any>([]);
-
+console.log(session, "session")
   const bodyGetListAddress: IPostData = {
     url: `wp-json/shipping/v1/customer-shipping-addresses`,
     method: 'get',

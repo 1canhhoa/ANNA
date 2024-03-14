@@ -27,8 +27,6 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
             headers: { 'Content-Type': 'application/json' },
           }
         );
-        // console.log(res, "res")
-
         const data  = await res.json();
 
         if (res.ok && data) {
@@ -42,8 +40,8 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
       clientSecret: '7dac65851961ce836601e73a1a7cc5a9',
     }),
     GoogleProvider({
-      clientId: '7838673589552016',
-      clientSecret: '7dac65851961ce836601e73a1a7cc5a9'
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
     })
   ],
   // pages: {

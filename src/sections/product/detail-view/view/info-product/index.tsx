@@ -47,7 +47,7 @@ function InfoProduct(props: IProps) {
     variantProductSelected,
     dataListColor
   } = props;
-
+  console.log(dataInit, "dataInit")
   const { isShowPopupChooseGlasses } = useContext(ProductCartContext);
   const { listCartGlobal } = useContext<any>(ProductCartContext);
 

@@ -14,6 +14,7 @@ import SlideMobileSocial from './Social/SlideMobile';
 import AboutHome from '@/sections/home/view/About';
 import React from 'react';
 import MascotHome from '@/sections/home/view/Mascot';
+import PopupGeneral from '@/components/component-ui-custom/popup-general';
 
 const Home = async () => {
   const dataHomeFetch = fetchDataRest('GET', 'acf/v3/posts/334');
@@ -91,6 +92,9 @@ const Home = async () => {
         <Blog />
       </div>
       <ActionHome dataTrip={dataHome?.acf?.trip[0]} />
+      <PopupGeneral
+      dataPopup={dataHome?.acf?.popup} 
+      /> 
     </div>
   );
 };

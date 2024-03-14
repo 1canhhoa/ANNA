@@ -328,12 +328,9 @@ function NavItems(props: IProps) {
                     <Input
                       className={cn(
                         'input-search custom-placeholder-input px-[1.5rem] py-[0.75rem] placeholder:font-bold text-white placeholder:text-white placeholder:opacity-75 border-0 outline-0 rounded-[6.25rem] bg-white bg-opacity-25 focus-visible:outline-0'
-                        // keyTabMenuActive !== null
-                        //   ? 'placeholder-[#7B7B7B]'
-                        //   : 'placeholder-[#F4F4F4]'
                       )}
                       type="text"
-                      placeholder="Tìm kiếm sản phẩm"
+                      placeholder="Các mẫu kính râm hot nhất..."
                       value={searchTerm}
                       autoFocus={keyTabMenuActive !== null}
                       onChange={handleOnChangeSearch}
