@@ -5,16 +5,16 @@ import map from 'lodash.map';
 import { fetchDataRest } from '@/lib/fetch-data-rest';
 import { postDataCustom } from '@/lib/post-data-custom';
 
-// export async function generateStaticParams() {
-//   const listProduct = await fetchDataRest(
-//     'GET',
-//     'custom/v1/products?per_page=99&page=1'
-//   );
+export async function generateStaticParams() {
+  const listProduct = await fetchDataRest(
+    'GET',
+    'custom/v1/products?per_page=99&page=1'
+  );
 
-//   return map(listProduct?.item, (product: any) => ({
-//     slug: product?.slug || undefined,
-//   }));
-// }
+  return map(listProduct?.item, (product: any) => ({
+    slug: product?.slug || undefined,
+  }));
+}
 
 const DetaiPage = async ({ params: { slug } }: any) => {
   // GET DETAIL PRODUCT
