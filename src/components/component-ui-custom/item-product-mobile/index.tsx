@@ -56,8 +56,16 @@ function ItemMobile(props: IProps) {
   useEffect(() => {
     setImageItem({ ...imageItem, image: itemProduct?.featuredImage });
   }, [itemProduct]);
+
+  console.log("itemMB", itemProduct)
   return (
-    <Link href={`/san-pham/${itemProduct?.slug}`}>
+    <Link href={`/san-pham/${itemProduct?.slug}`} className='relative'>
+
+        {
+          !!itemProduct?.stock_quantity || itemProduct?.stock_quantity < 1 && (
+            <div className='absolute top-[15rem] left-1/2 text-[2.5rem] bg-black text-white z-10 p-[1.5rem] -translate-x-1/2 rounded-full w-[15rem] h-[15rem] flex items-center justify-center font-semibold'>Hết hàng</div>
+          )
+        }
       <div className="item-product-mobile relative max-md:h-[59.5rem] max-md:w-[45.2rem] rounded-[3.2rem]">
         <div className="overflow-hidden rounded-[1rem] w-full ">
           <Image

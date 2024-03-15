@@ -106,8 +106,6 @@ export default function FilterListProduct(props: IProps) {
     }
   );
 
-  console.log("getlistProduct", getlistProduct)
-
 
   const convertParamFilterToParamQuery = (
     listParams: IParamsFilter[]
@@ -198,6 +196,9 @@ export default function FilterListProduct(props: IProps) {
   
     return () =>{}
   }, [dataPagination]);
+
+  console.log("dataInit", dataInit)
+
   return (
     <div className="filter-list-product-container">
       {/* modal filter product mobile */}

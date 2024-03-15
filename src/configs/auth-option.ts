@@ -48,7 +48,15 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
   //   signIn: "/"
   // },
   callbacks: {
+    async signIn({ account, profile  }) {
+      // console.log("account", account)
+      // console.log("profile", profile)
+      return true
+    },
     async jwt({ token, user }) {
+      console.log("token", token)
+      console.log("user", user)
+
       // Persist the OAuth access_token and or the user id to the token right after signin
       return { ...token, ...user };
     },

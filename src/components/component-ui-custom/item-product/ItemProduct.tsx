@@ -70,6 +70,8 @@ function ItemProduct(props: IProps) {
     setImageItem({ ...imageItem, image: item?.featuredImage });
   }, [item]);
 
+  console.log("item", item)
+
   return (
     <div className="item-slider-product rounded-[3.2rem] md:rounded-2xl overflow-hidden  cursor-pointer relative h-[25.8rem] max-md:h-fit max-md:mb-0">
       <Link
@@ -77,8 +79,13 @@ function ItemProduct(props: IProps) {
         style={{
           height: `${heightSlider}rem`,
         }}
-        className="w-full overflow-hidden"
+        className="w-full overflow-hidden relative"
       >
+        {
+          !!item?.stock_quantity || item?.stock_quantity < 1 && (
+            <div className='absolute top-1/2 left-1/2 text-[0.75rem] bg-black text-white z-10 p-[0.5rem] -translate-x-1/2 -translate-y-1/2 rounded-full w-[5rem] h-[5rem] flex items-center justify-center font-semibold'>Hết hàng</div>
+          )
+        }
         <Image
           width={326}
           height={326}
