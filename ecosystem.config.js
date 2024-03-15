@@ -2,9 +2,8 @@ module.exports = {
   apps: [
     {
       name: 'anna-test.okhub-tech.com',
-      script: 'npm',
+      script: 'yarn',
       args: 'start',
-      cwd: '/path/to/your/nextjs/app',
       watch: true,
       env: {
         NODE_ENV: 'production',
